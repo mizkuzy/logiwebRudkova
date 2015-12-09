@@ -1,6 +1,5 @@
 import entities.*;
-import entities.statusesAndStates.POSITION;
-import entities.statusesAndStates.RequestStatus;
+import entities.statusesAndStates.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
