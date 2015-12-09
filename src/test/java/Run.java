@@ -5,16 +5,25 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.util.List;
+import org.apache.log4j.Logger;
+import org.apache.log4j.BasicConfigurator;
 
 
 public class Run {
-    public static final String PERSISTENCE_UNIT = "MYLogiweb";
+
+    /*public static final String PERSISTENCE_UNIT = "MYLogiweb";
 
     public static EntityManagerFactory emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
 
-    public static EntityManager em = emf.createEntityManager();
+    public static EntityManager em = emf.createEntityManager();*/
+
+    private static Logger logger = Logger.getLogger(Run.class);
 
     public static void main(String[] args) {
+
+        logger.debug("inside main()");
+        logger.info("Hello logger");
+        logger.error("Error!", new Exception("Exception"));
 
         /*Employee employee1 = new Employee("driver1@logiweb.ru","pswd", POSITION.DRIVER);
         Employee employee2=new Employee("driver2@logiweb.ru","pswd", POSITION.DRIVER);
@@ -83,10 +92,10 @@ public class Run {
             System.out.println(d.getName());
         }*/
 
-        em.getTransaction().begin();
+        /*em.getTransaction().begin();
         em.getTransaction().commit();
         em.close();
-        emf.close();
+        emf.close();*/
     }
 
 

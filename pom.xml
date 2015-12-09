@@ -42,23 +42,18 @@
         </dependency>
 
         <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+        </dependency>
+
+       <!-- <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.11</version>
             <scope>test</scope>
         </dependency>
-        <!--
-                <dependency>
-                    <groupId>log4j</groupId>
-                    <artifactId>log4j</artifactId>
-                    <version>1.2.17</version>
-                </dependency>
-        -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.11</version>
-        </dependency>
+
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
@@ -78,7 +73,7 @@
             <groupId>org.powermock</groupId>
             <artifactId>powermock-api-mockito</artifactId>
             <version>1.5</version>
-        </dependency>
+        </dependency>-->
     </dependencies>
 
     <build>
@@ -95,7 +90,8 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-pmd-plugin</artifactId> <!-- плагин, который автоматически делает проверку кода на наличие "плохого" кода и потенциальных ошибок.-->
+                <artifactId>maven-pmd-plugin
+                </artifactId> <!-- плагин, который автоматически делает проверку кода на наличие "плохого" кода и потенциальных ошибок.-->
                 <version>2.4</version>
             </plugin>
         </plugins>
