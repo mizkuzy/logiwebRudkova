@@ -21,9 +21,10 @@ public class Run {
 
     public static void main(String[] args) {
 
-        logger.debug("inside main()");
+        /*logger.debug("inside main()");
         logger.info("Hello logger");
-        logger.error("Error!", new Exception("Exception"));
+        logger.error("Error!", new Exception("Exception"));*/
+
 
         /*Employee employee1 = new Employee("driver1@logiweb.ru","pswd", POSITION.DRIVER);
         Employee employee2=new Employee("driver2@logiweb.ru","pswd", POSITION.DRIVER);
