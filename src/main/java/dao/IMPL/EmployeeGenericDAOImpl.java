@@ -2,6 +2,7 @@ package dao.IMPL;
 
 import dao.API.EmployeeGenericDAO;
 import entities.Employee;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -10,7 +11,7 @@ import javax.persistence.Query;
 /**
  * An implementation of EmployeeGenericDAO API.
  */
-// TODO раскомментировать когда спринг сконфигурю. @Repository("employeeDAO")
+@Repository("employeeDAO")
 public class EmployeeGenericDAOImpl extends GenericDAOImpl<Employee, Integer> implements EmployeeGenericDAO {
 
     @PersistenceContext

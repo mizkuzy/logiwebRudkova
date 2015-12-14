@@ -2,6 +2,7 @@ package dao.IMPL;
 
 import dao.API.OrderGenericDAO;
 import entities.Order;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -10,7 +11,7 @@ import javax.persistence.Query;
 /**
  * An implementation of OrderGenericDAO API.
  */
-// TODO раскомментировать когда спринг сконфигурю. @Repository("orderDAO")
+@Repository("orderDAO")
 public class OrderGenericDAOImpl extends GenericDAOImpl<Order, Integer> implements OrderGenericDAO {
 
     @PersistenceContext

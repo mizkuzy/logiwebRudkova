@@ -52,7 +52,7 @@ public abstract class GenericDAOImpl<E, K> implements GenericDAO<E, K> {
      * Read required entity.
      *
      * @param id
-     * @return
+     * @return entity
      * @throws PersistenceException
      */
     @Override
@@ -98,6 +98,12 @@ public abstract class GenericDAOImpl<E, K> implements GenericDAO<E, K> {
     }
 
 
+    /**
+     * Get list of required entities.
+     *
+     * @return list of entities
+     * @throws PersistenceException
+     */
     @Override
     public List<E> getAll() throws PersistenceException {
         try {

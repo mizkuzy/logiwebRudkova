@@ -2,11 +2,12 @@ package dao.IMPL;
 
 import dao.API.VanGenericDAO;
 import entities.Van;
+import org.springframework.stereotype.Repository;
 
 /**
  * An implementation of VanGenericDAO API.
  */
-// TODO раскомментировать когда спринг сконфигурю. @Repository("vanDAO")
+@Repository("vanDAO")
 public class VanGenericDAOImpl extends GenericDAOImpl<Van, Integer> implements VanGenericDAO {
 
     @Override

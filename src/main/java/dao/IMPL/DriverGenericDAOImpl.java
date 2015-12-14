@@ -2,12 +2,20 @@ package dao.IMPL;
 
 import dao.API.DriverGenericDAO;
 import entities.Driver;
+import org.springframework.stereotype.Repository;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 /**
  * An implementation of DriverGenericDAO API.
  */
-// TODO раскомментировать когда спринг сконфигурю. @Repository("driverDAO")
+@Repository("driverDAO")
 public class DriverGenericDAOImpl extends GenericDAOImpl<Driver, Integer> implements DriverGenericDAO {
+
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     /**
      * Get required DriverEntity by specified name and surname

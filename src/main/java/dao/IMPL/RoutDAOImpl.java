@@ -2,11 +2,12 @@ package dao.IMPL;
 
 import dao.API.RoutGenericDAO;
 import entities.Rout;
+import org.springframework.stereotype.Repository;
 
 /**
  * An implementation of RoutDAO API.
  */
-// TODO раскомментировать когда спринг сконфигурю. @Repository("routDAO")
+@Repository("routDAO")
 public class RoutDAOImpl extends GenericDAOImpl<Rout, Integer> implements RoutGenericDAO {
 
     @Override

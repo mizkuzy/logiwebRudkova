@@ -7,6 +7,9 @@ import service.API.RoutLabelService;
 
 import java.util.List;
 
+/**
+ * An implementation of RoutLabelService API.
+ */
 public class RoutLabelServiceImpl implements RoutLabelService {
     RoutLabelGenericDAO routLabelDAO = new RoutLabelGenericDAOImpl();
 

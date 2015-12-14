@@ -2,11 +2,12 @@ package dao.IMPL;
 
 import dao.API.RoutLabelGenericDAO;
 import entities.RouteLabel;
+import org.springframework.stereotype.Repository;
 
 /**
  * An implementation of RoutLabelGenericDAO API.
  */
-// TODO раскомментировать когда спринг сконфигурю. @Repository("routLabelDAO")
+@Repository("routLabelDAO")
 public class RoutLabelGenericDAOImpl extends GenericDAOImpl<RouteLabel, Integer> implements RoutLabelGenericDAO {
 
 }

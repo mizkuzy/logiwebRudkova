@@ -4,36 +4,76 @@ import dao.API.RequestGenericDAO;
 import dao.IMPL.RequestGenericDAOImpl;
 import entities.Request;
 import entities.statusesAndStates.RequestStatus;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import service.API.RequestService;
 
 import java.util.ArrayList;
 import java.util.List;
 
+//TODO Герман. сервисами и ДАО лучше всё покрывать или только то, что используется. Или лучше добавлять по ходу? Нужно ли удалить сейчас то, что не используется?
+/**
+ * An implementation of RequestService API.
+ */
+@Service("requestService")
 public class RequestServiceImpl implements RequestService {
 
-    private RequestGenericDAO requestDAO = new RequestGenericDAOImpl();
+    @Autowired
+    private RequestGenericDAO requestDAO;
 
+    /**
+     * Create required entity.
+     *
+     * @param entity
+     */
     @Override
+    @Transactional
     public void create(Request entity) {
         requestDAO.create(entity);
     }
 
+    /**
+     * Read required entity.
+     *
+     * @param id
+     * @return
+     */
     @Override
+    @Transactional
     public Request read(Integer id) {
         return requestDAO.read(id);
     }
 
+    /**
+     * Update required entity.
+     *
+     * @param entity
+     */
     @Override
+    @Transactional
     public void update(Request entity) {
         requestDAO.update(entity);
     }
 
+    /**
+     * Delete required entity.
+     *
+     * @param entity
+     */
     @Override
+    @Transactional
     public void delete(Request entity) {
         requestDAO.delete(entity);
     }
 
+    /**
+     * Get list of required entities.
+     *
+     * @return list of entities
+     */
     @Override
+    @Transactional
     public List getAll() {
         return requestDAO.getAll();
     }
