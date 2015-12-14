@@ -1,4 +1,4 @@
-<%@ page import="entities.Van" %>
+<%@ page import="ru.tsystems.logiweb.entities.Van" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.List" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>

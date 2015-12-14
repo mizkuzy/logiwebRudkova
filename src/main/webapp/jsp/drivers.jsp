@@ -1,4 +1,4 @@
-<%@ page import="entities.Driver" %>
+<%@ page import="ru.tsystems.logiweb.entities.Driver" %>
 <%@ page import="java.util.ArrayList" %><%--
   Created by IntelliJ IDEA.
   User: Lucy

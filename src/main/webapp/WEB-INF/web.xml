@@ -7,7 +7,7 @@
 
     <servlet>
         <servlet-name>Login</servlet-name><!--можно указать любое имя-->
-        <servlet-class>servlets.LoginServlet</servlet-class><!--имя класса сервлета-->
+        <servlet-class>ru.tsystems.logiweb.servlets.LoginServlet</servlet-class><!--имя класса сервлета-->
     </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
@@ -16,7 +16,7 @@
 
     <servlet>
         <servlet-name>PickUpOrders</servlet-name>
-        <servlet-class>servlets.PickUpOrdersServlet</servlet-class>
+        <servlet-class>ru.tsystems.logiweb.servlets.PickUpOrdersServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>PickUpOrders</servlet-name>
@@ -25,7 +25,7 @@
 
     <servlet>
         <servlet-name>OrdersList</servlet-name>
-        <servlet-class>servlets.OrdersListServlet</servlet-class>
+        <servlet-class>ru.tsystems.logiweb.servlets.OrdersListServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>OrdersList</servlet-name>
@@ -34,7 +34,7 @@
 
     <servlet>
         <servlet-name>Vans</servlet-name>
-        <servlet-class>servlets.VanServlet</servlet-class>
+        <servlet-class>ru.tsystems.logiweb.servlets.VanServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Vans</servlet-name>
@@ -43,7 +43,7 @@
     
     <servlet>
         <servlet-name>DriverServlet</servlet-name>
-        <servlet-class>servlets.DriverServlet</servlet-class>
+        <servlet-class>ru.tsystems.logiweb.servlets.DriverServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>DriverServlet</servlet-name>
@@ -52,7 +52,7 @@
 
     <servlet>
         <servlet-name>AddVan</servlet-name>
-        <servlet-class>servlets.AddVanServlet</servlet-class>
+        <servlet-class>ru.tsystems.logiweb.servlets.AddVanServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AddVan</servlet-name>
@@ -61,7 +61,7 @@
 
     <servlet>
         <servlet-name>EditAndDeleteVan</servlet-name>
-        <servlet-class>servlets.EditAndDeleteVan</servlet-class>
+        <servlet-class>ru.tsystems.logiweb.servlets.EditAndDeleteVan</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>EditAndDeleteVan</servlet-name>
@@ -70,7 +70,7 @@
 
     <servlet>
         <servlet-name>AddDriver</servlet-name>
-        <servlet-class>servlets.AddDriverServlet</servlet-class>
+        <servlet-class>ru.tsystems.logiweb.servlets.AddDriverServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AddDriver</servlet-name>
@@ -79,7 +79,7 @@
 
     <servlet>
         <servlet-name>EditDriver</servlet-name>
-        <servlet-class>servlets.EditAndDeleteDriver</servlet-class>
+        <servlet-class>ru.tsystems.logiweb.servlets.EditAndDeleteDriver</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>EditDriver</servlet-name>
@@ -88,7 +88,7 @@
 
     <servlet>
         <servlet-name>YellowRout</servlet-name>
-        <servlet-class>servlets.PickYellowRoutServlet</servlet-class>
+        <servlet-class>ru.tsystems.logiweb.servlets.PickYellowRoutServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>YellowRout</servlet-name>
@@ -97,7 +97,7 @@
 
     <servlet>
         <servlet-name>FinishOrder</servlet-name>
-        <servlet-class>servlets.FinishOrderServlet</servlet-class>
+        <servlet-class>ru.tsystems.logiweb.servlets.FinishOrderServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>FinishOrder</servlet-name>

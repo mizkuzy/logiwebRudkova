@@ -1,4 +1,4 @@
-<%@ page import="entities.Order" %>
+<%@ page import="ru.tsystems.logiweb.entities.Order" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">

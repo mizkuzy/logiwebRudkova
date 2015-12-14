@@ -1,12 +1,4 @@
-import entities.*;
-import entities.statusesAndStates.*;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import java.util.List;
 import org.apache.log4j.Logger;
-import org.apache.log4j.BasicConfigurator;
 
 //TODO герман. Как сказать ТОМкат, чтобы он искал jsp в папке jsp
 public class Run {

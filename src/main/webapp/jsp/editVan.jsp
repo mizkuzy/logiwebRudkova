@@ -1,4 +1,4 @@
-<%@ page import="entities.Van" %><%--
+<%@ page import="ru.tsystems.logiweb.entities.Van" %><%--
   Created by IntelliJ IDEA.
   User: Lucy
   Date: 01.12.2015
