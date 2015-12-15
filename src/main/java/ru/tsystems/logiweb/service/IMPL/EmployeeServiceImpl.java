@@ -1,6 +1,7 @@
 package ru.tsystems.logiweb.service.IMPL;
 
 import ru.tsystems.logiweb.dao.API.EmployeeGenericDAO;
+import ru.tsystems.logiweb.dao.IMPL.EmployeeGenericDAOImpl;
 import ru.tsystems.logiweb.entities.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,8 +16,8 @@ import java.util.List;
 @Service("employeeService") //TODO почему здесь название сервиса с маленькой буквы?
 public class EmployeeServiceImpl implements EmployeeService {
 
-    @Autowired
-    private EmployeeGenericDAO employeeDAO;
+    //@Autowired
+    private EmployeeGenericDAO employeeDAO=new EmployeeGenericDAOImpl();
 
     /**
      * Create required entity.

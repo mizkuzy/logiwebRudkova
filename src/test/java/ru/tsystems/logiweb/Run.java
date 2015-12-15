@@ -1,4 +1,10 @@
+package ru.tsystems.logiweb;
+
 import org.apache.log4j.Logger;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import ru.tsystems.logiweb.service.API.EmployeeService;
+import ru.tsystems.logiweb.service.IMPL.EmployeeServiceImpl;
 
 //TODO герман. Как сказать ТОМкат, чтобы он искал jsp в папке jsp
 public class Run {
@@ -12,6 +18,13 @@ public class Run {
     private static Logger logger = Logger.getLogger(Run.class);
 
     public static void main(String[] args) {
+
+        ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
+
+        EmployeeService employeeService = (EmployeeServiceImpl) context.getBean("employeeService");
+
+        Boolean validationIsOK = employeeService.checkEmailAndPassword("driver1@logiweb.ru", "pswd");
+        System.out.println(validationIsOK);
 
         /*logger.debug("inside main()");
         logger.info("Hello logger");

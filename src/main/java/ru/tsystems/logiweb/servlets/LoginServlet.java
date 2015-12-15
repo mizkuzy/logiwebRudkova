@@ -2,6 +2,9 @@ package ru.tsystems.logiweb.servlets;
 
 //TODO проверка всех форм на пустоту
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import ru.tsystems.logiweb.entities.Employee;
 import ru.tsystems.logiweb.entities.statusesAndStates.POSITION;
 import ru.tsystems.logiweb.service.API.EmployeeService;
@@ -18,7 +21,9 @@ import java.io.IOException;
 //TODO может ли кнопка Домой висеть на всех страницах и её не нужно было бы прописывать вручную на каждой jsp странице
 public class LoginServlet extends HttpServlet {
 
-    private EmployeeService employeeService = new EmployeeServiceImpl();
+    @Autowired
+    private EmployeeService employeeService;
+    ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
 
     //TODO убрать сохранение сессии, если закрывается страница браузера
     @Override
