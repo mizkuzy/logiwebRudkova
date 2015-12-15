@@ -18,7 +18,7 @@ public class DriverServiceImpl implements DriverService {
 
     //TODO ещё лучше разобраться с этой аннотацией
     @Autowired
-    private DriverGenericDAO driverDao = new DriverGenericDAOImpl();
+    private DriverGenericDAO driverDao;
 
     /**
      * Create required entity.

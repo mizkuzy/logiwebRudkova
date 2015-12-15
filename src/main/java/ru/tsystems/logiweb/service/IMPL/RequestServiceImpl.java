@@ -67,9 +67,9 @@ public class RequestServiceImpl implements RequestService {
     }
 
     /**
-     * Get list of required ru.tsystems.logiweb.entities.
+     * Get list of required entities.
      *
-     * @return list of ru.tsystems.logiweb.entities
+     * @return list of entities
      */
     @Override
     @Transactional

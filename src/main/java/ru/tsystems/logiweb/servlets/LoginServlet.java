@@ -8,7 +8,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import ru.tsystems.logiweb.entities.Employee;
 import ru.tsystems.logiweb.entities.statusesAndStates.POSITION;
 import ru.tsystems.logiweb.service.API.EmployeeService;
-import ru.tsystems.logiweb.service.IMPL.EmployeeServiceImpl;
 
 import javax.persistence.NoResultException;
 import javax.servlet.RequestDispatcher;

@@ -16,8 +16,8 @@ import java.util.List;
 @Service("employeeService") //TODO почему здесь название сервиса с маленькой буквы?
 public class EmployeeServiceImpl implements EmployeeService {
 
-    //@Autowired
-    private EmployeeGenericDAO employeeDAO=new EmployeeGenericDAOImpl();
+    @Autowired
+    private EmployeeGenericDAO employeeDAO;
 
     /**
      * Create required entity.
