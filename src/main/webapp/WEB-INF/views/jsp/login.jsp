@@ -4,7 +4,7 @@
     <title>Аутентификация - LOGIWEB</title>
 </head>
 <body>
-<form role="form" name="login_form" action="/LoginServlet" method="post">
+<form role="form" name="login_form" action="/loginDispatcher" method="post">
     <div class="form-group">
         <label for="email">Пользователь</label>
         <input name="user" type="email" class="form-control" id="email" placeholder="Введите email">

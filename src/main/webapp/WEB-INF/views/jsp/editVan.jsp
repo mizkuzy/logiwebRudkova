@@ -1,10 +1,4 @@
-<%@ page import="ru.tsystems.logiweb.entities.Van" %><%--
-  Created by IntelliJ IDEA.
-  User: Lucy
-  Date: 01.12.2015
-  Time: 0:08
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="ru.tsystems.logiweb.entities.Van" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>

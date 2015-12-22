@@ -1,111 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns="http://java.sun.com/xml/ns/javaee"
-           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 		  http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
-           version="3.0">
+         version="3.0">
 
-    <servlet>
-        <servlet-name>Login</servlet-name><!--можно указать любое имя-->
-        <servlet-class>ru.tsystems.logiweb.servlets.LoginServlet</servlet-class><!--имя класса сервлета-->
+    <!--<servlet>
+        <servlet-name>dispatcher</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>WEB-INF/dispatcher-servlet.xml</param-value>
+        </init-param>
     </servlet>
     <servlet-mapping>
-        <servlet-name>Login</servlet-name>
-        <url-pattern>/LoginServlet</url-pattern><!--какой УРЛ будет обрабатывать наш сервлет-->
-    </servlet-mapping>
+        <servlet-name>dispatcher</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>-->
+     <context-param>
+         <param-name>contextConfigLocation</param-name>
+         <param-value>classpath*:spring.xml
+             /WEB-INF/dispatcher-servlet.xml</param-value>
+     </context-param>
+     <listener>
+         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+     </listener>
 
-    <servlet>
-        <servlet-name>PickUpOrders</servlet-name>
-        <servlet-class>ru.tsystems.logiweb.servlets.PickUpOrdersServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>PickUpOrders</servlet-name>
-        <url-pattern>/PickUpOrdersServlet</url-pattern>
-    </servlet-mapping>
+     <servlet>
+         <servlet-name>dispatcher</servlet-name>
+         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+         <load-on-startup>1</load-on-startup>
+     </servlet>
+     <servlet-mapping>
+         <servlet-name>dispatcher</servlet-name>
+         <url-pattern>/</url-pattern>
+     </servlet-mapping>
 
-    <servlet>
-        <servlet-name>OrdersList</servlet-name>
-        <servlet-class>ru.tsystems.logiweb.servlets.OrdersListServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>OrdersList</servlet-name>
-        <url-pattern>/OrdersListServlet</url-pattern>
-    </servlet-mapping>
 
-    <servlet>
-        <servlet-name>Vans</servlet-name>
-        <servlet-class>ru.tsystems.logiweb.servlets.VanServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Vans</servlet-name>
-        <url-pattern>/VanServlet</url-pattern>
-    </servlet-mapping>
-    
-    <servlet>
-        <servlet-name>DriverServlet</servlet-name>
-        <servlet-class>ru.tsystems.logiweb.servlets.DriverServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>DriverServlet</servlet-name>
-        <url-pattern>/DriverServlet</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>AddVan</servlet-name>
-        <servlet-class>ru.tsystems.logiweb.servlets.AddVanServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AddVan</servlet-name>
-        <url-pattern>/AddVanServlet</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>EditAndDeleteVan</servlet-name>
-        <servlet-class>ru.tsystems.logiweb.servlets.EditAndDeleteVan</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>EditAndDeleteVan</servlet-name>
-        <url-pattern>/EditAndDeleteVan</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>AddDriver</servlet-name>
-        <servlet-class>ru.tsystems.logiweb.servlets.AddDriverServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AddDriver</servlet-name>
-        <url-pattern>/AddDriverServlet</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>EditDriver</servlet-name>
-        <servlet-class>ru.tsystems.logiweb.servlets.EditAndDeleteDriver</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>EditDriver</servlet-name>
-        <url-pattern>/EditAndDeleteDriver</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>YellowRout</servlet-name>
-        <servlet-class>ru.tsystems.logiweb.servlets.PickYellowRoutServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>YellowRout</servlet-name>
-        <url-pattern>/PickYellowRoutServlet</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>FinishOrder</servlet-name>
-        <servlet-class>ru.tsystems.logiweb.servlets.FinishOrderServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>FinishOrder</servlet-name>
-        <url-pattern>/FinishOrder</url-pattern>
-    </servlet-mapping>
-
-    <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
-    </welcome-file-list>
 
 </web-app>

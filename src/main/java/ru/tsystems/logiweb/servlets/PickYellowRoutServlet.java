@@ -47,9 +47,9 @@ public class PickYellowRoutServlet extends HttpServlet {
 
         order.addRequest(requestsWithYellowRout.get(0));
 
-        List<Good> goods = new ArrayList<>();
-        List<String> cities1 = new ArrayList<>();
-        List<String> cities2 = new ArrayList<>();
+        List<Good> goods = new ArrayList<Good>();
+        List<String> cities1 = new ArrayList<String>();
+        List<String> cities2 = new ArrayList<String>();
         for (Request request : requestsWithYellowRout) {
             goods.add(request.getGoodForRequest());
             cities1.add(request.getRoutForRequest().getCity1());

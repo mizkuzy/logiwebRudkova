@@ -1,13 +1,14 @@
 package ru.tsystems.logiweb.service.IMPL;
 
+import org.apache.log4j.Logger;
 import ru.tsystems.logiweb.dao.API.EmployeeGenericDAO;
-import ru.tsystems.logiweb.dao.IMPL.EmployeeGenericDAOImpl;
 import ru.tsystems.logiweb.entities.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.tsystems.logiweb.service.API.EmployeeService;
 
+import javax.persistence.NoResultException;
 import java.util.List;
 
 /**
@@ -15,6 +16,8 @@ import java.util.List;
  */
 @Service("employeeService") //TODO почему здесь название сервиса с маленькой буквы?
 public class EmployeeServiceImpl implements EmployeeService {
+
+    private Logger logger = Logger.getLogger(EmployeeServiceImpl.class);
 
     @Autowired
     private EmployeeGenericDAO employeeDAO;
@@ -67,13 +70,23 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     /**
      * Get required EmployeeEntity by specified email.
+     *
      * @param email
      * @return Employee's instance. //TODO Герман. Можно ли здесь употребить instance?
+     * @throws NoResultException
      */
     @Override
     @Transactional
-    public Employee getEntityByEmail(String email) {
-        return employeeDAO.getEmployeeByEmail(email);
+    public Employee getEntityByEmail(String email) throws NoResultException {
+        Employee employee;
+        try {
+            employee = employeeDAO.getEmployeeByEmail(email);
+        } catch (NoResultException e) {
+            //TODO Герман. Какой тут тип логирования? error или warn?
+            logger.error("There is no entity with such email. Exception in EmployeeServiceImpl, getEntityByEmail().", e);
+            throw new NoResultException();
+        }
+        return employee;
     }
 
     /**
@@ -97,15 +110,23 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     @Transactional
     public boolean checkEmailAndPassword(String email, String password) {
-        Employee employee = employeeDAO.getEmployeeByEmail(email);
-        if ((employee.getEmail().equals(email)) & (employee.getPassword().equals(password))) {
-            return true;
+
+        try {
+            Employee employee = employeeDAO.getEmployeeByEmail(email);
+            if ((employee.getEmail().equals(email)) & (employee.getPassword().equals(password))) {
+                return true;
+            }
+        } catch (NoResultException e) {
+            //TODO Герман. Может как-то по другому обрабатывать ошибки надо?
+            logger.info("There was NoResultException because of wrong email: " + email);
+            return false;
         }
+        logger.info("Wrong password: " + password);
         return false;
     }
 
     /**
-     * Get personal number of by email
+     * Get personal number by email
      *
      * @param email
      * @return

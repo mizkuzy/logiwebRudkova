@@ -22,7 +22,6 @@ public class LoginServlet extends HttpServlet {
 
     @Autowired
     private EmployeeService employeeService;
-    ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
 
     //TODO убрать сохранение сессии, если закрывается страница браузера
     @Override
@@ -40,7 +39,7 @@ public class LoginServlet extends HttpServlet {
 
         RequestDispatcher requestDispatcherManager = request.getRequestDispatcher("/main_manager.jsp");
         RequestDispatcher requestDispatcherDriver = request.getRequestDispatcher("/main_driver.jsp");
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("login.jsp");
 
         try {
             validationIsOK = employeeService.checkEmailAndPassword(email, password);
