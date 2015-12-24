@@ -17,7 +17,6 @@ public class Employee {
         this.email = email;
         this.password = password;
         this.position = position;
-        //this.personalNumber = ; TODO придумать как  генерировать номер
     }
 
     @Id

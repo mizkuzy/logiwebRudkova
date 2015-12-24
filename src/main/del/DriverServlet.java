@@ -1,5 +1,6 @@
 package ru.tsystems.logiweb.servlets;
 
+//TODO DELETE THIS CLASS
 import ru.tsystems.logiweb.entities.Driver;
 import ru.tsystems.logiweb.service.API.DriverService;
 import ru.tsystems.logiweb.service.IMPL.DriverServiceImpl;

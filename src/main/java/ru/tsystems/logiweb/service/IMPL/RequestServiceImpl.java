@@ -1,7 +1,10 @@
 package ru.tsystems.logiweb.service.IMPL;
 
+import org.apache.log4j.Logger;
 import ru.tsystems.logiweb.dao.API.RequestGenericDAO;
+import ru.tsystems.logiweb.entities.Good;
 import ru.tsystems.logiweb.entities.Request;
+import ru.tsystems.logiweb.entities.Rout;
 import ru.tsystems.logiweb.entities.statusesAndStates.RequestStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,11 +15,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 //TODO Герман. сервисами и ДАО лучше всё покрывать или только то, что используется. Или лучше добавлять по ходу? Нужно ли удалить сейчас то, что не используется?
+
 /**
  * An implementation of RequestService API.
  */
 @Service("requestService")
 public class RequestServiceImpl implements RequestService {
+
+    private Logger logger = Logger.getLogger(RequestServiceImpl.class);
 
     @Autowired
     private RequestGenericDAO requestDAO;
@@ -99,5 +105,14 @@ public class RequestServiceImpl implements RequestService {
         return specialRequests;
     }
 
-
+    @Override
+    @Transactional
+    public void addNewRequest(Good good, Rout rout) {
+        Request request = new Request();
+        request.setGoodForRequest(good);
+        request.setRoutForRequest(rout);
+        request.setStatusRequest(RequestStatus.NO);
+        create(request);//TODO EXCEPTION?
+        logger.info("Adding of new request is finished. Number of request: " + request.getIdRequest());
+    }
 }

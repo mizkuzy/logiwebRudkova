@@ -88,9 +88,11 @@ public class VanServiceImpl implements VanService {
     public List<Van> getAppropriateVans(String routLabelType) {
         List<Van> vans = vanDAO.getAll();
         List<Van> appropriateVans = new ArrayList<Van>();
-        for (Van van : vans) {
-            if ((van.getRoutLabelForVan().getLabel().equals(routLabelType)) & (van.getStatusVan().equals(VanStatus.WAIT)) & (van.getStateVan().equals(VanState.OK))) {
-                appropriateVans.add(van);
+        if (vans != null) {
+            for (Van van : vans) {
+                if ((van.getRoutLabelForVan().getLabel().equals(routLabelType)) & (van.getStatusVan().equals(VanStatus.WAIT)) & (van.getStateVan().equals(VanState.OK))) {
+                    appropriateVans.add(van);
+                }
             }
         }
         return appropriateVans;

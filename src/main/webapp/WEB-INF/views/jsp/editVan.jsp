@@ -6,8 +6,8 @@
 </head>
 <body>
 <div>
-    <form name="home" action="main_manager.jsp">
-        <input type="submit" value="ДОМОЙ">
+    <form name="home" action="main_manager" method="get">
+        <input type="submit" value="HOME">
     </form>
 </div>
 <div>

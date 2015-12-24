@@ -1,5 +1,7 @@
 package ru.tsystems.logiweb.servlets;
 
+//TODO DELETE THIS CLASS
+
 import ru.tsystems.logiweb.service.API.OrderService;
 import ru.tsystems.logiweb.service.IMPL.OrderServiceImpl;
 

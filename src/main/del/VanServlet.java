@@ -1,5 +1,5 @@
 package ru.tsystems.logiweb.servlets;
-
+//TODO DELETE THIS CLASS
 import ru.tsystems.logiweb.entities.Van;
 import ru.tsystems.logiweb.service.API.VanService;
 import ru.tsystems.logiweb.service.IMPL.VanServiceImpl;

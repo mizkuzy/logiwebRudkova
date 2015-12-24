@@ -4,35 +4,35 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Список заказов - LOGIWEB</title>
+    <title>Orders list - LOGIWEB</title>
 </head>
 <body>
 <div>
-    <form name="home" action="main_manager.jsp">
-        <input type="submit" value="ДОМОЙ">
+    <form name="home" action="main_manager" method="get">
+        <input type="submit" value="HOME">
     </form>
 </div>
 <div>
     <table border="2" width="2" cellspacing="2" cellpadding="2">
-        <caption><h1>СПИСОК НЕВЫПОЛНЕННЫХ ЗАКАЗОВ</h1></caption>
+        <caption><h1>ORDERS LIST</h1></caption>
         <tr>
             <th>
-                НОМЕР
+                NUMBER
             </th>
             <th>
-                ФУРА
+                VAN
             </th>
             <!--   <th>
                    ВОДИТЕЛИ
                </th>-->
             <th>
-                ТОВАР
+                GOODS
             </th>
             <th>
-                ПУНКТ ОТПРАВЛЕНИЯ
+                CITY1
             </th>
             <th>
-                ПУНКТ НАЗНАЧЕНИЯ
+                CITY2
             </th>
         </tr>
         <% ArrayList<Order> ordersPROCESS = (ArrayList<Order>) request.getSession().getAttribute("ordersPROCESS");
@@ -55,13 +55,14 @@
                 <%--ЗДЕСЬ ПОЛУЧИТЬ СПИСОК ВОДИТЕЛЕЙ--%>
             </td>-->
             <td>
-                <%=o.getRequest().getGoodForRequest().getName()%>
+                <%--<%=o.getRequest().getGoodForRequest().getName()%>--%>
+                <%=o.getRequests() %>
             </td>
             <td>
-                <%=o.getRequest().getRoutForRequest().getCity1()%>
+                <%--<%=o.getRequest().getRoutForRequest().getCity1()%>--%>
             </td>
             <td>
-                <%=o.getRequest().getRoutForRequest().getCity2()%>
+                <%--<%=o.getRequest().getRoutForRequest().getCity2()%>--%>
             </td>
         </tr>
 

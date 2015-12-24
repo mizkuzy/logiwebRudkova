@@ -1,5 +1,6 @@
 package ru.tsystems.logiweb.service.IMPL;
 
+import org.apache.log4j.Logger;
 import ru.tsystems.logiweb.dao.API.GoodGenericDAO;
 import ru.tsystems.logiweb.entities.Good;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,13 @@ import java.util.List;
 @Service("goodService")
 public class GoodServiceImpl implements GoodService {
 
+    private Logger logger = Logger.getLogger(GoodServiceImpl.class);
+
     @Autowired
     private GoodGenericDAO goodDAO;
+
+   /* @Autowired
+    private GoodService goodService;*/
 
     /**
      * Create required entity.
@@ -72,5 +78,24 @@ public class GoodServiceImpl implements GoodService {
     @Transactional
     public List getAll() {
         return goodDAO.getAll();
+    }
+
+    /**
+     * Create new good with parameters
+     *
+     * @param goodsName
+     * @param mass
+     * @return goodNumber
+     */
+    @Override
+    @Transactional
+    public Integer addNewGood(String goodsName, Integer mass) {
+        Good good = new Good(goodsName, mass);
+        create(good); //TODO EXCEPTION?
+        int goodNumber = good.getIdGood();
+        good.setGoodNumber(goodNumber);
+        update(good); //TODO EXCEPTION?
+        logger.info("Good is created. Name: " + goodsName + ". Mass: " + mass + ". GoodNumber: " + goodNumber);
+        return goodNumber;
     }
 }

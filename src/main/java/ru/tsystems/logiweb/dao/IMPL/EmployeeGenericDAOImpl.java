@@ -27,7 +27,7 @@ public class EmployeeGenericDAOImpl extends GenericDAOImpl<Employee, Integer> im
     @Override
     public Employee getEmployeeByEmail(String email) {
         try {
-            Query query = entityManager.createQuery("SELECT c FROM Employee c where c.email=:email");
+            Query query = entityManager.createQuery("select emp from Employee emp where emp.email=:email");
             query.setParameter("email", email);
             return (Employee) query.getSingleResult();
         } catch (PersistenceException ex) {

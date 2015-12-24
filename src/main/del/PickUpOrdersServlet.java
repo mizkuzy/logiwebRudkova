@@ -1,5 +1,6 @@
 package ru.tsystems.logiweb.servlets;
 
+//TODO DELETE THIS CLASS
 import ru.tsystems.logiweb.entities.Request;
 import ru.tsystems.logiweb.service.API.RequestService;
 import ru.tsystems.logiweb.service.IMPL.RequestServiceImpl;
@@ -29,7 +30,7 @@ public class PickUpOrdersServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=utf-8");
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("pick_up_orders.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("current_requests.jsp");
 
         List<Request> requestsWithYellowRout = requestService.findRequestsWithSpecialRout("yellow");
         List<Request> requestsWithGreenRout = requestService.findRequestsWithSpecialRout("green");

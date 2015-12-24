@@ -1,47 +1,44 @@
 <%@ page import="ru.tsystems.logiweb.entities.Driver" %>
-<%@ page import="java.util.ArrayList" %><%--
-  Created by IntelliJ IDEA.
-  User: Lucy
-  Date: 27.11.2015
-  Time: 21:23
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Водители - LOGIWEB</title>
+    <title>Drivers - LOGIWEB</title>
 </head>
 <body>
+
+<h1>Drivers</h1>
+
 <div>
-    <form name="home" action="main_manager.jsp">
-        <input type="submit" value="ДОМОЙ">
+    <form name="home" action="main_manager" method="get">
+        <input type="submit" value="HOME">
     </form>
 </div>
 
 <table border="2" width="2" cellspacing="2" cellpadding="2">
-    <caption>СПИСОК ВОДИТЕЛЕЙ</caption>
+    <caption>DRIVERS LIST</caption>
     <tr>
         <th>
-            Личный номер
+            Personal Number
         </th>
         <th>
-            Имя
+            Name
         </th>
         <th>
-            Фамилия
+            Surname
         </th>
         <th>
-            Отработано (часы)
+            Work hours
         </th>
         <th>
-            Состояние
+            Current state
         </th>
         <td>
-            Статус
+            Work Status
         </td>
         <td>
-            Настройки
+
         </td>
     </tr>
     <% ArrayList<Driver> drivers = (ArrayList<Driver>) request.getSession().getAttribute("drivers");
@@ -49,7 +46,7 @@
     %>
     <tr>
         <td>
-            <%=driver.getDriverID().getPersonalNumber()%>
+            <%=driver.getEmployee().getPersonalNumber()%>
         </td>
         <td>
             <%=driver.getName()%>
@@ -69,12 +66,12 @@
         <td>
             <div>
                 <form name="edit" action="/EditAndDeleteDriver" method="get">
-                    <input type="submit" title="Редактировать водителя" value="РЕДАКТИРОВАТЬ">
+                    <input type="submit" title="Edit" value="EDIT">
                 </form>
             </div>
             <div>
                 <form name="delete" action="" method="get">
-                    <input type="submit" title="Удалить водителя" value="УДАЛИТЬ">
+                    <input type="submit" title="Delete" value="DELETE">
                 </form>
             </div>
         </td>
@@ -84,7 +81,7 @@
 
 <div>
     <form name="add" action="addDriver.jsp" method="get">
-        <input type="submit" title="Добавить нового водителя" value="НОВЫЙ ВОДИТЕЛЬ">
+        <input type="submit" title="Add new driver" value="NEW">
     </form>
 </div>
 </body>
