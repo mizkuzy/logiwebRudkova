@@ -67,6 +67,19 @@
         </dependency>
 
         <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>4.2.3.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>4.2.3.RELEASE</version>
+        </dependency>
+
+
+        <dependency>
             <groupId>jstl</groupId>
             <artifactId>jstl</artifactId>
             <version>1.2</version>
@@ -120,10 +133,10 @@
                     <target>1.7</target>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-pmd-plugin
-                </artifactId> <!-- плагин, который автоматически делает проверку кода на наличие "плохого" кода и потенциальных ошибок.-->
+                <artifactId>maven-pmd-plugin</artifactId> <!-- плагин, который автоматически делает проверку кода на наличие "плохого" кода и потенциальных ошибок.-->
                 <version>2.4</version>
             </plugin>
         </plugins>

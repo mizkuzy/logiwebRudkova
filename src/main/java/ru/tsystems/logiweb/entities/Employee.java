@@ -26,7 +26,6 @@ public class Employee {
     private Integer employeeId;
 
     @Column(name = "personalNumber")
-    //@GeneratedValue//(strategy = GenerationType.IDENTITY)
     private Integer personalNumber;
 
     @OneToOne

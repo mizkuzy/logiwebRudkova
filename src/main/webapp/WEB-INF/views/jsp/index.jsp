@@ -8,7 +8,7 @@
     Это приветственная страница<br>
     Проект LOGIWEB по версии Рудковой Людмилы
 </div>
-<form action="/login">
+<form action="login">
     <input type="submit" value="start" title="start">
 </form>
 <b>${"test"}</b>

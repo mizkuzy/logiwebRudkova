@@ -44,7 +44,7 @@ public abstract class GenericDAOImpl<E, K> implements GenericDAO<E, K> {
             logger.error("Creation is failed. Exception in GenericDAOImpl, create().", e);
             throw new PersistenceException(e);
             //TODO ОТЛОВИТЬ В СЕРВИСАХ.
-            //TODO СПРОСИТЬ У КОЛИ, ЗАЧЕМ ПРОБРАСЫВАТЬ НАВЕРХ
+            //TODO СПРОСИТЬ ЗАЧЕМ ПРОБРАСЫВАТЬ НАВЕРХ
         }
     }
 

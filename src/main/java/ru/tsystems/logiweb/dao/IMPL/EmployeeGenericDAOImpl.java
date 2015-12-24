@@ -1,12 +1,11 @@
 package ru.tsystems.logiweb.dao.IMPL;
 
+import org.apache.log4j.Logger;
 import ru.tsystems.logiweb.dao.API.EmployeeGenericDAO;
 import ru.tsystems.logiweb.entities.Employee;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import javax.persistence.*;
 
 /**
  * An implementation of EmployeeGenericDAO API.
@@ -14,18 +13,26 @@ import javax.persistence.Query;
 @Repository("employeeDAO")
 public class EmployeeGenericDAOImpl extends GenericDAOImpl<Employee, Integer> implements EmployeeGenericDAO {
 
+    private Logger logger = Logger.getLogger(EmployeeGenericDAOImpl.class);
+
     @PersistenceContext
     private EntityManager entityManager;
 
     /**
      * Get required EmployeeEntity by specified email.
+     *
      * @param email
      * @return Employee's instance. //TODO Герман. Можно ли здесь употребить instance?
      */
     @Override
     public Employee getEmployeeByEmail(String email) {
-        Query query = entityManager.createQuery("SELECT c FROM Employee c where c.email=:email");
-        query.setParameter("email", email);
-        return (Employee) query.getSingleResult();
+        try {
+            Query query = entityManager.createQuery("SELECT c FROM Employee c where c.email=:email");
+            query.setParameter("email", email);
+            return (Employee) query.getSingleResult();
+        } catch (PersistenceException ex) {
+            logger.info("There was NoResultException because of wrong email: " + email);
+            throw new NoResultException("Entity with e-mail " + email + "not found ");
+        }
     }
 }

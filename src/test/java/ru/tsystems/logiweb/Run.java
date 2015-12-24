@@ -8,7 +8,6 @@ import ru.tsystems.logiweb.service.API.EmployeeService;
 import ru.tsystems.logiweb.service.IMPL.DriverServiceImpl;
 import ru.tsystems.logiweb.service.IMPL.EmployeeServiceImpl;
 
-//TODO герман. Как сказать ТОМкат, чтобы он искал jsp в папке jsp
 public class Run {
 
     /*public static final String PERSISTENCE_UNIT = "MYLogiweb";
@@ -21,12 +20,12 @@ public class Run {
 
     public static void main(String[] args) {
 
-        ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
+        /*ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
 
         EmployeeService employeeService = (EmployeeServiceImpl) context.getBean("employeeService");
 
         Boolean validationIsOK = employeeService.checkEmailAndPassword("driver1@logiweb.ru", "pswd");
-        System.out.println(validationIsOK);
+        System.out.println(validationIsOK);*/
 
         /*logger.debug("inside main()");
         logger.info("Hello logger");
@@ -105,6 +104,4 @@ public class Run {
         em.close();
         emf.close();*/
     }
-
-
 }
