@@ -1,7 +1,9 @@
 package ru.tsystems.logiweb.service.IMPL;
 
+import org.apache.log4j.Logger;
 import ru.tsystems.logiweb.dao.API.OrderGenericDAO;
 import ru.tsystems.logiweb.entities.Order;
+import ru.tsystems.logiweb.entities.Request;
 import ru.tsystems.logiweb.entities.statusesAndStates.OrderStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,8 @@ import java.util.List;
  */
 @Service("orderService")
 public class OrderServiceImpl implements OrderService {
+
+    private Logger logger = Logger.getLogger(OrderServiceImpl.class);
 
     @Autowired
     private OrderGenericDAO orderDAO;
@@ -99,6 +103,7 @@ public class OrderServiceImpl implements OrderService {
         }
         return ordersDone;
     }
+
     /**
      * Get List of orders with OrderStatus=PROCESS.
      *
@@ -121,11 +126,53 @@ public class OrderServiceImpl implements OrderService {
 
     /**
      * Get required OrderEntity by specified number
+     *
      * @param number
      * @return Order's instance. //TODO Герман. Можно ли здесь употребить instance?
      */
     @Override
     public Order getByNumber(Integer number) {
         return orderDAO.getByNumber(number);
+    }
+
+    /**
+     * Creates order with new parameters: status, number, lists of requests
+     * @param requests
+     * @return new order
+     */
+    @Override
+    @Transactional
+    public Order addNewOrder(List<Request> requests) {
+        Order order = new Order();
+        order.setStatus(OrderStatus.PROCESS);
+        create(order);
+        logger.debug("order "+order.getIdOrder()+ " is created");
+        Integer orderNumber = order.getIdOrder();
+        order.setNumber(orderNumber);
+        for (Request r : requests) {
+            order.addRequest(r);
+            //TODO проверить почему order не добавляется в request
+            r.setCurrentOrder(order);
+        }
+        order.setStatus(OrderStatus.PROCESS);
+        update(order);
+        logger.debug("order "+order.getIdOrder()+ " is updated");
+        return order;
+    }
+
+    /**
+     * Counts whole mass of order by request
+     *
+     * @param requests
+     * @return order mass
+     */
+    @Override
+    public int countOrderMass(List<Request> requests) {
+        int mass=0;
+        for (Request r :
+                requests) {
+            mass+=r.getGoodForRequest().getMass();
+        }
+        return mass;
     }
 }

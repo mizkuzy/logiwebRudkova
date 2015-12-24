@@ -2,7 +2,6 @@ package ru.tsystems.logiweb.controllers;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -101,6 +100,48 @@ public class ManagerController {
         return "current_requests";
     }
 
+    @RequestMapping(value = "create_order")
+    public String createOrder(HttpServletRequest httpRequest, @RequestParam(value = "htmlFormName") String htmlFormName) {
+        logger.info("Picking " + htmlFormName + " requests");
+
+        String routLabel = htmlFormName;
+
+        List<Request> requests = new ArrayList<Request>();
+
+        switch (routLabel) {
+            case "yellow":
+                requests = (List<Request>) httpRequest.getSession().getAttribute("yellowRoutRequests");
+                break;
+            case "green":
+                requests = (List<Request>) httpRequest.getSession().getAttribute("greenRoutRequests");
+                break;
+            case "purple":
+                requests = (List<Request>) httpRequest.getSession().getAttribute("purpleRoutRequests");
+                break;
+            case "blue":
+                requests = (List<Request>) httpRequest.getSession().getAttribute("blueRoutRequests");
+                break;
+        }
+
+        Order order = orderService.addNewOrder(requests);
+        httpRequest.getSession().setAttribute("order", order);
+
+        List appropriateVans = vanService.getAppropriateVans(htmlFormName);
+        httpRequest.getSession().setAttribute("appropriateVans", appropriateVans);
+
+        int mass = orderService.countOrderMass(requests);
+        httpRequest.getSession().setAttribute("mass", mass);
+        return "create_order";
+    }
+
+    @RequestMapping(value = "save_order")
+    public String saveOrder(HttpServletRequest request){
+        String[] appropriateVans = request.getParameterValues("selectedVan");
+        logger.info(appropriateVans.length);
+
+        return "main_manager";
+    }
+
     /**
      * Shows current orders and you can see finished orders.
      *
@@ -117,10 +158,10 @@ public class ManagerController {
         logger.info("ordersDONE.size()" + ordersDONE.size());
 
         request.getSession().setAttribute("ordersPROCESS", ordersPROCESS);
+
         request.getSession().setAttribute("ordersDONE", ordersDONE);
 
         //TODO    Должна быть кнопка посмотреть выполненные заказы (ordersDONE) в orders_list.jsp
-
 
         return "orders_list";
     }

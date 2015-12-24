@@ -1,13 +1,17 @@
 <%@ page import="ru.tsystems.logiweb.entities.Van" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="ru.tsystems.logiweb.entities.Order" %>
+<%@ page import="ru.tsystems.logiweb.entities.Request" %>
+<%@ page import="java.util.List" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Создать заказ - LOGIWEB</title>
+    <title>Order - LOGIWEB</title>
 </head>
 <body>
+<h1>Order</h1>
 
 <div>
     <form name="home" action="main_manager" method="get">
@@ -16,9 +20,10 @@
 </div>
 
 <form>
-    Номер заказа: &nbsp;<%=request.getSession().getAttribute("orderNumber")%>
+    <% Order order = (Order) request.getSession().getAttribute("order");%>
+    Номер заказа: &nbsp;<%=order.getNumber()%>
     <div>
-        Статус заказа: &nbsp;<%=request.getSession().getAttribute("orderStatus")%>
+        Статус заказа: &nbsp;<%=order.getStatus()%>
     </div>
     <div>
         <table class="table-bordered" border="2" width="2" cellspacing="2" cellpadding="2">
@@ -27,87 +32,36 @@
                 <th>Пункт отправления</th>
                 <th>Пункт назначения</th>
             </tr>
+            <% List<Request> currentRequests = order.getRequests();
+                for (Request r : currentRequests) {%>
             <tr>
-                <td><%=request.getSession().getAttribute("good")%>
+                <td><%=r.getGoodForRequest().getName()%>
                 </td>
-                <td><%=request.getSession().getAttribute("city1")%>
+                <td><%=r.getRoutForRequest().getCity1()%>
                 </td>
-                <td><%=request.getSession().getAttribute("city2")%>
+                <td><%=r.getRoutForRequest().getCity2()%>
                 </td>
+                <% }
+                %>
             </tr>
         </table>
     </div>
     Общая масса: &nbsp;<%=request.getSession().getAttribute("mass")%><br>
 </form>
-<form action="/PickYellowRoutServlet" method="post">
-    <c:forEach items="${appropriateVans}" var="van" varStatus="theCount">
+<form action="save_order" method="post">
+    <%--<c:forEach items="${appropriateVans}" var="van" varStatus="theCount">
+        <input type="hidden" name="htmlFormName" value="purple"/>
         <input type="checkbox" name="selectedVan" value="${theCount.count}">${van}<br>
-    </c:forEach>
-    <input type="submit" value="Сохранить заказ">
-</form>
+    </c:forEach>--%>
 
-<%--    <select onchange="<%request.getSession().setAttribute("idVan",%>value<%);%>">
-        <!--<option selected>ВЫБЕРИТЕ ФУРУ</option>-->
-        <% for (Van van : vans) {%>
-        <option value="<%=van.getIdVan()%>"><%=van.getVanNumber()%>
-        </option>
-        <%}%>
-        <option></option>
-    </select>--%>
-
-<%-- <table>
-     <c:forEach items="${appropriateVans}" var="van" varStatus="theCount">
-         <tr>
-             <td>${van}</td>
-         </tr>
-     </c:forEach>
- </table>--%>
-
-<%--<form name="" action="" method="">
-    <c:forEach items="${appropriateVans}" var="van" varStatus="theCount">
-        ${van}<input type="checkbox" onclick="<%request.getSession().setAttribute();%>" value="${van}">
-
-    </c:forEach>
-</form>--%>
-
-<%-- <form name="" action="" method="">
-    <table>
-        <c:forEach items="${appropriateVans}" var="van" varStatus="appropriateVansCount">
-            <tr>
-                <td>count: ${appropriateVansCount.count}</td>
-            </tr>
-            <tr>
-            ${van}<input type="checkbox" %>" value="${van}">
-            </tr>
+    <%-- <input type="hidden" name="htmlFormName" value="${theCount.count}"/>--%>
+    <select>
+        <c:forEach items="${appropriateVans}" var="van" varStatus="theCount">
+            <option value="${theCount.count}">${van}</option>
         </c:forEach>
-    </table>
-</form> --%>
-
-<%--  <a href="cp_client_change_contract?contractId=${contract.id}"> --%>
-
-
-<%--  <c:forEach items="${appropriateVans}" var="van" varStatus="appropriateVansCount">
-      <div id="id="divIDNo${appropriateVansCount}">" onclick="<%request.getSession().setAttribute("idVan",id);%>">
-
-      </div>
-  </c:forEach>--%>
-
-<%--   <c:forEach items="${appropriateVans}" var="van" varStatus="appropriateVansCount">
-       <div>
-           <c:out value="${van}"></c:out>
-           <p><a href="/appropriateVans/${van.id}"> </a> </p>
-       </div>
-   </c:forEach>--%>
-
-<!-- <div>
-     <input id="add_driver" type="button" value="Добавить водителя"><br>
- </div>-->
-
-
-<%--<form name="save_order" action="/PickYellowRoutServlet" method="post">
-    <input type="submit" value="Сохранить заказ">
-</form>--%>
-
-
+    </select>
+    <br>
+    <input type="submit" value="SAVE ORDER">
+</form>
 </body>
 </html>

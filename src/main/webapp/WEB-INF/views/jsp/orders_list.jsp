@@ -1,5 +1,6 @@
 <%@ page import="ru.tsystems.logiweb.entities.Order" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
@@ -35,39 +36,39 @@
                 CITY2
             </th>
         </tr>
-        <% ArrayList<Order> ordersPROCESS = (ArrayList<Order>) request.getSession().getAttribute("ordersPROCESS");
-            for (Order o : ordersPROCESS) {
+        <% List<Order> ordersPROCESS = (ArrayList<Order>) request.getSession().getAttribute("ordersPROCESS");
+            for (Order o : ordersPROCESS) {}
         %>
-        <tr>
-            <td>
-                <%=o.getNumber()%>
-            </td>
-            <td>
-                <%=o.getVan().getVanNumber()%>
-            </td>
-            <!--  <td>
-                <table>
-                    <tr>
-                        <td>driver1</td>
-                        <td>driver2</td>
-                    </tr>
-                </table>
-                <%--ЗДЕСЬ ПОЛУЧИТЬ СПИСОК ВОДИТЕЛЕЙ--%>
-            </td>-->
-            <td>
-                <%--<%=o.getRequest().getGoodForRequest().getName()%>--%>
-                <%=o.getRequests() %>
-            </td>
-            <td>
-                <%--<%=o.getRequest().getRoutForRequest().getCity1()%>--%>
-            </td>
-            <td>
-                <%--<%=o.getRequest().getRoutForRequest().getCity2()%>--%>
-            </td>
-        </tr>
+        <%--    <tr>
+                <td>
+                    <%=o.getNumber()%>
+                </td>
+                <td>
+                    <%=o.getVan().getVanNumber()%>
+                </td>
+                <!--  <td>
+                    <table>
+                        <tr>
+                            <td>driver1</td>
+                            <td>driver2</td>
+                        </tr>
+                    </table>
+                    &lt;%&ndash;ЗДЕСЬ ПОЛУЧИТЬ СПИСОК ВОДИТЕЛЕЙ&ndash;%&gt;
+                </td>-->
+                <td>
+                    &lt;%&ndash;<%=o.getRequest().getGoodForRequest().getName()%>&ndash;%&gt;
+                    <%=o.getRequests() %>
+                </td>
+                <td>
+                    &lt;%&ndash;<%=o.getRequest().getRoutForRequest().getCity1()%>&ndash;%&gt;
+                </td>
+                <td>
+                    &lt;%&ndash;<%=o.getRequest().getRoutForRequest().getCity2()%>&ndash;%&gt;
+                </td>
+            </tr>
 
-        <% } %>
-    </table>
+            <% } %>
+    --%>    </table>
 
 </div>
 

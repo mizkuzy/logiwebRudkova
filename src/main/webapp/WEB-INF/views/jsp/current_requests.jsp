@@ -18,7 +18,8 @@
 </div>
 
 <div>
-    <form name="pick_yellow" action="/PickYellowRoutServlet" method="get">
+    <form action="create_order" method="get">
+        <input type="hidden" name="htmlFormName" value="yellow"/>
         <% ArrayList<Request> yellowRequests = (ArrayList<Request>) request.getSession().getAttribute("yellowRoutRequests");%>
         YELLOW ROUT <br/>
         WAIT:<%=yellowRequests.size()%>  requests<br/>
@@ -27,7 +28,8 @@
 </div>
 
 <div>
-    <form name="pick_green" action="" method="get">
+    <form action="create_order" method="get">
+        <input type="hidden" name="htmlFormName" value="green"/>
         <% ArrayList<Request> greenRequests = (ArrayList<Request>) request.getSession().getAttribute("greenRoutRequests");%>
         GREEN ROUT <br/>
         WAIT: <%=greenRequests.size()%> requests <br/>
@@ -35,7 +37,8 @@
     </form>
 </div>
 <div>
-    <form name="pick_purple" action="" method="get">
+    <form action="create_order" method="get">
+        <input type="hidden" name="htmlFormName" value="purple"/>
         <% ArrayList<Request> purpleRequests = (ArrayList<Request>) request.getSession().getAttribute("purpleRoutRequests");%>
         PURPLE ROUT <br/>
         WAIT: <%=purpleRequests.size()%> requests <br/>
@@ -43,7 +46,8 @@
     </form>
 </div>
 <div>
-    <form name="pick_blue" action="" method="get">
+    <form action="create_order" method="get">
+        <input type="hidden" name="htmlFormName" value="blue"/>
         <% ArrayList<Request> blueRequests = (ArrayList<Request>) request.getSession().getAttribute("blueRoutRequests");%>
         BLUE ROUT <br/>
         WAIT: <%=blueRequests.size()%> requests <br/>

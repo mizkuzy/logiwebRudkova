@@ -39,8 +39,6 @@ public class PickYellowRoutServlet extends HttpServlet {
         2. Установить статус "В работе"
          */
         Order order = new Order();
-        //order.setNumber();//TODO создать механизм присваивания номеров
-        req.getSession().setAttribute("orderNumber", order.getNumber());
         order.setStatus(OrderStatus.PROCESS);
 
         List<Request> requestsWithYellowRout = (List<Request>) req.getSession().getAttribute("yellowRoutRequests");
