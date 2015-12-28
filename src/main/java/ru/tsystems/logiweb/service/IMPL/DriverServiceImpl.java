@@ -3,6 +3,7 @@ package ru.tsystems.logiweb.service.IMPL;
 import ru.tsystems.logiweb.dao.API.DriverGenericDAO;
 import ru.tsystems.logiweb.entities.Driver;
 import ru.tsystems.logiweb.entities.statusesAndStates.DriverState;
+import ru.tsystems.logiweb.entities.statusesAndStates.DriverStatus;
 import ru.tsystems.logiweb.service.API.DriverService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -118,4 +119,32 @@ public class DriverServiceImpl implements DriverService {
             }
         }
     }
+
+    @Override
+    public List<Driver> getSelectedDrivers(List<Driver> drivers, String[] selectedDriversID) {
+
+        int[] driversID = new int[selectedDriversID.length];
+        List<Driver> selectedDrivers = new ArrayList<>();
+
+        for (int i = 0; i < selectedDriversID.length; i++) {
+            driversID[i] = Integer.valueOf(selectedDriversID[i]) - 1;
+        }
+
+        for (int i = 0; i < driversID.length; i++) {
+            selectedDrivers.add(drivers.get(driversID[i]));
+        }
+
+        return selectedDrivers;
+    }
+
+    @Override
+    @Transactional
+    public void changeDriversStatuses(List<Driver> selectedDrivers) {
+        for (Driver d :
+                selectedDrivers) {
+            d.setStatusDriver(DriverStatus.BUSY);
+            update(d);
+        }
+    }
+
 }

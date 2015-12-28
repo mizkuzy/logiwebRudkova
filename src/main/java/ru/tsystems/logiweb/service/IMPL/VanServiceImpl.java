@@ -1,6 +1,7 @@
 package ru.tsystems.logiweb.service.IMPL;
 
 import ru.tsystems.logiweb.dao.API.VanGenericDAO;
+import ru.tsystems.logiweb.entities.Order;
 import ru.tsystems.logiweb.entities.Van;
 import ru.tsystems.logiweb.entities.statusesAndStates.VanState;
 import ru.tsystems.logiweb.entities.statusesAndStates.VanStatus;
@@ -122,4 +123,17 @@ public class VanServiceImpl implements VanService {
         }
         return driversCapacity;
     }
+
+    @Override
+    public Van getSelectedVan(List<Van> vans, int idVan) {
+        return vans.get(idVan);
+    }
+
+    @Override
+    @Transactional
+    public void changeVanStatus(Van van) {
+        van.setStatusVan(VanStatus.BUSY);
+        update(van);
+    }
+
 }

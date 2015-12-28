@@ -91,7 +91,7 @@ public class RequestServiceImpl implements RequestService {
      */
     @Override
     public List<Request> findRequestsWithSpecialRout(String routeLabelSpecial) {
-        ArrayList<Request> requests = (ArrayList<Request>) requestDAO.getAll();
+        List<Request> requests = getAll();
         //System.err.println("requests= " + requests);
         ArrayList<Request> specialRequests = new ArrayList<>();
         //System.err.println("specialRequests= " + specialRequests);
@@ -128,5 +128,17 @@ public class RequestServiceImpl implements RequestService {
         }
 
         return time;
+    }
+
+    @Override
+    @Transactional
+    public void changeRequestsStatuses(String routLabel) {
+        List<Request> requests = findRequestsWithSpecialRout(routLabel);
+        if (requests != null) {
+            for (Request r : requests) {
+                r.setStatusRequest(RequestStatus.FINISHED);
+                update(r);
+            }
+        }
     }
 }

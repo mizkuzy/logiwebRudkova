@@ -1,6 +1,9 @@
 package ru.tsystems.logiweb.controllers;
 
-//TODO убрать httpRequest и поменять на model, где это возможно
+//todo удалить requests со статусом finished и определённым routlabel после выполнения заказа
+
+//TODO убрать httpRequest и поменять на model, где это возможно.
+// TODO  герман. почему из model нельзя вытащить атрибут?
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,6 +62,8 @@ public class ManagerController {
         request.getSession().setAttribute("cities", cities);
         logger.info("Got cities list and set in session");*/
 
+        //todo если в названии товара пробел, то вылетит ошибка
+
         //TODO хорошо бы по-человечески сделать страничку с городами
         //TODO доделать страничку. пользователь может не выбрать что-то. обязательно сделать проверку на заполнение и выбор кадждого поля.
         // Плюс проблема с выпадающим списком
@@ -94,7 +99,9 @@ public class ManagerController {
      */
     @RequestMapping(value = "pick_up_requests")
     public String pickUpRequests(HttpServletRequest request) throws ServletException, IOException {
+
 //TODO Герман. Надо ли что-то делать со всеми исключениями?
+
         List<Request> requestsWithYellowRout = requestService.findRequestsWithSpecialRout("yellow");
         List<Request> requestsWithGreenRout = requestService.findRequestsWithSpecialRout("green");
         List<Request> requestsWithPurpleRout = requestService.findRequestsWithSpecialRout("purple");
@@ -110,7 +117,7 @@ public class ManagerController {
     }
 
     /**
-     * Sets choosed requests, van and drivers to order.
+     * Finds and Sets choosed requests , creates new order, counts order's mass, finds appropriate vans and drivers
      *
      * @param httpRequest
      * @param currentRoutLabel
@@ -120,11 +127,10 @@ public class ManagerController {
     public String createOrder(Model model, HttpServletRequest httpRequest, @RequestParam(value = "currentRoutLabel") String currentRoutLabel) {
         logger.info("Picking " + currentRoutLabel + " requests");
 
-        String routLabel = currentRoutLabel;
+        List<Request> requests = new ArrayList<>();
+        httpRequest.getSession().setAttribute("currentRoutLabel", currentRoutLabel);
 
-        List<Request> requests = new ArrayList<Request>();
-
-        switch (routLabel) {
+        switch (currentRoutLabel) {
             case "yellow":
                 requests = (List<Request>) httpRequest.getSession().getAttribute("yellowRoutRequests");
                 break;
@@ -146,7 +152,7 @@ public class ManagerController {
         model.addAttribute("mass", mass);
 
         List appropriateVans = vanService.getAppropriateVans(currentRoutLabel);
-        model.addAttribute("appropriateVans", appropriateVans);
+        httpRequest.getSession().setAttribute("appropriateVans", appropriateVans);
 
         //TODO не учитывается время, которое водитель потратит на поездку в спб в случае, если конечный пункт не СПБ,
         // а начальный у нас должен быть СПБ, что кстати тоже не учитывается, если нач. точка не спб. тут тупо считаются расстояния между пунктами
@@ -155,7 +161,7 @@ public class ManagerController {
         //TODO пока не помню зачем я добавила DriverStatus(rest,work). на текущий момент обошлась DriverState(resr,work,drive)
         //TODO при подсчёте рабочих часов не уxитывается, если заказ совпадёт на переход с месяца на месяц
         List appropriateDrivers = driverService.getAppropriateDrivers(totalRequestAmount);
-        model.addAttribute("appropriateDrivers", appropriateDrivers);
+        httpRequest.getSession().setAttribute("appropriateDrivers", appropriateDrivers);
 
         int maxCheckboxSelections = vanService.getDriversCapacity(currentRoutLabel) + 1;//+1 means 1 van
         /*model.addAttribute("maxCheckboxSelections", maxCheckboxSelections);*/
@@ -163,15 +169,46 @@ public class ManagerController {
         return "create_order";
     }
 
+    /**
+     * Changes request status to FINISHED, Sets choosed drivers and van to order
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "save_order")
     public String saveOrder(HttpServletRequest request) {
+        //Changes request status to FINISHED
+        requestService.changeRequestsStatuses((String) request.getSession().getAttribute("currentRoutLabel"));
 
-        //поменять статусы реквестов и у воидтелей, и у фур, и добавить всем номера заказов
+        //Sets choosed van to order
         String[] selectedVans = request.getParameterValues("selectedVan");
         logger.info("selectedVans.length=" + selectedVans.length);
+        int idVan = Integer.valueOf(selectedVans[0]) - 1;
+        logger.info(idVan);
+        Van van = vanService.getSelectedVan((List<Van>) request.getSession().getAttribute("appropriateVans"), idVan);
+        logger.info("Choosed this " + van);
+        vanService.changeVanStatus(van);
+        Order order = (Order) request.getSession().getAttribute("order");
+        orderService.setVanToOrder(van, order);
+        logger.info("Van is setted to order");
 
-        String[] selectedDrivers = request.getParameterValues("selectedDriver");
-        logger.info("selectedDrivers.length=" + selectedDrivers.length);
+        //Sets choosed drivers to order
+        String[] selectedDriversID = request.getParameterValues("selectedDriver");
+        logger.info("selectedDrivers.length=" + selectedDriversID.length);
+        List<Driver> selectedDrivers = driverService.getSelectedDrivers((List<Driver>) request.getSession().getAttribute("appropriateDrivers"),
+                selectedDriversID);
+        logger.debug("Drivers selected:");
+        for (Driver d :
+                selectedDrivers) {
+            logger.debug(d);
+        }
+        //если водителю назначена заявка, то статус меняется на busy. на рабочие часы это не влияет
+        driverService.changeDriversStatuses(selectedDrivers);
+        orderService.setDriversToOrder(selectedDrivers, order);
+
+        for (Driver d :
+                order.getDrivers()) {
+            logger.debug(d);
+        }
 
         return "main_manager";
     }

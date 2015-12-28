@@ -2,13 +2,17 @@ package ru.tsystems.logiweb.service.IMPL;
 
 import org.apache.log4j.Logger;
 import ru.tsystems.logiweb.dao.API.OrderGenericDAO;
+import ru.tsystems.logiweb.entities.Driver;
 import ru.tsystems.logiweb.entities.Order;
 import ru.tsystems.logiweb.entities.Request;
+import ru.tsystems.logiweb.entities.Van;
 import ru.tsystems.logiweb.entities.statusesAndStates.OrderStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.tsystems.logiweb.service.API.DriverService;
 import ru.tsystems.logiweb.service.API.OrderService;
+import ru.tsystems.logiweb.service.API.RequestService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +24,10 @@ import java.util.List;
 public class OrderServiceImpl implements OrderService {
 
     private Logger logger = Logger.getLogger(OrderServiceImpl.class);
-
+    @Autowired
+    private RequestService requestService;
+    @Autowired
+    DriverService driverService;
     @Autowired
     private OrderGenericDAO orderDAO;
 
@@ -137,6 +144,7 @@ public class OrderServiceImpl implements OrderService {
 
     /**
      * Creates order with new parameters: status, number, lists of requests
+     *
      * @param requests
      * @return new order
      */
@@ -146,17 +154,18 @@ public class OrderServiceImpl implements OrderService {
         Order order = new Order();
         order.setStatus(OrderStatus.PROCESS);
         create(order);
-        logger.debug("order "+order.getIdOrder()+ " is created");
+        logger.debug("order " + order.getIdOrder() + " is created");
         Integer orderNumber = order.getIdOrder();
         order.setNumber(orderNumber);
         for (Request r : requests) {
             order.addRequest(r);
             //TODO Герман. почему order не добавляется в request? Через дебаг я смотрела - нулов нет) но в БД не появляется(
             r.setCurrentOrder(order);
+            requestService.update(r);
         }
         order.setStatus(OrderStatus.PROCESS);
         update(order);
-        logger.debug("order "+order.getIdOrder()+ " is updated");
+        logger.debug("order " + order.getIdOrder() + " is updated");
         return order;
     }
 
@@ -168,11 +177,29 @@ public class OrderServiceImpl implements OrderService {
      */
     @Override
     public int countOrderMass(List<Request> requests) {
-        int mass=0;
+        int mass = 0;
         for (Request r :
                 requests) {
-            mass+=r.getGoodForRequest().getMass();
+            mass += r.getGoodForRequest().getMass();
         }
         return mass;
+    }
+
+    @Override
+    @Transactional
+    public void setVanToOrder(Van van, Order order) {
+        order.setVan(van);
+        update(order);
+    }
+
+    @Override
+    @Transactional
+    public void setDriversToOrder(List<Driver> selectedDrivers, Order order) {
+        for (Driver d : selectedDrivers) {
+            d.setCurrentOrder(order);
+            order.addDriver(d);
+            driverService.update(d);
+        }
+        update(order);
     }
 }

@@ -23,9 +23,9 @@
             <th>
                 VAN
             </th>
-            <!--   <th>
-                   ВОДИТЕЛИ
-               </th>-->
+            <th>
+                ВОДИТЕЛИ
+            </th>
             <th>
                 GOODS
             </th>
@@ -37,7 +37,8 @@
             </th>
         </tr>
         <% List<Order> ordersPROCESS = (ArrayList<Order>) request.getSession().getAttribute("ordersPROCESS");
-            for (Order o : ordersPROCESS) {}
+            for (Order o : ordersPROCESS) {
+            }
         %>
         <%--    <tr>
                 <td>

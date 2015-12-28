@@ -1,5 +1,6 @@
 package ru.tsystems.logiweb.servlets;
 
+//TODO DELETE THIS CLASS
 import ru.tsystems.logiweb.entities.Good;
 import ru.tsystems.logiweb.entities.Order;
 import ru.tsystems.logiweb.entities.Request;

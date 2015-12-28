@@ -52,7 +52,7 @@ public class Driver {
 
     @Override
     public String toString() {
-        return this.getName() + " " + this.getSurname();
+        return name + " " + surname;
     }
 
     public Integer getId() {
