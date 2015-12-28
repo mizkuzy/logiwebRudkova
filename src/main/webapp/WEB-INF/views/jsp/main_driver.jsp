@@ -11,12 +11,12 @@
     <title>LOGIWEB</title>
 </head>
 <body>
-<h1>Приложение для водителя</h1>
+<h1>DRIVER'S APP</h1>
 
 <div class="form-group">
     <table>
         <tr>
-            <td>Личный номер водителя: &nbsp;</td>
+            <td>Personal number: &nbsp;</td>
             <td><%=request.getSession().getAttribute("personalNumber")%></td>
         </tr>
     </table>

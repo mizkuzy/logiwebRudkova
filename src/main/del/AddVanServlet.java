@@ -1,5 +1,6 @@
 package ru.tsystems.logiweb.servlets;
 
+//delete
 import ru.tsystems.logiweb.entities.Van;
 import ru.tsystems.logiweb.service.API.VanService;
 import ru.tsystems.logiweb.service.IMPL.VanServiceImpl;
@@ -18,7 +19,7 @@ public class AddVanServlet extends HttpServlet {
     //TODO вообще не работает
 
     /**
-     * Picks up dates from form "addVan.jsp" and create Entity Van.
+     * Picks up dates from form "createVan.jsp" and create Entity Van.
      *
      * @param req
      * @param resp

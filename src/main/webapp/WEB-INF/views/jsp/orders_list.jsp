@@ -16,17 +16,19 @@
     </form>
 </div>
 <div>
+    <h1>Orders list</h1>
+
     <% List<Order> ordersPROCESS = (ArrayList<Order>) request.getSession().getAttribute("ordersPROCESS");
         for (Order o : ordersPROCESS) {
     %>
-    <p>Номера заказа: &nbsp; <%=o.getNumber()%>
+    <p>Order number: &nbsp; <%=o.getNumber()%>
     </p>
 
-    <p>Номер фуры: &nbsp;<%=o.getVan()%>
+    <p>Van number: &nbsp;<%=o.getVan()%>
     </p>
 
     <p>
-        Список водителей:<br>
+        Drivers list:<br>
         <%
             List<Driver> drivers = o.getDrivers();
             for (Driver d :
@@ -38,7 +40,7 @@
         %>
     </p>
 
-        Список маршрутных точек:
+        Routs points:
     <table>
         <tr>
             <th>GOOD</th>

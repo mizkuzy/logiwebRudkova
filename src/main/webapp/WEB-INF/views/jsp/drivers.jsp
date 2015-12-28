@@ -65,12 +65,14 @@
         </td>
         <td>
             <div>
-                <form name="edit" action="/EditAndDeleteDriver" method="get">
+                <form name="edit" action="getDriverForEdit" method="get">
+                    <input type="hidden" name="selectedDriver" value="<%=driver.getId()%>"/>
                     <input type="submit" title="Edit" value="EDIT">
                 </form>
             </div>
             <div>
-                <form name="delete" action="" method="get">
+                <form name="delete" action="deleteDriver" method="get">
+                    <input type="hidden" name="selectedDriver" value="<%=driver.getId()%>"/>
                     <input type="submit" title="Delete" value="DELETE">
                 </form>
             </div>
@@ -80,7 +82,7 @@
 </table>
 
 <div>
-    <form name="add" action="addDriver.jsp" method="get">
+    <form name="add" action="createDriver" method="get">
         <input type="submit" title="Add new driver" value="NEW">
     </form>
 </div>

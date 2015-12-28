@@ -30,10 +30,10 @@
 
 <div>
     <form role="form" id="form_new_request" action="addNewRequest" method="post">
-        Goods<input name="goods_name" type="text"><br>
-        Mass<input name="mass" type="text"><br>
+        Goods<input name="goods_name" type="text" required><br>
+        Mass<input name="mass" type="text" required><br>
         City from
-        <select id="select1" name="city1">
+        <select id="select1" name="city1" required>
             <option selected disabled>Choose</option>
             <option name="Saint-Petersburg">Saint-Petersburg</option>
             <option name="Veliky_Novgorod">Veliky_Novgorod</option>
@@ -49,7 +49,7 @@
 
         <div id="step2">
             City to
-            <select id="Saint-Petersburg" name="city2">
+            <select id="Saint-Petersburg" name="city2" required>
 
                 <option selected disabled>Choose</option>
                 <option name="Veliky_Novgorod">Veliky_Novgorod</option>
@@ -62,53 +62,53 @@
                 <option name="Murmansk">Murmansk</option>
                 <option name="Kaliningrad">Kaliningrad</option>
             </select>
-            <select id="Veliky_Novgorod" name="city2">
+            <select id="Veliky_Novgorod" name="city2" required>
                 <option selected disabled>Choose</option>
                 <option name="Pskov">Pskov</option>
                 <option name="Petrozavodsk">Kaliningrad</option>
                 <option name="Saint-Petersburg">Saint-Petersburg</option>
             </select>
-            <select id="Pskov" name="city2">
+            <select id="Pskov" name="city2" required>
                 <option selected disabled>Choose</option>
                 <option name="Veliky_Novgorod">Veliky_Novgorod</option>
                 <option name="Petrozavodsk">Kaliningrad</option>
                 <option name="Saint-Petersburg">Saint-Petersburg</option>
             </select>
-            <select id="Petrozavodsk" name="city2">
+            <select id="Petrozavodsk" name="city2" required>
                 <option selected disabled>Choose</option>
                 <option name="Murmansk">Murmansk</option>
                 <option name="Arhangelsk">Arhangelsk</option>
                 <option name="Naryan-Mar">Naryan-Mar</option>
                 <option name="Saint-Petersburg">Saint-Petersburg</option>
             </select>
-            <select id="Arhangelsk" name="city2">
+            <select id="Arhangelsk" name="city2" required>
                 <option selected disabled>Choose</option>
                 <option name="Naryan-Mar">Naryan-Mar</option>
                 <option name="Petrozavodsk">Petrozavodsk</option>
                 <option name="Saint-Petersburg">Saint-Petersburg</option>
             </select>
-            <select id="Vologda" name="city2">
+            <select id="Vologda" name="city2" required>
                 <option selected disabled>Choose</option>
                 <option name="Siktivkar">Siktivkar</option>
                 <option name="Saint-Petersburg">Saint-Petersburg</option>
             </select>
-            <select id="Siktivkar" name="city2">
+            <select id="Siktivkar" name="city2" required>
                 <option selected disabled>Choose</option>
                 <option name="Vologda">Vologda</option>
                 <option name="Saint-Petersburg">Saint-Petersburg</option>
             </select>
-            <select id="Naryan-Mar" name="city2">
+            <select id="Naryan-Mar" name="city2" required>
                 <option selected disabled>Choose</option>
                 <option name="Arhangelsk">Arhangelsk</option>
                 <option name="Petrozavodsk">Petrozavodsk</option>
                 <option name="Saint-Petersburg">Saint-Petersburg</option>
             </select>
-            <select id="Murmansk" name="city2">
+            <select id="Murmansk" name="city2" required>
                 <option selected disabled>Choose</option>
                 <option name="Petrozavodsk">Petrozavodsk</option>
                 <option name="Saint-Petersburg">Saint-Petersburg</option>
             </select>
-            <select id="Kaliningrad" name="city2">
+            <select id="Kaliningrad" name="city2" required>
                 <option selected disabled>Choose</option>
                 <option name="Veliky_Novgorod">Veliky_Novgorod</option>
                 <option name="Pskov">Pskov</option>

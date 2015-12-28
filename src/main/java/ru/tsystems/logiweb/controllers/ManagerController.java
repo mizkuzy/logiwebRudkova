@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.tsystems.logiweb.entities.*;
+import ru.tsystems.logiweb.entities.statusesAndStates.POSITION;
 import ru.tsystems.logiweb.service.API.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -39,6 +39,8 @@ public class ManagerController {
     private VanService vanService;
     @Autowired
     DriverService driverService;
+    @Autowired
+    EmployeeService employeeService;
 
     /**
      * Dispatch to the main jsp page for manager.
@@ -70,7 +72,15 @@ public class ManagerController {
         return "new_request";
     }
 
-    //TODO Герман. Можно ли просто везде метод пост использовать?
+    /**
+     * Adds new request.
+     *
+     * @param goodsName
+     * @param mass
+     * @param city1
+     * @param city2
+     * @return
+     */
     @RequestMapping(value = "addNewRequest", method = RequestMethod.POST)
     public String addNewRequest(@RequestParam(value = "goods_name") String goodsName,
                                 @RequestParam(value = "mass") Integer mass,
@@ -79,7 +89,6 @@ public class ManagerController {
 
         int goodNumber = goodService.addNewGood(goodsName, mass);
 
-        //TODO потестировать обработку несуществующего маршрута?
         Rout rout = routService.getByCities(city1, city2);
 
         requestService.addNewRequest(goodService.read(goodNumber), rout);
@@ -251,11 +260,13 @@ public class ManagerController {
 
         request.getSession().setAttribute("vansList", vansList);
 
+        //todo добавить запрет на редактирование и удаление, если статус BUSY
         return "vans";
     }
 
     /**
      * Gets selected van from the DB.
+     *
      * @param idVanStr
      * @return specified jsp page
      */
@@ -267,6 +278,57 @@ public class ManagerController {
     }
 
     /**
+     * Sets new parameters to van and updates it.
+     *
+     * @param vanNumber
+     * @param driversAmount
+     * @param capacity
+     * @param request
+     * @return main jsp page
+     */
+    @RequestMapping(value = "editVan")
+    public String editVan(@RequestParam(value = "vanNumber") String vanNumber,
+                          @RequestParam(value = "driversAmount") String driversAmount,
+                          @RequestParam(value = "capacity") String capacity,
+                          HttpServletRequest request) {
+
+        Van van = (Van) request.getSession().getAttribute("selectedVan");
+        //todo проверять номер в соответствии с паттерном
+        van.setVanNumber(vanNumber);
+        van.setDriversAmount(Integer.valueOf(driversAmount));
+        van.setCapacity(Integer.valueOf(capacity));
+
+        vanService.update(van);
+
+        return "main_manager";
+    }
+
+    /**
+     * Deletes selected van.
+     *
+     * @param request
+     * @return specified jsp page
+     */
+    @RequestMapping(value = "deleteVan")
+    public String deleteVan(HttpServletRequest request) {
+
+        vanService.delete((Van) request.getSession().getAttribute("selectedVan"));
+
+        return "main_manager";
+    }
+
+    @RequestMapping(value = "addVan")
+    public String addVan(@RequestParam(value = "vanNumber") String vanNumber,
+                         @RequestParam(value = "driversAmount") String driversAmountStr,
+                         @RequestParam(value = "capacity") String capacityStr) {
+
+        Van van = new Van(vanNumber, Integer.valueOf(driversAmountStr), Integer.valueOf(capacityStr));
+        vanService.create(van);
+
+        return "main_manager";
+    }
+
+    /**
      * Shows all drivers.
      *
      * @param request
@@ -275,12 +337,100 @@ public class ManagerController {
     @RequestMapping(value = "drivers")
     public String showDriversList(HttpServletRequest request) {
 
-        Date date = new Date();
-        date.toString();
         ArrayList<Driver> drivers = (ArrayList<Driver>) driverService.getAll();
 
         request.getSession().setAttribute("drivers", drivers);
 
+        //todo добавить запрет на редактирование и удаление, если статус BUSY
         return "drivers";
     }
+
+    /**
+     * Gets selected driver from the DB.
+     *
+     * @param idDriverStr
+     * @param request
+     * @return specified jsp page
+     */
+    @RequestMapping(value = "getDriverForEdit")
+    public String getDriverForEdit(@RequestParam(value = "selectedDriver") String idDriverStr, HttpServletRequest request) {
+        Driver driver = driverService.read(Integer.valueOf(idDriverStr));
+        request.getSession().setAttribute("selectedDriver", driver);
+
+        return "editDriver";
+    }
+
+    /**
+     * Sets new parameters to driver and updates it.
+     *
+     * @param driverName
+     * @param driverSurname
+     * @param request
+     * @return main jsp page
+     */
+    @RequestMapping(value = "editDriver")
+    public String editDriver(@RequestParam(value = "driverName") String driverName,
+                             @RequestParam(value = "driverSurname") String driverSurname,
+                             HttpServletRequest request) {
+
+        Driver driver = (Driver) request.getSession().getAttribute("selectedDriver");
+        driver.setName(driverName);
+        driver.setSurname(driverSurname);
+
+        driverService.update(driver);
+
+        return "main_manager";
+    }
+
+    /**
+     * Deletes selected driver.
+     *
+     * @param request
+     * @return specified jsp page
+     */
+    @RequestMapping(value = "deleteDriver")
+    public String deleteDriver(HttpServletRequest request) {
+
+        driverService.delete((Driver) request.getSession().getAttribute("selectedDriver"));
+        return "main_manager";
+    }
+
+    /**
+     * Dispatches to specified jsp page where you can type new driver's date.
+     *
+     * @return specified jsp page
+     */
+    @RequestMapping(value = "createDriver")
+    public String createDriver() {
+
+        return "createDriver";
+    }
+
+    /**
+     * Adds new driver to DB.
+     *
+     * @param driverName
+     * @param driverSurname
+     * @param email
+     * @param password
+     * @return main jsp page
+     */
+    @RequestMapping(value = "addDriver")
+    public String addDriver(@RequestParam(value = "driverName") String driverName,
+                            @RequestParam(value = "driverSurname") String driverSurname,
+                            @RequestParam(value = "email") String email,
+                            @RequestParam(value = "password") String password) {
+
+        Employee employee = new Employee(email, password, POSITION.DRIVER);
+        Driver driver = new Driver(driverName, driverSurname);
+
+        employee.setDriverFK(driver);
+
+        driverService.create(driver);
+        employee.setPersonalNumber(driver.getId());
+        employeeService.create(employee);
+
+        return "main_manager";
+    }
+
 }

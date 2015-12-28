@@ -17,7 +17,7 @@ public class Driver {
         this.name = name;
         this.surname = surname;
         this.workHours = 0;
-        this.state = DriverState.REST;
+        this.state = DriverState.WORK;
         this.statusDriver = DriverStatus.FREE;
     }
 

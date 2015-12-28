@@ -5,8 +5,8 @@
 </head>
 <body>
 <div>
-    Это приветственная страница<br>
-    Проект LOGIWEB по версии Рудковой Людмилы
+    Hello, T-SYSTEMS<br>
+    LOGIWEB Project по версии Рудковой Людмилы
 </div>
 <form action="login">
     <input type="submit" value="start" title="start">

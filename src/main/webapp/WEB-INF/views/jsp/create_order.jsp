@@ -20,16 +20,16 @@
 
 <form>
     <% Order order = (Order) request.getSession().getAttribute("order");%>
-    Номер заказа: &nbsp;<%=order.getNumber()%>
+    Order number: &nbsp;<%=order.getNumber()%>
     <div>
-        Статус заказа: &nbsp;<%=order.getStatus()%>
+        Status: &nbsp;<%=order.getStatus()%>
     </div>
     <div>
         <table class="table-bordered" border="2" width="2" cellspacing="2" cellpadding="2">
             <tr>
-                <th>Груз</th>
-                <th>Пункт отправления</th>
-                <th>Пункт назначения</th>
+                <th>Goods</th>
+                <th>City1</th>
+                <th>City2</th>
             </tr>
             <% List<Request> currentRequests = order.getRequests();
                 for (Request r : currentRequests) {%>

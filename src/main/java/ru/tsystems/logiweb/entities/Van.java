@@ -20,7 +20,6 @@ public class Van {
         this.stateVan = VanState.OK;
     }
 
-    //TODO обязательно убрать этот констуктор после показа, потому что здесь номер фуры не проверяется
     public Van(String vanNumber, Integer driversAmount, Integer capacity) {
         this.vanNumber = vanNumber;
         this.driversAmount = driversAmount;

@@ -21,8 +21,7 @@ public class RoutDAOImpl extends GenericDAOImpl<Rout, Integer> implements RoutGe
     @Override
     public Rout getByCities(String city1, String city2) throws PersistenceException {
         try {
-            Query query = entityManager.createQuery("select rout from Rout rout where (rout.city1=:city1 and rout.city2=:city2) or" +
-                    "(rout.city1=:city2 and rout.city2=:city1)");
+            Query query = entityManager.createQuery("select rout from Rout rout where (rout.city1=:city1 and rout.city2=:city2)");
 
             query.setParameter("city1", city1);
             query.setParameter("city2", city2);

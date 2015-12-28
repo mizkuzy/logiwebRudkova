@@ -1,5 +1,7 @@
 package ru.tsystems.logiweb.servlets;
 
+//delete
+
 import ru.tsystems.logiweb.entities.Driver;
 import ru.tsystems.logiweb.entities.Employee;
 import ru.tsystems.logiweb.entities.statusesAndStates.POSITION;

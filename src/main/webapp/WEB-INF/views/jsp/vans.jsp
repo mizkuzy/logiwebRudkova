@@ -11,6 +11,7 @@
     <title>Vans - LOGIWEB</title>
 </head>
 <body>
+
 <h1> Vans </h1>
 
 <div>
@@ -37,7 +38,7 @@
             Work status
         </th>
         <td>
-            Current city
+
         </td>
     </tr>
     <% ArrayList<Van> vans = (ArrayList<Van>) request.getSession().getAttribute("vansList");
@@ -78,7 +79,7 @@
 </table>
 
 <div>
-    <form name="add" action="addVan.jsp" method="get">
+    <form name="add" action="createVan.jsp" method="get">
         <input type="submit" title="Add new van" value="NEW">
     </form>
 </div>

@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>ФУРА - LOGIWEB</title>
+    <title>Van - LOGIWEB</title>
 </head>
 <body>
 <div>
@@ -11,16 +11,13 @@
     </form>
 </div>
 <div>
-    <form name="edit_van_form" action="main_manager.jsp" method="post">
-        id ФУРЫ
-       <%-- <% Van van = (Van) request.getSession().getAttribute("currentVan");%>
-        <%=van.getIdVan()%>
-       --%>
+    <form name="edit_van_form" action="editVan" method="post">
+        <% Van van = (Van) request.getSession().getAttribute("selectedVan");%>
         <br>
-        Регистрационный номер<input name="VanNumber" type="text"><br>
-        Размер смены водителей<input name="DriversAmount" type="text"><br>
-        Вместимость (тонн)<input name="Capacity" type="text"><br>
-        <input type="submit" value="РЕДАКТИРОВАТЬ"><br>
+        Registration Number<input name="vanNumber" type="text" value="<%=van.getVanNumber()%>" required><br>
+        Drivers capacity<input name="driversAmount" type="text" value="<%=van.getDriversAmount()%>" required><br>
+        Capacity (ton)<input name="capacity" type="text" value="<%=van.getCapacity()%>" required><br>
+        <input type="submit" title="edit" value="EDIT"><br>
     </form>
 </div>
 </body>
