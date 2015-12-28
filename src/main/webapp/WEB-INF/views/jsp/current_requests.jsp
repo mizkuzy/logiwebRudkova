@@ -19,7 +19,7 @@
 
 <div>
     <form action="create_order" method="get">
-        <input type="hidden" name="htmlFormName" value="yellow"/>
+        <input type="hidden" name="currentRoutLabel" value="yellow"/>
         <% ArrayList<Request> yellowRequests = (ArrayList<Request>) request.getSession().getAttribute("yellowRoutRequests");%>
         YELLOW ROUT <br/>
         WAIT:<%=yellowRequests.size()%>  requests<br/>
@@ -29,7 +29,7 @@
 
 <div>
     <form action="create_order" method="get">
-        <input type="hidden" name="htmlFormName" value="green"/>
+        <input type="hidden" name="currentRoutLabel" value="green"/>
         <% ArrayList<Request> greenRequests = (ArrayList<Request>) request.getSession().getAttribute("greenRoutRequests");%>
         GREEN ROUT <br/>
         WAIT: <%=greenRequests.size()%> requests <br/>
@@ -38,7 +38,7 @@
 </div>
 <div>
     <form action="create_order" method="get">
-        <input type="hidden" name="htmlFormName" value="purple"/>
+        <input type="hidden" name="currentRoutLabel" value="purple"/>
         <% ArrayList<Request> purpleRequests = (ArrayList<Request>) request.getSession().getAttribute("purpleRoutRequests");%>
         PURPLE ROUT <br/>
         WAIT: <%=purpleRequests.size()%> requests <br/>
@@ -47,7 +47,7 @@
 </div>
 <div>
     <form action="create_order" method="get">
-        <input type="hidden" name="htmlFormName" value="blue"/>
+        <input type="hidden" name="currentRoutLabel" value="blue"/>
         <% ArrayList<Request> blueRequests = (ArrayList<Request>) request.getSession().getAttribute("blueRoutRequests");%>
         BLUE ROUT <br/>
         WAIT: <%=blueRequests.size()%> requests <br/>

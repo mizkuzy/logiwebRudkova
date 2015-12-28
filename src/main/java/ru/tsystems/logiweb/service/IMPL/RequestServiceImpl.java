@@ -115,4 +115,18 @@ public class RequestServiceImpl implements RequestService {
         create(request);//TODO EXCEPTION?
         logger.info("Adding of new request is finished. Number of request: " + request.getIdRequest());
     }
+
+    @Override
+    public int getTotalRequestsAmount(List<Request> requests) {
+
+        int time = 0;
+
+        if (requests != null) {
+            for (Request r : requests) {
+                time += r.getRoutForRequest().getTimeDistance();
+            }
+        }
+
+        return time;
+    }
 }

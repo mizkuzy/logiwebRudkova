@@ -1,13 +1,16 @@
 package ru.tsystems.logiweb.service.IMPL;
 
 import ru.tsystems.logiweb.dao.API.DriverGenericDAO;
-import ru.tsystems.logiweb.dao.IMPL.DriverGenericDAOImpl;
 import ru.tsystems.logiweb.entities.Driver;
+import ru.tsystems.logiweb.entities.statusesAndStates.DriverState;
 import ru.tsystems.logiweb.service.API.DriverService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import sun.util.calendar.CalendarDate;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -15,6 +18,8 @@ import java.util.List;
  */
 @Service("driverService")
 public class DriverServiceImpl implements DriverService {
+
+    public static final int MAX_WORK_HOURS_PER_MONTH = 176;
 
     //TODO ещё лучше разобраться с этой аннотацией
     @Autowired
@@ -35,7 +40,7 @@ public class DriverServiceImpl implements DriverService {
      * Read required entity.
      *
      * @param id
-     * @return
+     * @return entity
      */
     @Override
     @Transactional
@@ -76,4 +81,41 @@ public class DriverServiceImpl implements DriverService {
         return driverDao.getAll();
     }
 
+    /**
+     * @param orderHours
+     * @return list of appropriate drivers for this order
+     */
+    @Override
+    @Transactional
+    public List getAppropriateDrivers(int orderHours) {
+        checkFirstMonthDay();
+        //todo смену месяцев надо учесть
+        List<Driver> allDrivers = getAll();
+        List<Driver> appropriateDrivers = new ArrayList<>(allDrivers.size());//size of this list obviously will not more then size of all drivers list
+        if (allDrivers != null) {
+            for (Driver d : allDrivers) {
+                if (((orderHours + d.getWorkHours()) <= MAX_WORK_HOURS_PER_MONTH) & (d.getState().equals(DriverState.WORK))) {
+                    appropriateDrivers.add(d);
+                }
+
+            }
+        }
+        return appropriateDrivers; //TODO сюда поставить appropriateDrivers
+    }
+
+    /**
+     * Checks whether today is first day of month. If so then work hours of driver will be zero.
+     */
+    @Transactional
+    private void checkFirstMonthDay() {
+        if ((new Date().getDate()) == 1) {
+            List<Driver> allDrivers = getAll();
+            if (allDrivers != null) {
+                for (Driver d : allDrivers) {
+                    d.setWorkHours(0);
+                    update(d);
+                }
+            }
+        }
+    }
 }

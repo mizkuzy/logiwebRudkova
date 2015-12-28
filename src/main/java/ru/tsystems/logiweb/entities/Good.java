@@ -16,7 +16,6 @@ public class Good {
         this.name = name;
         this.mass = mass;
         this.status = GoodsStatus.WAIT;
-        //this.goodNumber = MyUtils.getNumber(); TODO придумать как по-другом генерировать номер
     }
 
     @Id

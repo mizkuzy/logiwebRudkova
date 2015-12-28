@@ -18,6 +18,11 @@ import java.util.List;
 @Service("vanService")
 public class VanServiceImpl implements VanService {
 
+    private static final int DRIVERS_CAPACITY_FOR_YELLOW_ROUT = 2;
+    private static final int DRIVERS_CAPACITY_FOR_GREEN_ROUT = 3;
+    private static final int DRIVERS_CAPACITY_FOR_PURPLE_ROUT = 4;
+    private static final int DRIVERS_CAPACITY_FOR_BLUE_ROUT = 3;
+
     @Autowired
     private VanGenericDAO vanDAO;
 
@@ -96,5 +101,25 @@ public class VanServiceImpl implements VanService {
             }
         }
         return appropriateVans;
+    }
+
+    @Override
+    public int getDriversCapacity(String routLabel) {
+        int driversCapacity = 0;
+        switch (routLabel) {
+            case "yellow":
+                driversCapacity = DRIVERS_CAPACITY_FOR_YELLOW_ROUT;
+                break;
+            case "green":
+                driversCapacity = DRIVERS_CAPACITY_FOR_GREEN_ROUT;
+                break;
+            case "purple":
+                driversCapacity = DRIVERS_CAPACITY_FOR_PURPLE_ROUT;
+                break;
+            case "blue":
+                driversCapacity = DRIVERS_CAPACITY_FOR_BLUE_ROUT;
+                break;
+        }
+        return driversCapacity;
     }
 }

@@ -151,7 +151,7 @@ public class OrderServiceImpl implements OrderService {
         order.setNumber(orderNumber);
         for (Request r : requests) {
             order.addRequest(r);
-            //TODO проверить почему order не добавляется в request
+            //TODO Герман. почему order не добавляется в request? Через дебаг я смотрела - нулов нет) но в БД не появляется(
             r.setCurrentOrder(order);
         }
         order.setStatus(OrderStatus.PROCESS);

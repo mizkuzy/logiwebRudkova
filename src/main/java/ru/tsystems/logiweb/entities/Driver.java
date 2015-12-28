@@ -50,6 +50,11 @@ public class Driver {
     @Column(name = "status")
     private DriverStatus statusDriver;
 
+    @Override
+    public String toString() {
+        return this.getName() + " " + this.getSurname();
+    }
+
     public Integer getId() {
         return id;
     }

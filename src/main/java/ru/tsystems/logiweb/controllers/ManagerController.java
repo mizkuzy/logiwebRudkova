@@ -1,5 +1,7 @@
 package ru.tsystems.logiweb.controllers;
 
+//TODO убрать httpRequest и поменять на model, где это возможно
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -49,12 +51,17 @@ public class ManagerController {
     /**
      * Dispatch to jsp page where you can type good dates.
      *
-     * @param model
      * @return specified jsp page
      */
     @RequestMapping(value = "new_request")
-    public String newRequest(Model model) {
-        //TODO доделать страничку. пользователь может не выбрать что-то. обязательно сделать проверку на заполнение и выбор кадждого поля. Плюс проблема с выпадающим списком
+    public String newRequest(HttpServletRequest request) {
+        /*List<String> cities = routService.getCities();
+        request.getSession().setAttribute("cities", cities);
+        logger.info("Got cities list and set in session");*/
+
+        //TODO хорошо бы по-человечески сделать страничку с городами
+        //TODO доделать страничку. пользователь может не выбрать что-то. обязательно сделать проверку на заполнение и выбор кадждого поля.
+        // Плюс проблема с выпадающим списком
         return "new_request";
     }
 
@@ -67,6 +74,7 @@ public class ManagerController {
 
         int goodNumber = goodService.addNewGood(goodsName, mass);
 
+        //TODO потестировать обработку несуществующего маршрута?
         Rout rout = routService.getByCities(city1, city2);
 
         requestService.addNewRequest(goodService.read(goodNumber), rout);
@@ -97,14 +105,22 @@ public class ManagerController {
         request.getSession().setAttribute("purpleRoutRequests", requestsWithPurpleRout);
         request.getSession().setAttribute("blueRoutRequests", requestsWithBlueRout);
 
+        //TODO сделать неактивной кнопку handle, если заявок нет
         return "current_requests";
     }
 
+    /**
+     * Sets choosed requests, van and drivers to order.
+     *
+     * @param httpRequest
+     * @param currentRoutLabel
+     * @return specified jsp page
+     */
     @RequestMapping(value = "create_order")
-    public String createOrder(HttpServletRequest httpRequest, @RequestParam(value = "htmlFormName") String htmlFormName) {
-        logger.info("Picking " + htmlFormName + " requests");
+    public String createOrder(Model model, HttpServletRequest httpRequest, @RequestParam(value = "currentRoutLabel") String currentRoutLabel) {
+        logger.info("Picking " + currentRoutLabel + " requests");
 
-        String routLabel = htmlFormName;
+        String routLabel = currentRoutLabel;
 
         List<Request> requests = new ArrayList<Request>();
 
@@ -126,18 +142,36 @@ public class ManagerController {
         Order order = orderService.addNewOrder(requests);
         httpRequest.getSession().setAttribute("order", order);
 
-        List appropriateVans = vanService.getAppropriateVans(htmlFormName);
-        httpRequest.getSession().setAttribute("appropriateVans", appropriateVans);
-
         int mass = orderService.countOrderMass(requests);
-        httpRequest.getSession().setAttribute("mass", mass);
+        model.addAttribute("mass", mass);
+
+        List appropriateVans = vanService.getAppropriateVans(currentRoutLabel);
+        model.addAttribute("appropriateVans", appropriateVans);
+
+        //TODO не учитывается время, которое водитель потратит на поездку в спб в случае, если конечный пункт не СПБ,
+        // а начальный у нас должен быть СПБ, что кстати тоже не учитывается, если нач. точка не спб. тут тупо считаются расстояния между пунктами
+        int totalRequestAmount = requestService.getTotalRequestsAmount(requests);
+
+        //TODO пока не помню зачем я добавила DriverStatus(rest,work). на текущий момент обошлась DriverState(resr,work,drive)
+        //TODO при подсчёте рабочих часов не уxитывается, если заказ совпадёт на переход с месяца на месяц
+        List appropriateDrivers = driverService.getAppropriateDrivers(totalRequestAmount);
+        model.addAttribute("appropriateDrivers", appropriateDrivers);
+
+        int maxCheckboxSelections = vanService.getDriversCapacity(currentRoutLabel) + 1;//+1 means 1 van
+        /*model.addAttribute("maxCheckboxSelections", maxCheckboxSelections);*/
+        httpRequest.getSession().setAttribute("maxCheckboxSelections", maxCheckboxSelections);
         return "create_order";
     }
 
     @RequestMapping(value = "save_order")
-    public String saveOrder(HttpServletRequest request){
-        String[] appropriateVans = request.getParameterValues("selectedVan");
-        logger.info(appropriateVans.length);
+    public String saveOrder(HttpServletRequest request) {
+
+        //поменять статусы реквестов и у воидтелей, и у фур, и добавить всем номера заказов
+        String[] selectedVans = request.getParameterValues("selectedVan");
+        logger.info("selectedVans.length=" + selectedVans.length);
+
+        String[] selectedDrivers = request.getParameterValues("selectedDriver");
+        logger.info("selectedDrivers.length=" + selectedDrivers.length);
 
         return "main_manager";
     }

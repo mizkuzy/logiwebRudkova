@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.tsystems.logiweb.service.API.RoutService;
 
 import javax.persistence.PersistenceException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -88,7 +89,28 @@ public class RoutServiceImpl implements RoutService {
      */
     @Override
     public Rout getByCities(String city1, String city2) throws PersistenceException {
-        logger.info("Rout " + city1 + " - " + city2 + "is found");
+        logger.info("Rout " + city1 + " - " + city2);
         return routDAO.getByCities(city1, city2);
+    }
+
+    /**
+     * Collects all cities and return list of all cities
+     * @return citiesList
+     */
+    @Override
+    public List<String> getCities() {
+        final int CITIES_AMOUNT = 10;
+        List<String> cities = new ArrayList<>(CITIES_AMOUNT);
+        cities.add("Saint-Petersburg");
+        cities.add("Veliky Novgorod");
+        cities.add("Pskov");
+        cities.add("Petrozavodsk");
+        cities.add("Arhangelsk");
+        cities.add("Vologda");
+        cities.add("Siktivkar");
+        cities.add("Nary'an-Mar");
+        cities.add("Murmansk");
+        cities.add("Kaliningrad");
+        return cities;
     }
 }

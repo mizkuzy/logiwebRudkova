@@ -23,44 +23,87 @@ public class RunToDB {
 
     public static void main(String[] args) {
 
-
         em.getTransaction().begin();
-
 
         Employee employee1 = new Employee("dr1@lw.ru", "pswd", POSITION.DRIVER);
         Employee employee2 = new Employee("dr2@lw.ru", "pswd", POSITION.DRIVER);
         Employee employee3 = new Employee("man1@lw.ru", "pswd", POSITION.OTHER);
         Employee employee4 = new Employee("man2@lw.ru", "pswd", POSITION.OTHER);
+        Employee employee5 = new Employee("dr5@lw.ru", "pswd", POSITION.DRIVER);
+        Employee employee6 = new Employee("dr6@lw.ru", "pswd", POSITION.DRIVER);
+        Employee employee7 = new Employee("dr7@lw.ru", "pswd", POSITION.DRIVER);
+        Employee employee8 = new Employee("dr8@lw.ru", "pswd", POSITION.DRIVER);
+        Employee employee9 = new Employee("dr9@lw.ru", "pswd", POSITION.DRIVER);
+        Employee employee10 = new Employee("dr10@lw.ru", "pswd", POSITION.DRIVER);
+        Employee employee11 = new Employee("dr11@lw.ru", "pswd", POSITION.DRIVER);
+        Employee employee12 = new Employee("dr12@lw.ru", "pswd", POSITION.DRIVER);
+        Employee employee13 = new Employee("dr13@lw.ru", "pswd", POSITION.DRIVER);
 
         Driver driver1 = new Driver("Petr", "Severe");
         Driver driver2 = new Driver("Andrey", "Knyaz");
+        Driver driver3 = new Driver("Nikolay", "Fomin");
+        Driver driver4 = new Driver("Gerakl", "Zevsov");
+        Driver driver5 = new Driver("Mihail", "Gogol");
+        Driver driver6 = new Driver("Ivan", "Vanin");
+        Driver driver7 = new Driver("Zurab", "Ivanov");
+        Driver driver8 = new Driver("Sergey", "Jukov");
+        Driver driver9 = new Driver("Gustav", "Bok");
+        Driver driver10 = new Driver("Till", "Lindemann");
+        Driver driver11 = new Driver("Henry", "Ford");
 
         employee1.setDriverFK(driver1);
         employee2.setDriverFK(driver2);
+        employee5.setDriverFK(driver3);
+        employee6.setDriverFK(driver4);
+        employee7.setDriverFK(driver5);
+        employee8.setDriverFK(driver6);
+        employee9.setDriverFK(driver7);
+        employee10.setDriverFK(driver8);
+        employee11.setDriverFK(driver9);
+        employee12.setDriverFK(driver10);
+        employee13.setDriverFK(driver11);
 
         em.persist(driver1);
         em.persist(driver2);
+        em.persist(driver3);
+        em.persist(driver4);
+        em.persist(driver5);
+        em.persist(driver6);
+        em.persist(driver7);
+        em.persist(driver8);
+        em.persist(driver9);
+        em.persist(driver10);
+        em.persist(driver11);
 
         em.persist(employee1);
         em.persist(employee2);
         em.persist(employee3);
         em.persist(employee4);
+        em.persist(employee5);
+        em.persist(employee6);
+        em.persist(employee7);
+        em.persist(employee8);
+        em.persist(employee9);
+        em.persist(employee10);
+        em.persist(employee11);
+        em.persist(employee12);
+        em.persist(employee13);
 
-        Rout rout1 = new Rout("Saint-Petersburg", "Veliky Novgorod", 194, 3);
+        Rout rout1 = new Rout("Saint-Petersburg", "Veliky_Novgorod", 194, 3);
         Rout rout2 = new Rout("Saint-Petersburg", "Pskov", 408, 5);
         Rout rout3 = new Rout("Saint-Petersburg", "Kaliningrad", 1076, 14);
-        Rout rout4 = new Rout("Veliky Novgorod", "Pskov", 214, 3);
-        Rout rout5 = new Rout("Veliky Novgorod", "Kaliningrad", 882, 11);
+        Rout rout4 = new Rout("Veliky_Novgorod", "Pskov", 214, 3);
+        Rout rout5 = new Rout("Veliky_Novgorod", "Kaliningrad", 882, 11);
         Rout rout6 = new Rout("Pskov", "Kaliningrad", 668, 8);
         Rout rout7 = new Rout("Saint-Petersburg", "Petrozavodsk", 428, 5);
         Rout rout8 = new Rout("Saint-Petersburg", "Murmansk", 1362, 17);
         Rout rout9 = new Rout("Petrozavodsk", "Murmansk", 934, 12);
         Rout rout10 = new Rout("Saint-Petersburg", "Petrozavodsk", 428, 5);
         Rout rout11 = new Rout("Saint-Petersburg", "Arhangelsk", 1413, 18);
-        Rout rout12 = new Rout("Saint-Petersburg", "Nary'an-Mar", 3536, 45);
+        Rout rout12 = new Rout("Saint-Petersburg", "Naryan-Mar", 3536, 45);
         Rout rout13 = new Rout("Petrozavodsk", "Arhangelsk", 985, 12);
-        Rout rout14 = new Rout("Petrozavodsk", "Nary'an-Mar", 3108, 39);
-        Rout rout15 = new Rout("Arhangelsk", "Nary'an-Mar", 2123, 27);
+        Rout rout14 = new Rout("Petrozavodsk", "Naryan-Mar", 3108, 39);
+        Rout rout15 = new Rout("Arhangelsk", "Naryan-Mar", 2123, 27);
         Rout rout16 = new Rout("Saint-Petersburg", "Vologda", 654, 8);
         Rout rout17 = new Rout("Saint-Petersburg", "Siktivkar", 1498, 19);
         Rout rout18 = new Rout("Vologda", "Siktivkar", 844, 11);

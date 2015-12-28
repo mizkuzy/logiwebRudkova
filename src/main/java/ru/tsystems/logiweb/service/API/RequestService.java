@@ -11,4 +11,6 @@ public interface RequestService extends GenericService<Request,Integer> {
     List<Request> findRequestsWithSpecialRout(String routeLabel);
 
     void addNewRequest(Good good, Rout rout);
+
+    int getTotalRequestsAmount(List<Request> currentRoutLabel);
 }

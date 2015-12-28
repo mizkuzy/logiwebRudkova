@@ -140,10 +140,11 @@ public class DITest extends AbstractJUnit4SpringContextTests{
         assertNotNull(vanGenericDAO);
     }
 
+    //TODO полчему не работает?
     @Test
     public void testCheckEmailAndPassword(){
-        employeeService.checkEmailAndPassword("driver1@logiweb.ru", "pswd");
-        //assertFalse();
+        boolean isVerified = employeeService.checkEmailAndPassword("driver1@logiweb.ru", "pswd");
+        assertTrue(isVerified);
     }
 
 }

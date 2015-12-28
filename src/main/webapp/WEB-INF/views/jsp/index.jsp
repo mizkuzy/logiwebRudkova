@@ -11,6 +11,6 @@
 <form action="login">
     <input type="submit" value="start" title="start">
 </form>
-<b>${"test"}</b>
+<%--<b>${"test"}</b>--%>
 </body>
 </html>

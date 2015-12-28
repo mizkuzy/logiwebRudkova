@@ -1,5 +1,3 @@
-<%@ page import="ru.tsystems.logiweb.entities.Van" %>
-<%@ page import="java.util.ArrayList" %>
 <%@ page import="ru.tsystems.logiweb.entities.Order" %>
 <%@ page import="ru.tsystems.logiweb.entities.Request" %>
 <%@ page import="java.util.List" %>
@@ -9,6 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Order - LOGIWEB</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
 </head>
 <body>
 <h1>Order</h1>
@@ -46,22 +45,54 @@
             </tr>
         </table>
     </div>
-    Общая масса: &nbsp;<%=request.getSession().getAttribute("mass")%><br>
+    Общая масса: &nbsp;${mass}<%--<%=request.getSession().getAttribute("mass")%>--%><br>
 </form>
-<form action="save_order" method="post">
-    <%--<c:forEach items="${appropriateVans}" var="van" varStatus="theCount">
-        <input type="hidden" name="htmlFormName" value="purple"/>
-        <input type="checkbox" name="selectedVan" value="${theCount.count}">${van}<br>
-    </c:forEach>--%>
+<script>
+    jQuery(function () {
+        var max = <%=session.getAttribute("maxCheckboxSelections")%>;
+        var checkboxes = $('input[type="checkbox"]');
 
-    <%-- <input type="hidden" name="htmlFormName" value="${theCount.count}"/>--%>
-    <select>
-        <c:forEach items="${appropriateVans}" var="van" varStatus="theCount">
-            <option value="${theCount.count}">${van}</option>
-        </c:forEach>
-    </select>
+        checkboxes.change(function () {
+            var current = checkboxes.filter(':checked').length;
+            checkboxes.filter(':not(:checked)').prop('disabled', current >= max);
+        });
+    });
+</script>
+
+<form action="save_order" method="get">
+    <h4>Choose van</h4>
+    <c:forEach items="${appropriateVans}" var="van" varStatus="theCount">
+        <%-- <input type="hidden" name="htmlFormName" value="purple"/>--%>
+        <input type="checkbox" name="selectedVan" value="${theCount.count}" max="1">${van}<br>
+    </c:forEach>
+
     <br>
+    <h4>Choose ${maxCheckboxSelections-1} drivers</h4>
+    <c:forEach items="${appropriateDrivers}" var="driver" varStatus="theCount">
+        <%-- <input type="hidden" name="htmlFormName" value="purple"/>--%>
+        <input type="checkbox" name="selectedDriver" value="${theCount.count}" max="3">${driver}<br>
+    </c:forEach>
+
     <input type="submit" value="SAVE ORDER">
+    <%-- <input type="hidden" name="htmlFormName" value="${theCount.count}"/>--%>
+
+    <%--ВОТ ЭТОТ КУСОК вслплывающий список--%>
+    <%-- <select>
+          <c:forEach items="${appropriateVans}" var="van" varStatus="theCount">
+              <option name="${theCount.count}" value="${theCount.count}">${van}</option>
+          </c:forEach>
+      </select>--%>
+
+
+    <%--<c:choose>
+        <c:forEach items="${appropriateVans}" var="van" varStatus="theCount">
+            <c:when test="${idVan=='theCount.count'}">
+                ${van}
+            </c:when>
+        </c:forEach>
+    </c:choose>--%>
+
+
 </form>
 </body>
 </html>
