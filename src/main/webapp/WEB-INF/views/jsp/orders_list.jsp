@@ -1,6 +1,8 @@
 <%@ page import="ru.tsystems.logiweb.entities.Order" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.List" %>
+<%@ page import="ru.tsystems.logiweb.entities.Request" %>
+<%@ page import="ru.tsystems.logiweb.entities.Driver" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
@@ -14,63 +16,60 @@
     </form>
 </div>
 <div>
-    <table border="2" width="2" cellspacing="2" cellpadding="2">
-        <caption><h1>ORDERS LIST</h1></caption>
-        <tr>
-            <th>
-                NUMBER
-            </th>
-            <th>
-                VAN
-            </th>
-            <th>
-                ВОДИТЕЛИ
-            </th>
-            <th>
-                GOODS
-            </th>
-            <th>
-                CITY1
-            </th>
-            <th>
-                CITY2
-            </th>
-        </tr>
-        <% List<Order> ordersPROCESS = (ArrayList<Order>) request.getSession().getAttribute("ordersPROCESS");
-            for (Order o : ordersPROCESS) {
+    <% List<Order> ordersPROCESS = (ArrayList<Order>) request.getSession().getAttribute("ordersPROCESS");
+        for (Order o : ordersPROCESS) {
+    %>
+    <p>Номера заказа: &nbsp; <%=o.getNumber()%>
+    </p>
+
+    <p>Номер фуры: &nbsp;<%=o.getVan()%>
+    </p>
+
+    <p>
+        Список водителей:<br>
+        <%
+            List<Driver> drivers = o.getDrivers();
+            for (Driver d :
+                    drivers) {
+        %>
+        <%=d%><br>
+        <%
             }
         %>
-        <%--    <tr>
-                <td>
-                    <%=o.getNumber()%>
-                </td>
-                <td>
-                    <%=o.getVan().getVanNumber()%>
-                </td>
-                <!--  <td>
-                    <table>
-                        <tr>
-                            <td>driver1</td>
-                            <td>driver2</td>
-                        </tr>
-                    </table>
-                    &lt;%&ndash;ЗДЕСЬ ПОЛУЧИТЬ СПИСОК ВОДИТЕЛЕЙ&ndash;%&gt;
-                </td>-->
-                <td>
-                    &lt;%&ndash;<%=o.getRequest().getGoodForRequest().getName()%>&ndash;%&gt;
-                    <%=o.getRequests() %>
-                </td>
-                <td>
-                    &lt;%&ndash;<%=o.getRequest().getRoutForRequest().getCity1()%>&ndash;%&gt;
-                </td>
-                <td>
-                    &lt;%&ndash;<%=o.getRequest().getRoutForRequest().getCity2()%>&ndash;%&gt;
-                </td>
-            </tr>
+    </p>
 
-            <% } %>
-    --%>    </table>
+        Список маршрутных точек:
+    <table>
+        <tr>
+            <th>GOOD</th>
+            <th>CITY FROM</th>
+            <th>CITY TO</th>
+        </tr>
 
+        <%
+            List<Request> requests = o.getRequests();
+            for (Request r :
+                    requests) {%>
+        <tr>
+            <td>
+                <%=r.getGoodForRequest().getName()%>
+            </td>
+            <td>
+                <%=r.getRoutForRequest().getCity1()%>
+            </td>
+            <td>
+                <%=r.getRoutForRequest().getCity2()%>
+            </td>
+        </tr>
+
+        <% }
+        %>
+
+    </table>
+
+    <hr noshade="noshade"/>
+    <% }
+    %>
 </div>
 
 

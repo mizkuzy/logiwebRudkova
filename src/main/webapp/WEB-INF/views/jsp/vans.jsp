@@ -6,13 +6,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=8,9,10" >
+    <meta http-equiv="X-UA-Compatible" content="IE=8,9,10">
     <meta charset="UTF-8">
     <title>Vans - LOGIWEB</title>
-   <!-- <link href="css/bootstrap.min.css" rel="stylesheet">-->
 </head>
 <body>
 <h1> Vans </h1>
+
 <div>
     <form name="home" action="main_manager" method="get">
         <input type="submit" value="HOME">
@@ -37,7 +37,7 @@
             Work status
         </th>
         <td>
-
+            Current city
         </td>
     </tr>
     <% ArrayList<Van> vans = (ArrayList<Van>) request.getSession().getAttribute("vansList");
@@ -61,14 +61,14 @@
         </td>
         <td>
             <div>
-                <form name="edit" action="/EditAndDeleteVan" method="get">
-
+                <form name="edit" action="getVanForEdit" method="get">
+                    <input type="hidden" name="selectedVan" value="<%=vans.get(i).getIdVan()%>"/>
                     <input type="submit" title="Edit" value="EDIT">
                 </form>
             </div>
             <div>
-                <a href="/EditAndDeleteVan?id=<%=vans.get(i)%>"><span>${language.JSP_CONTRACTS_ACTION_CHANGE}</span> <br></a>
-                <form name="delete" action="/EditAndDeleteVan" method="post">
+                <form name="delete" action="deleteVan" method="get">
+                    <input type="hidden" name="selectedVan" value="<%=vans.get(i).getIdVan()%>"/>
                     <input type="submit" title="Delete" value="DELETE">
                 </form>
             </div>

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 
 /**
  * An implementation of DriverGenericDAO API.
@@ -13,8 +14,7 @@ import javax.persistence.PersistenceContext;
 @Repository("driverDAO")
 public class DriverGenericDAOImpl extends GenericDAOImpl<Driver, Integer> implements DriverGenericDAO {
 
-
-    @PersistenceContext
+    @PersistenceContext(type = PersistenceContextType.EXTENDED)
     private EntityManager entityManager;
 
     /**

@@ -15,7 +15,7 @@ public class EmployeeGenericDAOImpl extends GenericDAOImpl<Employee, Integer> im
 
     private Logger logger = Logger.getLogger(EmployeeGenericDAOImpl.class);
 
-    @PersistenceContext
+    @PersistenceContext(type = PersistenceContextType.EXTENDED)
     private EntityManager entityManager;
 
     /**

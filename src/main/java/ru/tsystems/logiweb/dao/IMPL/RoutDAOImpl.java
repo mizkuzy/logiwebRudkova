@@ -5,10 +5,7 @@ import ru.tsystems.logiweb.dao.API.RoutGenericDAO;
 import ru.tsystems.logiweb.entities.Rout;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceException;
-import javax.persistence.Query;
+import javax.persistence.*;
 
 /**
  * An implementation of RoutDAO API.
@@ -18,7 +15,7 @@ public class RoutDAOImpl extends GenericDAOImpl<Rout, Integer> implements RoutGe
 
     private Logger logger = Logger.getLogger(RoutDAOImpl.class);
 
-    @PersistenceContext
+    @PersistenceContext(type = PersistenceContextType.EXTENDED)
     private EntityManager entityManager;
 
     @Override

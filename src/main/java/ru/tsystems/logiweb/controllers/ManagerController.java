@@ -124,7 +124,8 @@ public class ManagerController {
      * @return specified jsp page
      */
     @RequestMapping(value = "create_order")
-    public String createOrder(Model model, HttpServletRequest httpRequest, @RequestParam(value = "currentRoutLabel") String currentRoutLabel) {
+    public String createOrder(Model model, HttpServletRequest httpRequest,
+                              @RequestParam(value = "currentRoutLabel") String currentRoutLabel) {
         logger.info("Picking " + currentRoutLabel + " requests");
 
         List<Request> requests = new ArrayList<>();
@@ -171,6 +172,7 @@ public class ManagerController {
 
     /**
      * Changes request status to FINISHED, Sets choosed drivers and van to order
+     *
      * @param request
      * @return
      */
@@ -229,10 +231,9 @@ public class ManagerController {
         logger.info("ordersDONE.size()" + ordersDONE.size());
 
         request.getSession().setAttribute("ordersPROCESS", ordersPROCESS);
-
         request.getSession().setAttribute("ordersDONE", ordersDONE);
 
-        //TODO    Должна быть кнопка посмотреть выполненные заказы (ordersDONE) в orders_list.jsp
+        //TODO Должна быть кнопка посмотреть выполненные заказы (ordersDONE) в orders_list.jsp
 
         return "orders_list";
     }
@@ -254,7 +255,19 @@ public class ManagerController {
     }
 
     /**
-     * Shows all drivers
+     * Gets selected van from the DB.
+     * @param idVanStr
+     * @return specified jsp page
+     */
+    @RequestMapping(value = "getVanForEdit")
+    public String getVanForEdit(@RequestParam(value = "selectedVan") String idVanStr, HttpServletRequest request) {
+        Van van = vanService.read(Integer.valueOf(idVanStr));
+        request.getSession().setAttribute("selectedVan", van);
+        return "editVan";
+    }
+
+    /**
+     * Shows all drivers.
      *
      * @param request
      * @return specified jsp page

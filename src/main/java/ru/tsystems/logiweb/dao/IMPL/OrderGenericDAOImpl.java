@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 import javax.persistence.Query;
 
 /**
@@ -14,7 +15,7 @@ import javax.persistence.Query;
 @Repository("orderDAO")
 public class OrderGenericDAOImpl extends GenericDAOImpl<Order, Integer> implements OrderGenericDAO {
 
-    @PersistenceContext
+    @PersistenceContext(type = PersistenceContextType.EXTENDED)
     private EntityManager entityManager;
 
     /**

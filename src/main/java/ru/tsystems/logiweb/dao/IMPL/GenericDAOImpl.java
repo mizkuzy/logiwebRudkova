@@ -5,6 +5,7 @@ import org.apache.log4j.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 import javax.persistence.PersistenceException;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
@@ -24,7 +25,7 @@ public abstract class GenericDAOImpl<E, K> implements GenericDAO<E, K> {
                 .getActualTypeArguments()[0];
     }
 
-    @PersistenceContext
+    @PersistenceContext(type = PersistenceContextType.EXTENDED)
     private EntityManager entityManager;
 
     /**
