@@ -1,9 +1,7 @@
 package ru.tsystems.logiweb.controllers;
 
 //todo удалить requests со статусом finished и определённым routlabel после выполнения заказа
-
-//TODO убрать httpRequest и поменять на model, где это возможно.
-// TODO  герман. почему из model нельзя вытащить атрибут?
+// todo заменить одинарный амперсанд на двойной везде и или тоже
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -97,6 +95,7 @@ public class ManagerController {
 
         //TODO Герман. Как сделать следующее: Нас возвращает на главную страницу, но поверх неё написано сообщение:
         //                                     Операция проведена успешно. Нажимаем ОК и окошко исчезает
+
         return "main_manager";
     }
 
@@ -137,7 +136,9 @@ public class ManagerController {
     @RequestMapping(value = "create_order")
     public String createOrder(Model model, HttpServletRequest httpRequest,
                               @RequestParam(value = "currentRoutLabel") String currentRoutLabel) {
+
         logger.info("Picking " + currentRoutLabel + " requests");
+//todo сделать защиту от дабл клика
 
         List<Request> requests = new ArrayList<>();
         httpRequest.getSession().setAttribute("currentRoutLabel", currentRoutLabel);
@@ -274,6 +275,7 @@ public class ManagerController {
      */
     @RequestMapping(value = "getVanForEdit")
     public String getVanForEdit(@RequestParam(value = "selectedVan") String idVanStr, HttpServletRequest request) {
+
         Van van = vanService.read(Integer.valueOf(idVanStr));
         request.getSession().setAttribute("selectedVan", van);
         return "editVan";
@@ -312,9 +314,11 @@ public class ManagerController {
      * @return specified jsp page
      */
     @RequestMapping(value = "deleteVan")
-    public String deleteVan(HttpServletRequest request) {
+    public String deleteVan(@RequestParam(value = "selectedVan") String idVanStr,
+                            HttpServletRequest request) {
 
-        vanService.delete((Van) request.getSession().getAttribute("selectedVan"));
+        Van van = vanService.read(Integer.valueOf(idVanStr));
+        vanService.delete(van);
 
         return "main_manager";
     }
@@ -325,14 +329,13 @@ public class ManagerController {
      * @return specified jsp page
      */
     @RequestMapping(value = "createVan")
-    public String createVan(){
-
+    public String createVan() {
         //todo т.к. у нас есть зависимость routLabel от driversCapacity, то надо бы с этим что-то сделать
-     return "createVan";
+        return "createVan";
     }
 
     /**
-     *Adds new van to DB.
+     * Adds new van to DB.
      *
      * @param vanNumber
      * @param driversAmountStr
@@ -362,6 +365,7 @@ public class ManagerController {
      */
     @RequestMapping(value = "drivers")
     public String showDriversList(HttpServletRequest request) {
+
 
         ArrayList<Driver> drivers = (ArrayList<Driver>) driverService.getAll();
 
@@ -417,7 +421,14 @@ public class ManagerController {
     @RequestMapping(value = "deleteDriver")
     public String deleteDriver(HttpServletRequest request) {
 
-        driverService.delete((Driver) request.getSession().getAttribute("selectedDriver"));
+        Driver driver = (Driver) request.getSession().getAttribute("selectedDriver");
+
+        logger.info(driver.getName());
+
+        //сначала нужно удалить ссылку на этого водителя в таблице Employee,
+        // затем запись в таблице Employee, а затем запись в таблице drivers
+        driverService.delete(driver);
+
         return "main_manager";
     }
 

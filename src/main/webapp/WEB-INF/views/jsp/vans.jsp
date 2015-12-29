@@ -41,10 +41,46 @@
 
         </td>
     </tr>
-    <% ArrayList<Van> vans = (ArrayList<Van>) request.getSession().getAttribute("vansList");
-        for (int i = 0; i < vans.size(); i++) {
-    %>
+    <%-- <% ArrayList<Van> vans = (ArrayList<Van>) request.getSession().getAttribute("vansList");
+         for (int i = 0; i < vans.size(); i++) {
+     %>--%>
+
+    <c:forEach items="${vansList}" var="van" varStatus="theCount">
     <tr>
+        <td>
+                ${van}
+        </td>
+        <td>
+                ${van.driversAmount}
+        </td>
+        <td>
+                ${van.capacity}
+        </td>
+        <td>
+                ${van.stateVan}
+        </td>
+        <td>
+                ${van.statusVan}
+        </td>
+        <td>
+            <div>
+                <form name="edit" action="getVanForEdit" method="get">
+                    <input type="hidden" name="selectedVan" value="${van.idVan}"/>
+                    <input type="submit" title="Edit" value="EDIT">
+                </form>
+            </div>
+            <div>
+                <form name="delete" action="deleteVan" method="get">
+                    <input type="hidden" name="selectedVan" value="${van.idVan}"/>
+                    <input type="submit" title="Delete" value="DELETE">
+                </form>
+            </div>
+        </td>
+    </tr>
+    </c:forEach>
+
+
+    <%--<tr>
         <td>
             <%=vans.get(i).getVanNumber()%>
         </td>
@@ -74,8 +110,8 @@
                 </form>
             </div>
         </td>
-    </tr>
-    <%} %>
+    </tr>--%>
+    <%--<%} %>--%>
 </table>
 
 <div>

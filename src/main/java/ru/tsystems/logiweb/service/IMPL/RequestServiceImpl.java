@@ -14,7 +14,6 @@ import ru.tsystems.logiweb.service.API.RequestService;
 import java.util.ArrayList;
 import java.util.List;
 
-//TODO Герман. сервисами и ДАО лучше всё покрывать или только то, что используется. Или лучше добавлять по ходу? Нужно ли удалить сейчас то, что не используется?
 
 /**
  * An implementation of RequestService API.

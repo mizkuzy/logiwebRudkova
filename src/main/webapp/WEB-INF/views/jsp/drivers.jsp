@@ -42,37 +42,38 @@
         </td>
     </tr>
     <% ArrayList<Driver> drivers = (ArrayList<Driver>) request.getSession().getAttribute("drivers");
-        for (Driver driver : drivers) {
+        for (int i = 0; i < drivers.size(); i++) {
+
     %>
     <tr>
-        <td>
-            <%=driver.getEmployee().getPersonalNumber()%>
+       <td>
+            <%--<%=driver.getEmployee().getPersonalNumber()%>--%>
         </td>
         <td>
-            <%=driver.getName()%>
+            <%=drivers.get(i).getName()%>
         </td>
         <td>
-            <%=driver.getSurname()%>
+            <%=drivers.get(i).getSurname()%>
         </td>
         <td>
-            <%=driver.getWorkHours()%>
+            <%=drivers.get(i).getWorkHours()%>
         </td>
         <td>
-            <%=driver.getState()%>
+            <%=drivers.get(i).getState()%>
         </td>
         <td>
-            <%=driver.getStatusDriver()%>
+            <%=drivers.get(i).getStatusDriver()%>
         </td>
         <td>
             <div>
                 <form name="edit" action="getDriverForEdit" method="get">
-                    <input type="hidden" name="selectedDriver" value="<%=driver.getId()%>"/>
+                    <input type="hidden" name="selectedDriver" value="<%=drivers.get(i).getId()%>"/>
                     <input type="submit" title="Edit" value="EDIT">
                 </form>
             </div>
             <div>
                 <form name="delete" action="deleteDriver" method="get">
-                    <input type="hidden" name="selectedDriver" value="<%=driver.getId()%>"/>
+                    <input type="hidden" name="selectedDriver" value="<%=drivers.get(i).getId()%>"/>
                     <input type="submit" title="Delete" value="DELETE">
                 </form>
             </div>

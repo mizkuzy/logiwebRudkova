@@ -72,7 +72,7 @@ public class EmployeeServiceImpl implements EmployeeService {
      * Get required EmployeeEntity by specified email.
      *
      * @param email
-     * @return Employee's instance. //TODO Герман. Можно ли здесь употребить instance?
+     * @return Employee's instance.
      * @throws NoResultException
      */
     @Override
@@ -82,8 +82,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         try {
             employee = employeeDAO.getEmployeeByEmail(email);
         } catch (NoResultException e) {
-            //TODO Герман. Какой тут тип логирования? error или warn?
-            logger.error("There is no entity with such email. Exception in EmployeeServiceImpl, getEntityByEmail().", e);
+            logger.warn("There is no entity with such email. Exception in EmployeeServiceImpl, getEntityByEmail().", e);
             throw new NoResultException();
         }
         return employee;
@@ -132,9 +131,6 @@ public class EmployeeServiceImpl implements EmployeeService {
      * @return
      */
     @Override
-    //TODO Герман. В этом методе нет обращения к БД, но мы обращаемся к методу,
-    // TODO который будет это делать.
-    // TODO Значит над этим методом не нужна аннотация @Transactional. ТАК?
     public Integer getPersonalNumber(String email) {
         Employee employee = getEntityByEmail(email);
         return employee.getPersonalNumber();

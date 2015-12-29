@@ -96,7 +96,7 @@ public class VanServiceImpl implements VanService {
         List<Van> appropriateVans = new ArrayList<Van>();
         if (vans != null) {
             for (Van van : vans) {
-                if ((van.getRoutLabelForVan().getLabel().equals(routLabelType)) & (van.getStatusVan().equals(VanStatus.WAIT)) & (van.getStateVan().equals(VanState.OK))) {
+                if ((van.getRoutLabelForVan().getLabel().equals(routLabelType)) && (van.getStatusVan().equals(VanStatus.WAIT)) && (van.getStateVan().equals(VanState.OK))) {
                     appropriateVans.add(van);
                 }
             }

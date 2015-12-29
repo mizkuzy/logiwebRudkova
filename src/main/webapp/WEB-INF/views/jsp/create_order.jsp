@@ -51,7 +51,7 @@
     jQuery(function () {
         var max = <%=session.getAttribute("maxCheckboxSelections")%>;
         var checkboxes = $('input[type="checkbox"]');
-
+        /*добавить jQuery selector*/
         checkboxes.change(function () {
             var current = checkboxes.filter(':checked').length;
             checkboxes.filter(':not(:checked)').prop('disabled', current >= max);
@@ -63,14 +63,15 @@
     <h4>Choose van</h4>
     <c:forEach items="${appropriateVans}" var="van" varStatus="theCount">
         <%-- <input type="hidden" name="htmlFormName" value="purple"/>--%>
-        <input type="checkbox" name="selectedVan" value="${theCount.count}" max="1">${van}<br>
+        <input type="checkbox" class="checkbox_vans" name="selectedVan" value="${theCount.count}" max="1">${van}<br>
     </c:forEach>
 
     <br>
     <h4>Choose ${maxCheckboxSelections-1} drivers</h4>
     <c:forEach items="${appropriateDrivers}" var="driver" varStatus="theCount">
         <%-- <input type="hidden" name="htmlFormName" value="purple"/>--%>
-        <input type="checkbox" name="selectedDriver" value="${theCount.count}" max="3">${driver}<br>
+        <input type="checkbox" class="checkbox_drivers" name="selectedDriver" value="${theCount.count}"
+               max="3">${driver}<br>
     </c:forEach>
 
     <input type="submit" value="SAVE ORDER">

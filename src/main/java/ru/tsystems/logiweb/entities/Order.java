@@ -16,7 +16,7 @@ public class Order {
     @Column(name = "id")
     private Integer idOrder;
 
-    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, mappedBy = "currentOrder")//todo Герман. насколько рационально загружать весь список водителей ?. в какой момент кстати они загружаются?
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, mappedBy = "currentOrder")
     private final List<Driver> drivers = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "currentOrder")

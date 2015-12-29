@@ -11,11 +11,11 @@
 </div>
 <div>
     <form name="add_driver_form" action="addDriver" method="post">
-        Name<input name="driverName" type="text"><br>
-        Surname<input name="driverSurname" type="text"><br>
-        e-mail<input name="email" type="text"><br>
-        password<input name="password" type="password"><br>
-        <input type="submit" title="add" value="ADD"><br>
+        Name<input name="driverName" type="text" required><br>
+        Surname<input name="driverSurname" type="text" required><br>
+        e-mail<input name="email" type="text" required><br>
+        password<input name="password" type="password" required><br>
+        <input type="submit" title="add" value="ADD" required><br>
     </form>
 </div>
 </body>

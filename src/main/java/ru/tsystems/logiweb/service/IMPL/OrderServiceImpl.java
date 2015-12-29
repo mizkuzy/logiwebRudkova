@@ -135,7 +135,7 @@ public class OrderServiceImpl implements OrderService {
      * Get required OrderEntity by specified number
      *
      * @param number
-     * @return Order's instance. //TODO Герман. Можно ли здесь употребить instance?
+     * @return Order's instance.
      */
     @Override
     public Order getByNumber(Integer number) {
@@ -159,7 +159,6 @@ public class OrderServiceImpl implements OrderService {
         order.setNumber(orderNumber);
         for (Request r : requests) {
             order.addRequest(r);
-            //TODO Герман. почему order не добавляется в request? Через дебаг я смотрела - нулов нет) но в БД не появляется(
             r.setCurrentOrder(order);
             requestService.update(r);
         }
@@ -172,7 +171,7 @@ public class OrderServiceImpl implements OrderService {
     /**
      * Counts whole mass of order by request
      *
-     * @param requests
+     * @param requests requests
      * @return order mass
      */
     @Override

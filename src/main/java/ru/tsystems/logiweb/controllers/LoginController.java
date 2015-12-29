@@ -45,6 +45,8 @@ public class LoginController {
         boolean validationIsOK = false;
         String email = request.getParameter("user");
         String password = request.getParameter("pswd");
+
+        //todo убрать обработку исключений в контроллере. создать свои исключения, и обрабатывать ихх фильтром
         try {
             validationIsOK = employeeService.checkEmailAndPassword(email, password);
             if (validationIsOK) {
@@ -55,7 +57,7 @@ public class LoginController {
             } else return "login";
         } catch (NoResultException e) {
             logger.info("Invalid login or password in loginDispatcher()");
-            throw new NoResultException();//TODO герман. ?
+            throw new NoResultException();
         }
 
     }
