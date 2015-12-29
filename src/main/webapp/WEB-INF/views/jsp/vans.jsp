@@ -79,7 +79,7 @@
 </table>
 
 <div>
-    <form name="add" action="createVan.jsp" method="get">
+    <form name="add" action="createVan" method="get">
         <input type="submit" title="Add new van" value="NEW">
     </form>
 </div>

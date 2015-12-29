@@ -317,6 +317,25 @@ public class ManagerController {
         return "main_manager";
     }
 
+    /**
+     * Dispatches to specified jsp page where you can type new van's date.
+     *
+     * @return specified jsp page
+     */
+    @RequestMapping(value = "createVan")
+    public String createVan(){
+
+     return "createVan";
+    }
+
+    /**
+     *Adds new van to DB.
+     *
+     * @param vanNumber
+     * @param driversAmountStr
+     * @param capacityStr
+     * @return main jsp page
+     */
     @RequestMapping(value = "addVan")
     public String addVan(@RequestParam(value = "vanNumber") String vanNumber,
                          @RequestParam(value = "driversAmount") String driversAmountStr,

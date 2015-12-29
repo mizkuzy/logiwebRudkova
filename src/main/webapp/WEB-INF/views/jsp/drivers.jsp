@@ -86,5 +86,6 @@
         <input type="submit" title="Add new driver" value="NEW">
     </form>
 </div>
+
 </body>
 </html>
