@@ -75,4 +75,16 @@ public class RoutLabelServiceImpl implements RoutLabelService {
     public List getAll() {
         return routLabelDAO.getAll();
     }
+
+    /**
+     * Get rout label by name.
+     *
+     * @param routLabel
+     * @return rout label
+     */
+    @Override
+    public RouteLabel getByName(String routLabel) {
+        return routLabelDAO.getByName(routLabel);
+    }
+
 }

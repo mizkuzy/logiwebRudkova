@@ -4,4 +4,5 @@ import ru.tsystems.logiweb.entities.RouteLabel;
 
 public interface RoutLabelGenericDAO extends GenericDAO<RouteLabel,Integer> {
 
+    RouteLabel getByName(String routLabel);
 }

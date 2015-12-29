@@ -28,6 +28,15 @@ public class Van {
         this.stateVan = VanState.OK;
     }
 
+    public Van(String vanNumber, Integer driversAmount, Integer capacity, RouteLabel routeLabel) {
+        this.vanNumber = vanNumber;
+        this.driversAmount = driversAmount;
+        this.capacity = capacity;
+        this.statusVan = VanStatus.WAIT;
+        this.stateVan = VanState.OK;
+        this.routLabelForVan = routeLabel;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")

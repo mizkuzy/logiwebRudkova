@@ -41,6 +41,8 @@ public class ManagerController {
     DriverService driverService;
     @Autowired
     EmployeeService employeeService;
+    @Autowired
+    RoutLabelService routLabelService;
 
     /**
      * Dispatch to the main jsp page for manager.
@@ -325,6 +327,7 @@ public class ManagerController {
     @RequestMapping(value = "createVan")
     public String createVan(){
 
+        //todo т.к. у нас есть зависимость routLabel от driversCapacity, то надо бы с этим что-то сделать
      return "createVan";
     }
 
@@ -339,9 +342,13 @@ public class ManagerController {
     @RequestMapping(value = "addVan")
     public String addVan(@RequestParam(value = "vanNumber") String vanNumber,
                          @RequestParam(value = "driversAmount") String driversAmountStr,
-                         @RequestParam(value = "capacity") String capacityStr) {
+                         @RequestParam(value = "capacity") String capacityStr,
+                         @RequestParam(value = "routLabel") String routLabel) {
 
-        Van van = new Van(vanNumber, Integer.valueOf(driversAmountStr), Integer.valueOf(capacityStr));
+        int driversAmount = Integer.valueOf(driversAmountStr);
+        RouteLabel routeLabel = routLabelService.getByName(routLabel);
+
+        Van van = new Van(vanNumber, driversAmount, Integer.valueOf(capacityStr), routeLabel);
         vanService.create(van);
 
         return "main_manager";
