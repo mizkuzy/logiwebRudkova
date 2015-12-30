@@ -15,7 +15,7 @@ import javax.persistence.PersistenceContext;
 /**
  * Tests of entity manager injection.
  */
-@ContextConfiguration(locations = "/spring.xml")
+@ContextConfiguration(locations = "classpath*:spring.xml")
 public class DITest extends AbstractJUnit4SpringContextTests{
 
     @PersistenceContext

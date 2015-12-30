@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 import ru.tsystems.logiweb.entities.Employee;
 import ru.tsystems.logiweb.entities.statusesAndStates.POSITION;
 import ru.tsystems.logiweb.service.API.EmployeeService;
@@ -52,13 +51,12 @@ public class LoginController {
             if (validationIsOK) {
                 Employee employee = employeeService.getEntityByEmail(email);
                 if (employee.getPosition().equals(POSITION.DRIVER)) {
-                    return "main_driver";
-                } else return "main_manager";
+                    return "driver/main_driver";
+                } else return "manager/main_manager";
             } else return "login";
         } catch (NoResultException e) {
             logger.info("Invalid login or password in loginDispatcher()");
             throw new NoResultException();
         }
-
     }
 }

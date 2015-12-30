@@ -49,8 +49,9 @@ public class ManagerController {
      */
     @RequestMapping(value = "main_manager")
     public String homeManager() {
+        //todo здесь потом парсить по ролям кого куда!
 
-        return "main_manager";
+        return "manager/main_manager";
     }
 
     /**
@@ -69,7 +70,7 @@ public class ManagerController {
         //TODO хорошо бы по-человечески сделать страничку с городами
         //TODO доделать страничку. пользователь может не выбрать что-то. обязательно сделать проверку на заполнение и выбор кадждого поля.
         // Плюс проблема с выпадающим списком
-        return "new_request";
+        return "manager/new_request";
     }
 
     /**
@@ -96,7 +97,7 @@ public class ManagerController {
         //TODO Герман. Как сделать следующее: Нас возвращает на главную страницу, но поверх неё написано сообщение:
         //                                     Операция проведена успешно. Нажимаем ОК и окошко исчезает
 
-        return "main_manager";
+        return "manager/main_manager";
     }
 
     /**
@@ -123,7 +124,7 @@ public class ManagerController {
         request.getSession().setAttribute("blueRoutRequests", requestsWithBlueRout);
 
         //TODO сделать неактивной кнопку handle, если заявок нет
-        return "current_requests";
+        return "manager/current_requests";
     }
 
     /**
@@ -179,7 +180,7 @@ public class ManagerController {
         int maxCheckboxSelections = vanService.getDriversCapacity(currentRoutLabel) + 1;//+1 means 1 van
         /*model.addAttribute("maxCheckboxSelections", maxCheckboxSelections);*/
         httpRequest.getSession().setAttribute("maxCheckboxSelections", maxCheckboxSelections);
-        return "create_order";
+        return "manager/create_order";
     }
 
     /**
@@ -224,7 +225,7 @@ public class ManagerController {
             logger.debug(d);
         }
 
-        return "main_manager";
+        return "manager/main_manager";
     }
 
     /**
@@ -247,7 +248,7 @@ public class ManagerController {
 
         //TODO Должна быть кнопка посмотреть выполненные заказы (ordersDONE) в orders_list.jsp
 
-        return "orders_list";
+        return "manager/orders_list";
     }
 
     /**
@@ -264,7 +265,7 @@ public class ManagerController {
         request.getSession().setAttribute("vansList", vansList);
 
         //todo добавить запрет на редактирование и удаление, если статус BUSY
-        return "vans";
+        return "manager/vans";
     }
 
     /**
@@ -278,7 +279,7 @@ public class ManagerController {
 
         Van van = vanService.read(Integer.valueOf(idVanStr));
         request.getSession().setAttribute("selectedVan", van);
-        return "editVan";
+        return "manager/editVan";
     }
 
     /**
@@ -304,7 +305,7 @@ public class ManagerController {
 
         vanService.update(van);
 
-        return "main_manager";
+        return "manager/main_manager";
     }
 
     /**
@@ -320,7 +321,7 @@ public class ManagerController {
         Van van = vanService.read(Integer.valueOf(idVanStr));
         vanService.delete(van);
 
-        return "main_manager";
+        return "manager/main_manager";
     }
 
     /**
@@ -331,7 +332,7 @@ public class ManagerController {
     @RequestMapping(value = "createVan")
     public String createVan() {
         //todo т.к. у нас есть зависимость routLabel от driversCapacity, то надо бы с этим что-то сделать
-        return "createVan";
+        return "manager/createVan";
     }
 
     /**
@@ -354,7 +355,7 @@ public class ManagerController {
         Van van = new Van(vanNumber, driversAmount, Integer.valueOf(capacityStr), routeLabel);
         vanService.create(van);
 
-        return "main_manager";
+        return "manager/main_manager";
     }
 
     /**
@@ -372,7 +373,7 @@ public class ManagerController {
         request.getSession().setAttribute("drivers", drivers);
 
         //todo добавить запрет на редактирование и удаление, если статус BUSY
-        return "drivers";
+        return "manager/drivers";
     }
 
     /**
@@ -387,7 +388,7 @@ public class ManagerController {
         Driver driver = driverService.read(Integer.valueOf(idDriverStr));
         request.getSession().setAttribute("selectedDriver", driver);
 
-        return "editDriver";
+        return "manager/editDriver";
     }
 
     /**
@@ -409,7 +410,7 @@ public class ManagerController {
 
         driverService.update(driver);
 
-        return "main_manager";
+        return "manager/main_manager";
     }
 
     /**
@@ -429,7 +430,7 @@ public class ManagerController {
         // затем запись в таблице Employee, а затем запись в таблице drivers
         driverService.delete(driver);
 
-        return "main_manager";
+        return "manager/main_manager";
     }
 
     /**
@@ -440,7 +441,7 @@ public class ManagerController {
     @RequestMapping(value = "createDriver")
     public String createDriver() {
 
-        return "createDriver";
+        return "manager/createDriver";
     }
 
     /**
@@ -467,7 +468,7 @@ public class ManagerController {
         employee.setPersonalNumber(driver.getId());
         employeeService.create(employee);
 
-        return "main_manager";
+        return "manager/main_manager";
     }
 
 }
