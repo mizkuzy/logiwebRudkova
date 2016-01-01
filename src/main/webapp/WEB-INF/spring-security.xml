@@ -17,19 +17,21 @@
         <intercept-url pattern="/login" access="permitAll"/>
         <intercept-url pattern="/driver/**" access="ROLE_DRIVER"/>
         <intercept-url pattern="/manager/**" access="ROLE_MANAGER"/>
-        <intercept-url pattern="/index" access="ROLE_MANAGER"/>
+
         <!--нижеследующая строчка добавляется в конце всех паттернов, т.к. права доступа раздаются сверху вниз.
         и теперь только зарегистрированные пользователи смогут блуждать по приложению
         -->
-        <intercept-url pattern="/*" access="isAuthenticated()"/>
+         <intercept-url pattern="/*" access="isAuthenticated()"/>
 
         <!--поменять потом на  login-processing-url="/loginDispatcher"-->
         <!--login-processing-url="/static/spring_security_check"-->
         <form-login
-                login-processing-url="/static/spring_security_check"
+                login-processing-url="/j_spring_security_check"
                 login-page="/login"
-                default-target-url="/main_manager"
+                default-target-url="/loginDispatcher"
                 authentication-failure-url="/login?error"
+                username-parameter="username"
+                password-parameter="password"
         />
 
         <logout invalidate-session="true"

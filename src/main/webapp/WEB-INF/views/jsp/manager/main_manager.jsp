@@ -9,12 +9,13 @@
 </head>
 <body>
 <h1>MANAGER'S APP</h1>
+
 <div>
     <a href="/logout/" class="exit link">
         <span>Выход</span>
     </a>
 </div>
-Hello, <security:authentication property="principal.username" />!
+<h3>Hello, <security:authentication property="principal.username"/>!</h3>
 
 <div>
     <form name="form_new_request" action="new_request" method="get">

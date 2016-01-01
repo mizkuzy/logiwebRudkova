@@ -2,20 +2,20 @@ package ru.tsystems.logiweb.controllers;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Role;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import ru.tsystems.logiweb.entities.Employee;
-import ru.tsystems.logiweb.entities.statusesAndStates.POSITION;
 import ru.tsystems.logiweb.service.API.EmployeeService;
 import ru.tsystems.logiweb.service.IMPL.UserService;
 
-import javax.persistence.NoResultException;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Collection;
 
 @Controller
 public class LoginController {
@@ -38,8 +38,8 @@ public class LoginController {
         return "login";
     }
 
-    public String index(Model model){
-        model.addAttribute("login","hi");
+    public String index(Model model) {
+        model.addAttribute("login", "hi");
         return "index";
     }
 
@@ -49,8 +49,8 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/denied")
-    public String denied(@RequestParam(value = "j_username") String usesrname,
-                         @RequestParam(value = "j_password") String password,
+    public String denied(@RequestParam(value = "usesrname") String usesrname,
+                         @RequestParam(value = "password") String password,
                          Model model) {
         logger.info("Tried to log in");
         model.addAttribute("error_msg", "Access denied!");
@@ -60,17 +60,25 @@ public class LoginController {
     /**
      * Decide what page app should show manager or driver or wrong authentication
      */
-    @RequestMapping(value = "loginDispatcher", method = RequestMethod.POST)
+    @RequestMapping(value = "/loginDispatcher")
     public String loginDispatcher(HttpServletRequest request) {
 
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User currentUser = (User) userService.loadUserByUsername(user.getUsername());
 
+
         request.getSession().setAttribute("currentUser", currentUser);
-        if (currentUser.getAuthorities().contains("ROLE_MANAGER")) {
-            return "main_manager";
-        } else if (currentUser.getAuthorities().contains("ROLE_DRIVER")) {
-            return "main_driver";
+        Collection<GrantedAuthority> authorities = currentUser.getAuthorities();
+
+        GrantedAuthority roleManager = new SimpleGrantedAuthority(
+                "ROLE_MANAGER");
+        GrantedAuthority roleDriver = new SimpleGrantedAuthority(
+                "ROLE_DRIVER");
+
+        if (currentUser.getAuthorities().contains(roleManager)) {
+            return "forward:/main_manager";
+        } else if (currentUser.getAuthorities().contains(roleDriver)) {
+            return "forward:/main_driver";
         }
         return "login";
     }
