@@ -1,19 +1,32 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>Authentication - LOGIWEB</title>
 </head>
 <body>
-<form role="form" name="login_form" action="/static/spring_security_check" method="post">
-    <div class="form-group">
-        <label for="email">E-mail</label>
-        <input name="username" type="email" class="form-control" id="email" placeholder="Type email">
-    </div>
-    <div class="form-group">
-        <label for="pass">Password</label>
-        <input name="password" type="password" class="form-control" id="pass" placeholder="Password">
-    </div>
-    <button type="submit" class="btn btn-success">Log in</button>
+
+<c:if test="${not empty param.error}">
+    ERROR VALIDATION
+</c:if>
+<form method="POST" action="<c:url value="/static/spring_security_check" />">
+    <table>
+        <tr>
+            <td align="right"></td>
+            <td><input type="text" name="j_username" /></td>
+        </tr>
+        <tr>
+            <td align="right"></td>
+            <td><input type="password" name="j_password" /></td>
+        </tr>
+        <%--<tr>
+            <td align="right"><spring:message code="label.remember" /></td>
+            <td><input type="checkbox" name="_spring_security_remember_me" /></td>
+        </tr>--%>
+        <tr>
+            <td colspan="2" align="right"><input type="submit" value="Login" />
+                <%--<input type="reset" value="Reset" /></td>--%>
+        </tr>
+    </table>
 </form>
 </body>
-</html>

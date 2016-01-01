@@ -470,5 +470,4 @@ public class ManagerController {
 
         return "manager/main_manager";
     }
-
 }

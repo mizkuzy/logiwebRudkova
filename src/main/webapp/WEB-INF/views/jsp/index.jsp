@@ -9,6 +9,7 @@
     LOGIWEB Project по версии Рудковой Людмилы
 </div>
 <form action="login">
+    ${login}
     <input type="submit" value="start" title="start">
 </form>
 <%--<b>${"test"}</b>--%>

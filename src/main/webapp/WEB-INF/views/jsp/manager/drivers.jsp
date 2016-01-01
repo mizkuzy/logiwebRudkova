@@ -42,15 +42,12 @@
 
         </td>
     </tr>
-    <%--<% ArrayList<Driver> drivers = (ArrayList<Driver>) request.getSession().getAttribute("drivers");
-        for (int i = 0; i < drivers.size(); i++) {
 
-    %>--%>
     <c:forEach items="${drivers}" var="driver" varStatus="theCount">
 
         <tr>
             <td>
-                 ${driver.getEmployee().getPersonalNumber()}   <%--<%=driver.getEmployee().getPersonalNumber()%>--%>
+                 ${driver.getEmployee().getPersonalNumber()}
             </td>
             <td>
                 ${driver.name}
@@ -83,7 +80,6 @@
             </td>
         </tr>
     </c:forEach>
-    <%--<%} %>--%>
 </table>
 
 <div>

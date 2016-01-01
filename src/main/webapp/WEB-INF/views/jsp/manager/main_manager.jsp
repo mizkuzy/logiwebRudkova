@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="security"
+           uri="http://www.springframework.org/security/tags" %>
 <!-- СДЕЛАТЬ САЙТ НА ДВУХ ЯЗЫКАХ-->
 <html lang="en">
 <head>
@@ -7,6 +9,12 @@
 </head>
 <body>
 <h1>MANAGER'S APP</h1>
+<div>
+    <a href="/logout/" class="exit link">
+        <span>Выход</span>
+    </a>
+</div>
+Hello, <security:authentication property="principal.username" />!
 
 <div>
     <form name="form_new_request" action="new_request" method="get">

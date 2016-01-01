@@ -23,8 +23,6 @@ public class HelloController {
     @RequestMapping(value = "/")
     public String mainPage(Model model) {
 
-        /*model.addAttribute("test", "test");*/
-
         return "index";
     }
 
