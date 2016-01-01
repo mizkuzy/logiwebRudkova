@@ -140,6 +140,9 @@ public class ManagerController {
     public String createOrder(Model model, HttpServletRequest httpRequest,
                               @RequestParam(value = "currentRoutLabel") String currentRoutLabel) {
 
+        //todo если мы попали на эту страницу, но не нажали saveOrder, а решили вернуться,
+        // то в базе данных у нас остаются не до конца оформленные заказы. Надо придумать как их удалять
+
         logger.info("Picking " + currentRoutLabel + " requests");
 //todo сделать защиту от дабл клика
 

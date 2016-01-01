@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="ru.tsystems.logiweb.entities.Order" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.List" %>
@@ -17,63 +18,46 @@
 </div>
 <div>
     <h1>Orders list</h1>
+    <c:forEach items="${ordersPROCESS}" var="order">
+        <p>Order number: &nbsp; ${order.number}
+        </p>
 
-    <% List<Order> ordersPROCESS = (ArrayList<Order>) request.getSession().getAttribute("ordersPROCESS");
-        for (Order o : ordersPROCESS) {
-    %>
-    <p>Order number: &nbsp; <%=o.getNumber()%>
-    </p>
+        <p>Van number: &nbsp; ${order.van}
+        </p>
 
-    <p>Van number: &nbsp;<%=o.getVan()%>
-    </p>
-
-    <p>
-        Drivers list:<br>
-        <%
-            List<Driver> drivers = o.getDrivers();
-            for (Driver d :
-                    drivers) {
-        %>
-        <%=d%><br>
-        <%
-            }
-        %>
-    </p>
+        <p>
+            Drivers list:<br>
+            <c:forEach items="${order.drivers}" var="driver">
+                ${driver}<br/>
+            </c:forEach>
+        </p>
 
         Routs points:
-    <table>
-        <tr>
-            <th>GOOD</th>
-            <th>CITY FROM</th>
-            <th>CITY TO</th>
-        </tr>
+        <table cellspacing="2" cellpadding="2">
+            <tr>
+                <th>GOOD</th>
+                <th>CITY FROM</th>
+                <th>CITY TO</th>
+            </tr>
+            <c:forEach items="${order.requests}" var="request">
+                <tr>
+                    <td>
+                            ${request.goodForRequest.name}
+                    </td>
+                    <td>
+                            ${request.routForRequest.city1}
+                    </td>
+                    <td>
+                            ${request.routForRequest.city2}
+                    </td>
+                </tr>
+            </c:forEach>
+        </table>
+        <hr noshade="noshade"/>
+    </c:forEach>
 
-        <%
-            List<Request> requests = o.getRequests();
-            for (Request r :
-                    requests) {%>
-        <tr>
-            <td>
-                <%=r.getGoodForRequest().getName()%>
-            </td>
-            <td>
-                <%=r.getRoutForRequest().getCity1()%>
-            </td>
-            <td>
-                <%=r.getRoutForRequest().getCity2()%>
-            </td>
-        </tr>
 
-        <% }
-        %>
-
-    </table>
-
-    <hr noshade="noshade"/>
-    <% }
-    %>
 </div>
-
 
 </body>
 </html>
