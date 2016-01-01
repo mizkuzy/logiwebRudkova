@@ -49,8 +49,6 @@ public class ManagerController {
      */
     @RequestMapping(value = "main_manager")
     public String homeManager() {
-        //todo здесь потом парсить по ролям кого куда!
-
         return "manager/main_manager";
     }
 
@@ -119,9 +117,13 @@ public class ManagerController {
         List<Request> requestsWithBlueRout = requestService.findRequestsWithSpecialRout("blue");
 
         request.getSession().setAttribute("yellowRoutRequests", requestsWithYellowRout);
+        request.getSession().setAttribute("yellowRoutRequestsSize", requestsWithYellowRout.size());
         request.getSession().setAttribute("greenRoutRequests", requestsWithGreenRout);
+        request.getSession().setAttribute("greenRoutRequestsSize", requestsWithGreenRout.size());
         request.getSession().setAttribute("purpleRoutRequests", requestsWithPurpleRout);
+        request.getSession().setAttribute("purpleRoutRequestsSize", requestsWithPurpleRout.size());
         request.getSession().setAttribute("blueRoutRequests", requestsWithBlueRout);
+        request.getSession().setAttribute("blueRoutRequestsSize", requestsWithBlueRout.size());
 
         //TODO сделать неактивной кнопку handle, если заявок нет
         return "manager/current_requests";
@@ -172,7 +174,6 @@ public class ManagerController {
         // а начальный у нас должен быть СПБ, что кстати тоже не учитывается, если нач. точка не спб. тут тупо считаются расстояния между пунктами
         int totalRequestAmount = requestService.getTotalRequestsAmount(requests);
 
-        //TODO пока не помню зачем я добавила DriverStatus(rest,work). на текущий момент обошлась DriverState(resr,work,drive)
         //TODO при подсчёте рабочих часов не уxитывается, если заказ совпадёт на переход с месяца на месяц
         List appropriateDrivers = driverService.getAppropriateDrivers(totalRequestAmount);
         httpRequest.getSession().setAttribute("appropriateDrivers", appropriateDrivers);

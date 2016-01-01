@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://www.springframework.org/tags" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="ru.tsystems.logiweb.entities.Request" %><%--
 <%-- <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> --%>
@@ -20,9 +21,9 @@
 <div>
     <form action="create_order" method="get">
         <input type="hidden" name="currentRoutLabel" value="yellow"/>
-        <% ArrayList<Request> yellowRequests = (ArrayList<Request>) request.getSession().getAttribute("yellowRoutRequests");%>
         YELLOW ROUT <br/>
-        WAIT:<%=yellowRequests.size()%>  requests<br/>
+        WAIT:${yellowRoutRequestsSize} requests<br/>
+
         <input type="submit" title="Handle" value="HANDLE">
     </form>
 </div>

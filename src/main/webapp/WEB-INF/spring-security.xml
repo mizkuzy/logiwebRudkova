@@ -21,7 +21,7 @@
         <!--нижеследующая строчка добавляется в конце всех паттернов, т.к. права доступа раздаются сверху вниз.
         и теперь только зарегистрированные пользователи смогут блуждать по приложению
         -->
-         <intercept-url pattern="/*" access="isAuthenticated()"/>
+        <intercept-url pattern="/*" access="isAuthenticated()"/>
 
         <!--поменять потом на  login-processing-url="/loginDispatcher"-->
         <!--login-processing-url="/static/spring_security_check"-->

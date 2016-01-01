@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="security"
            uri="http://www.springframework.org/security/tags" %>
-<!-- СДЕЛАТЬ САЙТ НА ДВУХ ЯЗЫКАХ-->
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">

@@ -2,7 +2,6 @@ package ru.tsystems.logiweb.controllers;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -38,11 +37,13 @@ public class LoginController {
         return "login";
     }
 
+    //todo сделать так, чтобы первая страница эта открывалась
     public String index(Model model) {
         model.addAttribute("login", "hi");
         return "index";
     }
 
+    // todo разрыва сесси не происходит при логАуте, при нажатии на бэкспейс я могу зайти в приложение
     @RequestMapping(value = "/logout")
     public String logout() {
         return "login";

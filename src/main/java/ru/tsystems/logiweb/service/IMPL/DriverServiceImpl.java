@@ -95,13 +95,14 @@ public class DriverServiceImpl implements DriverService {
         List<Driver> appropriateDrivers = new ArrayList<>(allDrivers.size());//size of this list obviously will not more then size of all drivers list
         if (allDrivers != null) {
             for (Driver d : allDrivers) {
-                if (((orderHours + d.getWorkHours()) <= MAX_WORK_HOURS_PER_MONTH) & (d.getState().equals(DriverState.WORK))) {
+                if (((orderHours + d.getWorkHours()) <= MAX_WORK_HOURS_PER_MONTH) &
+                        (d.getState().equals(DriverState.WORK)) & (d.getStatusDriver().equals(DriverStatus.FREE))) {
                     appropriateDrivers.add(d);
                 }
 
             }
         }
-        return appropriateDrivers; //TODO сюда поставить appropriateDrivers
+        return appropriateDrivers;
     }
 
     /**
