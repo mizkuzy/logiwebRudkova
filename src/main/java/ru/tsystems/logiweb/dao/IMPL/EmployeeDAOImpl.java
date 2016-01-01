@@ -11,9 +11,9 @@ import javax.persistence.*;
  * An implementation of EmployeeGenericDAO API.
  */
 @Repository("employeeDAO")
-public class EmployeeGenericDAOImpl extends GenericDAOImpl<Employee, Integer> implements EmployeeGenericDAO {
+public class EmployeeDAOImpl extends GenericDAOImpl<Employee, Integer> implements EmployeeGenericDAO {
 
-    private Logger logger = Logger.getLogger(EmployeeGenericDAOImpl.class);
+    private Logger logger = Logger.getLogger(EmployeeDAOImpl.class);
 
     @PersistenceContext(type = PersistenceContextType.EXTENDED)
     private EntityManager entityManager;

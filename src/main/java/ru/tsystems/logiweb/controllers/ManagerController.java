@@ -315,12 +315,10 @@ public class ManagerController {
     /**
      * Deletes selected van.
      *
-     * @param request
-     * @return specified jsp page
+     * @return main_manager.jsp
      */
     @RequestMapping(value = "deleteVan")
-    public String deleteVan(@RequestParam(value = "selectedVan") String idVanStr,
-                            HttpServletRequest request) {
+    public String deleteVan(@RequestParam(value = "selectedVan") String idVanStr) {
 
         Van van = vanService.read(Integer.valueOf(idVanStr));
         vanService.delete(van);
@@ -331,7 +329,7 @@ public class ManagerController {
     /**
      * Dispatches to specified jsp page where you can type new van's date.
      *
-     * @return specified jsp page
+     * @return specified createVan.jsp page
      */
     @RequestMapping(value = "createVan")
     public String createVan() {

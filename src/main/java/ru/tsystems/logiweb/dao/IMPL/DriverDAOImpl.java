@@ -12,7 +12,7 @@ import javax.persistence.PersistenceContextType;
  * An implementation of DriverGenericDAO API.
  */
 @Repository("driverDAO")
-public class DriverGenericDAOImpl extends GenericDAOImpl<Driver, Integer> implements DriverGenericDAO {
+public class DriverDAOImpl extends GenericDAOImpl<Driver, Integer> implements DriverGenericDAO {
 
     @PersistenceContext(type = PersistenceContextType.EXTENDED)
     private EntityManager entityManager;
