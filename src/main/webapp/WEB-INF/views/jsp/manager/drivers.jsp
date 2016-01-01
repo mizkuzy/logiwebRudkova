@@ -47,27 +47,27 @@
 
         <tr>
             <td>
-                 ${driver.getEmployee().getPersonalNumber()}
+                    ${driver.employee.personalNumber}
             </td>
             <td>
-                ${driver.name}
+                    ${driver.name}
             </td>
             <td>
                     ${driver.surname}
             </td>
             <td>
-                ${driver.workHours}
+                    ${driver.workHours}
             </td>
             <td>
-               ${driver.state}
+                    ${driver.state}
             </td>
             <td>
-                ${driver.statusDriver}
+                    ${driver.statusDriver}
             </td>
             <td>
                 <div>
                     <form name="edit" action="getDriverForEdit" method="get">
-                        <input type="hidden" name="selectedDriver" value="${driver.id}%>"/>
+                        <input type="hidden" name="selectedDriver" value="${driver.id}"/>
                         <input type="submit" title="Edit" value="EDIT">
                     </form>
                 </div>

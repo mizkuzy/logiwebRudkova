@@ -370,13 +370,12 @@ public class ManagerController {
      * @return specified jsp page
      */
     @RequestMapping(value = "drivers")
-    public String showDriversList(HttpServletRequest request) {
+    public String showDriversList(Model model, HttpServletRequest request) {
 
 
         ArrayList<Driver> drivers = (ArrayList<Driver>) driverService.getAll();
 
-        request.getSession().setAttribute("drivers", drivers);
-
+        model.addAttribute("drivers", drivers);
         //todo добавить запрет на редактирование и удаление, если статус BUSY
         return "manager/drivers";
     }
@@ -391,8 +390,8 @@ public class ManagerController {
     @RequestMapping(value = "getDriverForEdit")
     public String getDriverForEdit(@RequestParam(value = "selectedDriver") String idDriverStr, HttpServletRequest request) {
         Driver driver = driverService.read(Integer.valueOf(idDriverStr));
+        logger.info("selectedDriver: " + driver+", ID="+driver.getId());
         request.getSession().setAttribute("selectedDriver", driver);
-
         return "manager/editDriver";
     }
 
@@ -465,13 +464,15 @@ public class ManagerController {
                             @RequestParam(value = "password") String password) {
 
         Employee employee = new Employee(email, password, POSITION.DRIVER);
+        employeeService.create(employee);
+
         Driver driver = new Driver(driverName, driverSurname);
+        driverService.create(driver);
 
         employee.setDriverFK(driver);
 
-        driverService.create(driver);
         employee.setPersonalNumber(driver.getId());
-        employeeService.create(employee);
+        employeeService.update(employee);
 
         return "manager/main_manager";
     }
