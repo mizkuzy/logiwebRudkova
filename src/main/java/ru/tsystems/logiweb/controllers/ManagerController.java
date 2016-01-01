@@ -3,6 +3,7 @@ package ru.tsystems.logiweb.controllers;
 //todo удалить requests со статусом finished и определённым routlabel после выполнения заказа
 // todo заменить одинарный амперсанд на двойной везде и или тоже
 
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -279,10 +280,11 @@ public class ManagerController {
      * @return specified jsp page
      */
     @RequestMapping(value = "getVanForEdit")
-    public String getVanForEdit(@RequestParam(value = "selectedVan") String idVanStr, HttpServletRequest request) {
+    public String getVanForEdit(@RequestParam(value = "selectedVan") String idVanStr,
+                                Model model) {
 
         Van van = vanService.read(Integer.valueOf(idVanStr));
-        request.getSession().setAttribute("selectedVan", van);
+        model.addAttribute("selectedVan", van);
         return "manager/editVan";
     }
 
@@ -377,6 +379,9 @@ public class ManagerController {
 
         model.addAttribute("drivers", drivers);
         //todo добавить запрет на редактирование и удаление, если статус BUSY
+
+        //todo Как только добавил нового водителя через приложение, а потом смотришь список водителей,
+        // то personalNumber не отображается. Остальное работает
         return "manager/drivers";
     }
 
@@ -384,14 +389,17 @@ public class ManagerController {
      * Gets selected driver from the DB.
      *
      * @param idDriverStr
-     * @param request
+     * @param model
      * @return specified jsp page
      */
     @RequestMapping(value = "getDriverForEdit")
-    public String getDriverForEdit(@RequestParam(value = "selectedDriver") String idDriverStr, HttpServletRequest request) {
+    public String getDriverForEdit(@RequestParam(value = "selectedDriver") String idDriverStr,
+                                   Model model) {
+
+        //todo распарсить этотм метод для удаления и редактирования
         Driver driver = driverService.read(Integer.valueOf(idDriverStr));
-        logger.info("selectedDriver: " + driver+", ID="+driver.getId());
-        request.getSession().setAttribute("selectedDriver", driver);
+        logger.info("selectedDriver: " + driver + ", ID=" + driver.getId());
+        model.addAttribute("selectedDriver", driver);
         return "manager/editDriver";
     }
 
@@ -420,19 +428,24 @@ public class ManagerController {
     /**
      * Deletes selected driver.
      *
-     * @param request
+     * @param idDriverStr
      * @return specified jsp page
      */
     @RequestMapping(value = "deleteDriver")
-    public String deleteDriver(HttpServletRequest request) {
+    public String deleteDriver(@RequestParam(value = "selectedDriver") String idDriverStr) {
 
-        Driver driver = (Driver) request.getSession().getAttribute("selectedDriver");
 
-        logger.info(driver.getName());
+        Driver driver = driverService.read(Integer.valueOf(idDriverStr));
+        logger.info("selectedDriver: " + driver + ", ID=" + driver.getId());
 
-        //сначала нужно удалить ссылку на этого водителя в таблице Employee,
-        // затем запись в таблице Employee, а затем запись в таблице drivers
+        Employee employee = employeeService.getEntityByEmail(driver.getEmployee().getEmail());
+        logger.info("ID employee=" + employee.getEmployeeId());
+        employee.setDriverFK(null);
+        employeeService.update(employee);
         driverService.delete(driver);
+
+       /* Employee employeeToBeRemoved = employeeService.getEntityByEmail(driver.getEmployee().getEmail());*/
+        employeeService.delete(employee);
 
         return "manager/main_manager";
     }

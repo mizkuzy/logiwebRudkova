@@ -91,7 +91,7 @@ public abstract class GenericDAOImpl<E, K> implements GenericDAO<E, K> {
     @Override
     public void delete(E entity) throws PersistenceException {
         try {
-            entityManager.remove(entity);
+            entityManager.remove(entityManager.merge(entity));
         } catch (PersistenceException e) {
             logger.error("Deletion is failed! Exception in GenericDAOImpl, update().", e);
             throw new PersistenceException(e);

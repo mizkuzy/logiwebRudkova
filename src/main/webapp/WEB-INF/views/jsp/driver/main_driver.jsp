@@ -11,7 +11,7 @@
     <table>
         <tr>
             <td>Personal number: &nbsp;</td>
-            <td><%=request.getSession().getAttribute("personalNumber")%></td>
+            <td>HI!${username}</td>
         </tr>
     </table>
 </div>

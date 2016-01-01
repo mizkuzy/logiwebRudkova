@@ -29,11 +29,10 @@ public class LoginController {
     /**
      * Dispatches to  login.jsp.
      *
-     * @param model
      * @return login.jsp
      */
     @RequestMapping(value = "login")
-    public String login(Model model) {
+    public String login() {
         return "login";
     }
 
@@ -66,15 +65,16 @@ public class LoginController {
 
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User currentUser = (User) userService.loadUserByUsername(user.getUsername());
-
-
         request.getSession().setAttribute("currentUser", currentUser);
-        Collection<GrantedAuthority> authorities = currentUser.getAuthorities();
 
         GrantedAuthority roleManager = new SimpleGrantedAuthority(
                 "ROLE_MANAGER");
         GrantedAuthority roleDriver = new SimpleGrantedAuthority(
                 "ROLE_DRIVER");
+
+        logger.info("currentUser "+request.getSession().getAttribute("currentUser"));
+        request.getSession().setAttribute("username", currentUser);
+
 
         if (currentUser.getAuthorities().contains(roleManager)) {
             return "forward:/main_manager";
