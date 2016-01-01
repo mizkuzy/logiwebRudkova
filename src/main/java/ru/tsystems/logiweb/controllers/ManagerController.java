@@ -323,6 +323,9 @@ public class ManagerController {
         Van van = vanService.read(Integer.valueOf(idVanStr));
         vanService.delete(van);
 
+        //todo sometimes we can't delete cuz of strange exception:
+        // org.springframework.aop.framework.JdkDynamicAopProxy.invoke(java.lang.Object, java.lang.reflect.Method, java.lang.Object[])=null
+
         return "manager/main_manager";
     }
 
