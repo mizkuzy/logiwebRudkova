@@ -31,27 +31,24 @@
 <div>
     <form action="create_order" method="get">
         <input type="hidden" name="currentRoutLabel" value="green"/>
-        <% ArrayList<Request> greenRequests = (ArrayList<Request>) request.getSession().getAttribute("greenRoutRequests");%>
         GREEN ROUT <br/>
-        WAIT: <%=greenRequests.size()%> requests <br/>
+        WAIT:${greenRoutRequestsSize} requests <br/>
         <input type="submit" title="Handle" value="HANDLE">
     </form>
 </div>
 <div>
     <form action="create_order" method="get">
         <input type="hidden" name="currentRoutLabel" value="purple"/>
-        <% ArrayList<Request> purpleRequests = (ArrayList<Request>) request.getSession().getAttribute("purpleRoutRequests");%>
         PURPLE ROUT <br/>
-        WAIT: <%=purpleRequests.size()%> requests <br/>
+        WAIT: ${purpleRoutRequestsSize} requests <br/>
         <input type="submit" title="Handle" value="HANDLE">
     </form>
 </div>
 <div>
     <form action="create_order" method="get">
         <input type="hidden" name="currentRoutLabel" value="blue"/>
-        <% ArrayList<Request> blueRequests = (ArrayList<Request>) request.getSession().getAttribute("blueRoutRequests");%>
         BLUE ROUT <br/>
-        WAIT: <%=blueRequests.size()%> requests <br/>
+        WAIT:${blueRoutRequestsSize} requests <br/>
         <input type="submit" title="Handle" value="HANDLE">
     </form>
 </div>

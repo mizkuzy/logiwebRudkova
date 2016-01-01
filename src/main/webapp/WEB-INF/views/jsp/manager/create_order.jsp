@@ -19,10 +19,9 @@
 </div>
 
 <form>
-    <% Order order = (Order) request.getSession().getAttribute("order");%>
-    Order number: &nbsp;<%=order.getNumber()%>
+    Order number: &nbsp;${order.number}
     <div>
-        Status: &nbsp;<%=order.getStatus()%>
+        Status: &nbsp;${order.status}
     </div>
     <div>
         <table class="table-bordered" border="2" width="2" cellspacing="2" cellpadding="2">
@@ -31,18 +30,21 @@
                 <th>City1</th>
                 <th>City2</th>
             </tr>
-            <% List<Request> currentRequests = order.getRequests();
-                for (Request r : currentRequests) {%>
-            <tr>
-                <td><%=r.getGoodForRequest().getName()%>
-                </td>
-                <td><%=r.getRoutForRequest().getCity1()%>
-                </td>
-                <td><%=r.getRoutForRequest().getCity2()%>
-                </td>
-                <% }
-                %>
-            </tr>
+
+            <c:forEach items="${order.requests}" var="request">
+                <tr>
+                    <td>
+                            ${request.goodForRequest.name}
+                    </td>
+                    <td>
+                            ${request.routForRequest.city1}
+                    </td>
+                    <td>
+                            ${request.routForRequest.city2}
+                    </td>
+                </tr>
+            </c:forEach>
+
         </table>
     </div>
     Общая масса: &nbsp;${mass}<%--<%=request.getSession().getAttribute("mass")%>--%><br>
