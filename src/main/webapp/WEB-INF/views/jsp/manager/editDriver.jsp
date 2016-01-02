@@ -12,11 +12,8 @@
 </div>
 <div>
     <form name="edit_driver_form" action="editDriver" method="post">
-        <%
-            Driver driver = (Driver) request.getSession().getAttribute("selectedDriver");
-        %>
-        Name<input name="driverName" type="text" value="<%=driver.getName()%>" required><br>
-        Surname<input name="driverSurname" type="text" value="<%=driver.getSurname()%>" required><br>
+        Name<input name="driverName" type="text" value="${selectedDriver.name}" required><br>
+        Surname<input name="driverSurname" type="text" value="${selectedDriver.surname}" required><br>
         <input type="submit" title="edit" value="EDIT"><br>
     </form>
 </div>

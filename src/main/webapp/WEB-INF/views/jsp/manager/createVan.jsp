@@ -30,7 +30,7 @@
         <input type="checkbox" name="routLabel" value="green">green
         <input type="checkbox" name="routLabel" value="purple">purple
         <input type="checkbox" name="routLabel"value="blue">blue
-
+<br/>
         <input type="submit" title="add" value="ADD"><br>
     </form>
 </div>

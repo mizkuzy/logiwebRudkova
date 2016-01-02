@@ -241,6 +241,7 @@ public class ManagerController {
      */
     @RequestMapping(value = "orders_list")
     public String showOrdersList(HttpServletRequest request) {
+        //todo добавить кнопку, по которой заказ будет завершаться
 
         List ordersPROCESS = orderService.getOrdersProcess();
         List ordersDONE = orderService.getOrdersDone();
@@ -326,8 +327,8 @@ public class ManagerController {
         Van van = vanService.read(Integer.valueOf(idVanStr));
         vanService.delete(van);
 
-        //todo sometimes we can't delete cuz of strange exception:
-        // org.springframework.aop.framework.JdkDynamicAopProxy.invoke(java.lang.Object, java.lang.reflect.Method, java.lang.Object[])=null
+        //todo sometimes we can't delete van if it is foreign key for order
+
 
         return "manager/main_manager";
     }
@@ -390,17 +391,16 @@ public class ManagerController {
      * Gets selected driver from the DB.
      *
      * @param idDriverStr
-     * @param model
      * @return specified jsp page
      */
     @RequestMapping(value = "getDriverForEdit")
     public String getDriverForEdit(@RequestParam(value = "selectedDriver") String idDriverStr,
-                                   Model model) {
+                                  HttpServletRequest request) {
 
         //todo распарсить этотм метод для удаления и редактирования
         Driver driver = driverService.read(Integer.valueOf(idDriverStr));
         logger.info("selectedDriver: " + driver + ", ID=" + driver.getId());
-        model.addAttribute("selectedDriver", driver);
+        request.getSession().setAttribute("selectedDriver", driver);
         return "manager/editDriver";
     }
 
