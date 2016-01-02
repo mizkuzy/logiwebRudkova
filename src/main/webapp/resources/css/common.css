@@ -1,0 +1,29 @@
+.header{
+margin-bottom: 40px;
+}
+.btn-custom {
+    background-color: #c20ae0;
+    border-color: #c20ae0;
+}
+.btn-custom:hover,
+.btn-custom:focus,
+.btn-custom:active,
+.btn-custom.active {
+    background-color: #ad09c8;
+    border-color: #9808af;
+}
+.btn-custom.disabled:hover,
+.btn-custom.disabled:focus,
+.btn-custom.disabled:active,
+.btn-custom.disabled.active,
+.btn-custom[disabled]:hover,
+.btn-custom[disabled]:focus,
+.btn-custom[disabled]:active,
+.btn-custom[disabled].active,
+fieldset[disabled] .btn-custom:hover,
+fieldset[disabled] .btn-custom:focus,
+fieldset[disabled] .btn-custom:active,
+fieldset[disabled] .btn-custom.active {
+    background-color: #c20ae0;
+    border-color: #c20ae0;
+}
