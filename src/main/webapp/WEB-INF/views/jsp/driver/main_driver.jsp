@@ -8,6 +8,12 @@
 <h1>DRIVER'S APP</h1>
 
 <div>
+    <a href="/logout/" class="exit link">
+        <span>Выход</span>
+    </a>
+</div>
+
+<div>
     <h3> Hello, ${driverName}</h3>
 </div>
 

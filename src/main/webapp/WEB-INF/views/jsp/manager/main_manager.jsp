@@ -18,8 +18,10 @@
 <h3>Hello, <security:authentication property="principal.username"/>!</h3>
 
 <div>
+
     <form name="form_new_request" action="new_request" method="get">
-        <input type="submit" title="New request" value="NEW REQUEST">
+        <button type="button" class="btn btn-default" value="NEW REQUEST">Default</button>
+        <%-- <input type="submit" title="New request" value="NEW REQUEST">--%>
     </form>
 </div>
 <div>
