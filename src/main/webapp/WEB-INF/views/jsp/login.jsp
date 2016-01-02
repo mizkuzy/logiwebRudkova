@@ -43,7 +43,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="inputPassword3" class="col-sm-2 control-label">Пароль</label>
+                <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
 
                 <div class="col-sm-10">
                     <input type="password" name="password" class="form-control" id="inputPassword3"
@@ -61,7 +61,7 @@
             </div>--%>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" class="btn btn-success">Войти</button>
+                    <button type="submit" class="btn btn-success">Log in</button>
                 </div>
             </div>
         </form>

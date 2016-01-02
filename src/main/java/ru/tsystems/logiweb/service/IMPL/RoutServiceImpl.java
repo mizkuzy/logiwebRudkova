@@ -95,21 +95,60 @@ public class RoutServiceImpl implements RoutService {
 
     /**
      * Collects all cities and return list of all cities
+     *
      * @return citiesList
      */
     @Override
     public List<String> getCities() {
-        final int CITIES_AMOUNT = 10;
+        final int CITIES_AMOUNT = 11;
         List<String> cities = new ArrayList<>(CITIES_AMOUNT);
         cities.add("Saint-Petersburg");
-        cities.add("Veliky Novgorod");
+        cities.add("Veliky_Novgorod");
         cities.add("Pskov");
         cities.add("Petrozavodsk");
         cities.add("Arhangelsk");
         cities.add("Vologda");
         cities.add("Siktivkar");
-        cities.add("Nary'an-Mar");
+        cities.add("Naryan-Mar");
         cities.add("Murmansk");
+        cities.add("Kaliningrad");
+        cities.add("Cherepovec");
+        return cities;
+    }
+
+    @Override
+    public List<String> getCitiesForSPb() {
+        final int CITIES_AMOUNT = 10;
+        List<String> cities = new ArrayList<>(CITIES_AMOUNT);
+        cities.add("Veliky_Novgorod");
+        cities.add("Pskov");
+        cities.add("Petrozavodsk");
+        cities.add("Arhangelsk");
+        cities.add("Vologda");
+        cities.add("Siktivkar");
+        cities.add("Naryan-Mar");
+        cities.add("Murmansk");
+        cities.add("Kaliningrad");
+        cities.add("Cherepovec");
+        return cities;
+    }
+
+    @Override
+    public List<String> getCitiesForVelikyNovgorod() {
+        final int CITIES_AMOUNT = 3;
+        List<String> cities = new ArrayList<>(CITIES_AMOUNT);
+        cities.add("Saint-Petersburg");
+        cities.add("Pskov");
+        cities.add("Kaliningrad");
+        return cities;
+    }
+
+    @Override
+    public List<String> getCitiesForPskov() {
+        final int CITIES_AMOUNT = 3;
+        List<String> cities = new ArrayList<>(CITIES_AMOUNT);
+        cities.add("Saint-Petersburg");
+        cities.add("Veliky_Novgorod");
         cities.add("Kaliningrad");
         return cities;
     }

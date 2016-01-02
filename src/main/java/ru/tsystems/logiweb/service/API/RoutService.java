@@ -10,4 +10,10 @@ public interface RoutService extends GenericService<Rout, Integer> {
     Rout getByCities(String city1, String city2) throws PersistenceException;
 
     List<String> getCities();
+
+    List<String> getCitiesForSPb();
+
+    List<String> getCitiesForVelikyNovgorod();
+
+    List<String> getCitiesForPskov();
 }

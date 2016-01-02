@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import ru.tsystems.logiweb.entities.*;
 import ru.tsystems.logiweb.entities.statusesAndStates.POSITION;
 import ru.tsystems.logiweb.service.API.*;
@@ -59,16 +60,17 @@ public class ManagerController {
      * @return specified jsp page
      */
     @RequestMapping(value = "new_request")
-    public String newRequest(HttpServletRequest request) {
-        /*List<String> cities = routService.getCities();
-        request.getSession().setAttribute("cities", cities);
-        logger.info("Got cities list and set in session");*/
+    public String newRequest(Model model) {
+        List<String> cities = routService.getCities();
+        model.addAttribute("cities", cities);
+        logger.info("Got cities list and set in session");
+        model.addAttribute("spbChoosed", routService.getCitiesForSPb());
+        model.addAttribute("velikyNovgorodChoosed", routService.getCitiesForVelikyNovgorod());
+        model.addAttribute("pskovChoosed", routService.getCitiesForPskov());
 
         //todo если в названии товара пробел, то вылетит ошибка
+        //todo либо сделать ajax запрос, либо добавить все остальные варианты city2
 
-        //TODO хорошо бы по-человечески сделать страничку с городами
-        //TODO доделать страничку. пользователь может не выбрать что-то. обязательно сделать проверку на заполнение и выбор кадждого поля.
-        // Плюс проблема с выпадающим списком
         return "manager/new_request";
     }
 
@@ -395,7 +397,7 @@ public class ManagerController {
      */
     @RequestMapping(value = "getDriverForEdit")
     public String getDriverForEdit(@RequestParam(value = "selectedDriver") String idDriverStr,
-                                  HttpServletRequest request) {
+                                   HttpServletRequest request) {
 
         //todo распарсить этотм метод для удаления и редактирования
         Driver driver = driverService.read(Integer.valueOf(idDriverStr));

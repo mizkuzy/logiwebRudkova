@@ -11,7 +11,7 @@
     <link href="<c:url value="/resources/css/bootstrap.min.css"/>" rel="stylesheet">
     <link href="<c:url value="/resources/css/common.css"/>" rel="stylesheet">
     <link href="<c:url value="/resources/css/dashboard.css"/>" rel="stylesheet">
-    <script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
+
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 
@@ -39,7 +39,7 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#"><security:authentication property="principal.username"/></a> </li>
-                <li><a href="#">Logout</a></li>
+                <li><a href="/logout/">Logout</a></li>
             </ul>
         </div>
     </div>
@@ -49,7 +49,7 @@
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
-                <li class="active">Menu</li>
+                <li class="active"><a href="#">Menu</a></li>
                 <li><a href="new_request">New Request</a></li>
                 <li><a href="pick_up_requests">Pick up requests</a></li>
                 <li><a href="orders_list">Orders list</a></li>
@@ -57,7 +57,6 @@
                 <li><a href="drivers">Drivers</a></li>
             </ul>
         </div>
-
     </div>
 </div>
 <div>
