@@ -1,11 +1,16 @@
 package ru.tsystems.logiweb.controllers;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import ru.tsystems.logiweb.entities.Driver;
+import ru.tsystems.logiweb.entities.Employee;
+import ru.tsystems.logiweb.service.API.DriverService;
+import ru.tsystems.logiweb.service.API.EmployeeService;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -13,6 +18,11 @@ import javax.servlet.http.HttpServletRequest;
 public class DriverController {
 
     private Logger logger = Logger.getLogger(DriverController.class);
+
+    @Autowired
+    private DriverService driverService;
+    @Autowired
+    private EmployeeService employeeService;
 
     /**
      * Dispatch to the page main_driver.jsp.
@@ -24,9 +34,15 @@ public class DriverController {
 
         logger.info(request.getSession().getAttribute("currentUser"));
         User user = (User) request.getSession().getAttribute("currentUser");
-        request.getSession().setAttribute("username", user.getUsername());
+
+        Employee employee = employeeService.getEntityByEmail(user.getUsername());
+        Driver driver = employee.getDriverFK();
+
+        String driverName = driver.getName() + " " + driver.getSurname();
+        model.addAttribute("driverName", driverName);
+        model.addAttribute("driverPersonalNumber", employee.getPersonalNumber());
+        model.addAttribute("currentOrder", driver.getCurrentOrder());
 
         return "driver/main_driver";
     }
-
 }

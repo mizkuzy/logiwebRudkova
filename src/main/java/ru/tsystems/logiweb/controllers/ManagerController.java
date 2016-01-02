@@ -37,11 +37,11 @@ public class ManagerController {
     @Autowired
     private VanService vanService;
     @Autowired
-    DriverService driverService;
+    private DriverService driverService;
     @Autowired
-    EmployeeService employeeService;
+    private EmployeeService employeeService;
     @Autowired
-    RoutLabelService routLabelService;
+    private RoutLabelService routLabelService;
 
     /**
      * Dispatch to the main jsp page for manager.
@@ -281,10 +281,10 @@ public class ManagerController {
      */
     @RequestMapping(value = "getVanForEdit")
     public String getVanForEdit(@RequestParam(value = "selectedVan") String idVanStr,
-                                Model model) {
+                                HttpServletRequest request) {
 
         Van van = vanService.read(Integer.valueOf(idVanStr));
-        model.addAttribute("selectedVan", van);
+        request.getSession().setAttribute("selectedVan", van);
         return "manager/editVan";
     }
 
@@ -304,6 +304,7 @@ public class ManagerController {
                           HttpServletRequest request) {
 
         Van van = (Van) request.getSession().getAttribute("selectedVan");
+
         //todo проверять номер в соответствии с паттерном
         van.setVanNumber(vanNumber);
         van.setDriversAmount(Integer.valueOf(driversAmount));

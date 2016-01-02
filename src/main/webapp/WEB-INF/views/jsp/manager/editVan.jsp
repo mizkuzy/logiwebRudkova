@@ -12,11 +12,9 @@
 </div>
 <div>
     <form name="edit_van_form" action="editVan" method="post">
-        <% Van van = (Van) request.getSession().getAttribute("selectedVan");%>
-        <br>
-        Registration Number<input name="vanNumber" type="text" value="<%=van.getVanNumber()%>" required><br>
-        Drivers capacity<input name="driversAmount" type="text" value="<%=van.getDriversAmount()%>" required><br>
-        Capacity (ton)<input name="capacity" type="text" value="<%=van.getCapacity()%>" required><br>
+        Registration Number<input name="vanNumber" type="text" value="${selectedVan.vanNumber}" required><br>
+        Drivers capacity<input name="driversAmount" type="text" value="${selectedVan.driversAmount}" required><br>
+        Capacity (ton)<input name="capacity" type="text" value="${selectedVan.capacity}" required><br>
         <input type="submit" title="edit" value="EDIT"><br>
     </form>
 </div>
