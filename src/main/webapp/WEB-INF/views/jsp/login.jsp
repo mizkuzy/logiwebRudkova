@@ -30,7 +30,7 @@
     ERROR VALIDATION
 </c:if>--%>
 
-<div class="container">
+<div class="container text-center">
     <div class="col-sm-6">
         <h1 class="header">Please sign in</h1>
 

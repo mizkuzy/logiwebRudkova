@@ -32,7 +32,6 @@ public class DriverController {
     @RequestMapping(value = "main_driver")
     public String mainDriver(Model model, HttpServletRequest request) {
 
-        logger.info(request.getSession().getAttribute("currentUser"));
         User user = (User) request.getSession().getAttribute("currentUser");
 
         Employee employee = employeeService.getEntityByEmail(user.getUsername());
