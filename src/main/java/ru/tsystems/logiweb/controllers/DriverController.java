@@ -17,10 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class DriverController {
 
-    private Logger logger = Logger.getLogger(DriverController.class);
-
-    @Autowired
-    private DriverService driverService;
     @Autowired
     private EmployeeService employeeService;
 
@@ -42,7 +38,6 @@ public class DriverController {
         model.addAttribute("driverPersonalNumber", employee.getPersonalNumber());
         model.addAttribute("currentOrder", driver.getCurrentOrder());
 
-        //todo убрать из списка водителей самого водителя
         return "driver/main_driver";
     }
 }
