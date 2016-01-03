@@ -103,7 +103,19 @@
             <tr>
                 <form:form class="form-horizontal" role="form" action="save_order" method="get">
                     <td>
+                        <div class="form-group">
+                            <div class="col-sm-5">
+                                <b>Choose ${maxCheckboxSelections-1} drivers:</b><br>
+                                <c:forEach items="${appropriateDrivers}" var="driver" varStatus="theCount">
+                                    <input type="checkbox" class="checkbox_drivers" name="selectedDriver"
+                                           value="${theCount.count}"
+                                           max="3">${driver}<br>
+                                </c:forEach>
+                            </div>
+                        </div>
+                    </td>
 
+                    <td>
                         <div class="form-group">
                             <div class="col-sm-5">
                                 <b>Choose van:</b><br>
@@ -114,25 +126,10 @@
                                 </c:forEach>
                             </div>
                         </div>
-                    </td>
-
-                    <td>
                         <div class="form-group">
                             <div class="col-sm-5">
-                                <b>Choose ${maxCheckboxSelections-1} drivers:</b><br>
-                                <c:forEach items="${appropriateDrivers}" var="driver" varStatus="theCount">
-                                    <%-- <input type="hidden" name="htmlFormName" value="purple"/>--%>
-                                    <input type="checkbox" class="checkbox_drivers" name="selectedDriver"
-                                           value="${theCount.count}"
-                                           max="3">${driver}<br>
-                                </c:forEach>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-sm-5">
-                                <button type="submit" class="btn btn-success" title="Save order" value="SAVE ORDER">SAVE
-                                    ORDER
+                                <button type="submit" class="btn btn-success" title="Save order"
+                                        value="SAVE ORDER">SAVE ORDER
                                 </button>
                             </div>
                         </div>
