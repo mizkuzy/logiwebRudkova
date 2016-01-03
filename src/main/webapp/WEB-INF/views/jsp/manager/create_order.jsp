@@ -143,33 +143,6 @@
 
     </div>
 </div>
-<%--<form>
-&lt;%&ndash;     <div>
-         <table class="table-bordered my-settings" >
-             <tr>
-                 <th>Goods</th>
-                 <th>City1</th>
-                 <th>City2</th>
-             </tr>
-
-             <c:forEach items="${order.requests}" var="request">
-                 <tr>
-                     <td>
-                             ${request.goodForRequest.name}
-                     </td>
-                     <td>
-                             ${request.routForRequest.city1}
-                     </td>
-                     <td>
-                             ${request.routForRequest.city2}
-                     </td>
-                 </tr>
-             </c:forEach>
-
-         </table>
-     </div>&ndash;%&gt;
-    Общая масса: &nbsp;${mass}&lt;%&ndash;<%=request.getSession().getAttribute("mass")%>&ndash;%&gt;<br>
-</form>--%>
 <script>
     jQuery(function () {
         var max = <%=session.getAttribute("maxCheckboxSelections")%>;
@@ -181,23 +154,5 @@
         });
     });
 </script>
-<%--
-<form action="save_order" method="get">
-    <h4>Choose van</h4>
-    <c:forEach items="${appropriateVans}" var="van" varStatus="theCount">
-        &lt;%&ndash; <input type="hidden" name="htmlFormName" value="purple"/>&ndash;%&gt;
-        <input type="checkbox" class="checkbox_vans" name="selectedVan" value="${theCount.count}" max="1">${van}<br>
-    </c:forEach>
-
-    <br>
-    <h4>Choose ${maxCheckboxSelections-1} drivers</h4>
-    <c:forEach items="${appropriateDrivers}" var="driver" varStatus="theCount">
-        &lt;%&ndash; <input type="hidden" name="htmlFormName" value="purple"/>&ndash;%&gt;
-        <input type="checkbox" class="checkbox_drivers" name="selectedDriver" value="${theCount.count}"
-               max="3">${driver}<br>
-    </c:forEach>
-
-    <input type="submit" value="SAVE ORDER">
-</form>--%>
 </body>
 </html>
