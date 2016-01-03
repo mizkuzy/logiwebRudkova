@@ -1,14 +1,15 @@
 package ru.tsystems.logiweb.service.IMPL;
 
+import org.apache.log4j.Logger;
 import ru.tsystems.logiweb.dao.API.DriverGenericDAO;
 import ru.tsystems.logiweb.entities.Driver;
+import ru.tsystems.logiweb.entities.Order;
 import ru.tsystems.logiweb.entities.statusesAndStates.DriverState;
 import ru.tsystems.logiweb.entities.statusesAndStates.DriverStatus;
 import ru.tsystems.logiweb.service.API.DriverService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import sun.util.calendar.CalendarDate;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,6 +22,8 @@ import java.util.List;
 public class DriverServiceImpl implements DriverService {
 
     public static final int MAX_WORK_HOURS_PER_MONTH = 176;
+
+    private Logger logger = Logger.getLogger(DriverServiceImpl.class);
 
     //TODO ещё лучше разобраться с этой аннотацией
     @Autowired
@@ -121,10 +124,18 @@ public class DriverServiceImpl implements DriverService {
         }
     }
 
+    /**
+     * Gets selected drivers.
+     *
+     * @param drivers
+     * @param selectedDriversID
+     * @return selected drivers list
+     */
     @Override
     public List<Driver> getSelectedDrivers(List<Driver> drivers, String[] selectedDriversID) {
 
         int[] driversID = new int[selectedDriversID.length];
+
         List<Driver> selectedDrivers = new ArrayList<>();
 
         for (int i = 0; i < selectedDriversID.length; i++) {
@@ -138,14 +149,71 @@ public class DriverServiceImpl implements DriverService {
         return selectedDrivers;
     }
 
+    /**
+     * Changes driver's status to status in parameter.
+     *
+     * @param selectedDrivers
+     * @param driverStatus
+     */
     @Override
     @Transactional
-    public void changeDriversStatuses(List<Driver> selectedDrivers) {
-        for (Driver d :
-                selectedDrivers) {
-            d.setStatusDriver(DriverStatus.BUSY);
+    public void changeDriversStatuses(List<Driver> selectedDrivers, DriverStatus driverStatus) {
+        for (Driver d : selectedDrivers) {
+            d.setStatusDriver(driverStatus);
             update(d);
         }
+        logger.info("Selected drivers' statuses are changed to " + driverStatus);
     }
 
+    /**
+     * Gets drivers related to orderID.
+     *
+     * @param orderID
+     * @return list of drivers
+     */
+    @Override
+    @Transactional
+    public List<Driver> getBusyDrivers(int orderID) {
+
+        logger.info("Incoming order: " + orderID);
+
+        List<Driver> allDrivers = driverDao.getAll();
+        List<Driver> busyDrivers = new ArrayList<>(allDrivers.size());
+
+        for (Driver d : allDrivers) {
+            Order currentOrder = d.getCurrentOrder();
+            if (currentOrder != null) {
+                Integer currentOrderID = d.getCurrentOrder().getIdOrder();
+                if (currentOrderID != null) {
+                    if (currentOrderID.equals(orderID)) {
+                        logger.info("Driver: " + d + ", currentOrder: " + currentOrderID);
+                        busyDrivers.add(d);
+                    }
+                }
+            }
+        }
+        return busyDrivers;
+    }
+
+    /**
+     * Deletes links related with drivers.
+     *
+     * @param busyDrivers
+     * @param order
+     */
+    @Override
+    @Transactional
+    public void breakLinks(List<Driver> busyDrivers, Order order) {
+
+        logger.info("Incoming order: " + order.getNumber());
+
+        if (busyDrivers != null) {
+            for (Driver d : busyDrivers) {
+                logger.info("Setting current order to null to driver: " + d);
+                d.setCurrentOrder(null);
+                update(d);
+            }
+            logger.info("All links between " + order.getNumber() + " and chosen drivers are deleted");
+        }
+    }
 }

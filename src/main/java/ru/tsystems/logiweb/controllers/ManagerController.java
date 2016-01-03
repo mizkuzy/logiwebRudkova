@@ -3,7 +3,6 @@ package ru.tsystems.logiweb.controllers;
 //todo удалить requests со статусом finished и определённым routlabel после выполнения заказа
 // todo заменить одинарный амперсанд на двойной везде и или тоже
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,9 +10,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import ru.tsystems.logiweb.entities.*;
+import ru.tsystems.logiweb.entities.statusesAndStates.DriverStatus;
+import ru.tsystems.logiweb.entities.statusesAndStates.OrderStatus;
 import ru.tsystems.logiweb.entities.statusesAndStates.POSITION;
+import ru.tsystems.logiweb.entities.statusesAndStates.VanStatus;
 import ru.tsystems.logiweb.service.API.*;
 
 import javax.servlet.ServletException;
@@ -47,7 +48,7 @@ public class ManagerController {
     /**
      * Dispatch to the main jsp page for manager.
      *
-     * @return specified jsp page
+     * @return main_manager.jsp
      */
     @RequestMapping(value = "main_manager")
     public String homeManager() {
@@ -57,7 +58,7 @@ public class ManagerController {
     /**
      * Dispatch to jsp page where you can type good dates.
      *
-     * @return specified jsp page
+     * @return new_request.jsp
      */
     @RequestMapping(value = "new_request")
     public String newRequest(Model model) {
@@ -81,13 +82,14 @@ public class ManagerController {
      * @param mass
      * @param city1
      * @param city2
-     * @return
+     * @return main_manager.jsp
      */
     @RequestMapping(value = "addNewRequest", method = RequestMethod.POST)
     public String addNewRequest(@RequestParam(value = "goods_name") String goodsName,
                                 @RequestParam(value = "mass") Integer mass,
                                 @RequestParam(value = "city1") String city1,
-                                @RequestParam(value = "city2") String city2) {
+                                @RequestParam(value = "city2") String city2,
+                                Model model) {
 
         int goodNumber = goodService.addNewGood(goodsName, mass);
 
@@ -95,8 +97,7 @@ public class ManagerController {
 
         requestService.addNewRequest(goodService.read(goodNumber), rout);
 
-        //TODO Герман. Как сделать следующее: Нас возвращает на главную страницу, но поверх неё написано сообщение:
-        //                                     Операция проведена успешно. Нажимаем ОК и окошко исчезает
+        model.addAttribute("info_msg", "New request successfully created");
 
         return "manager/main_manager";
     }
@@ -105,14 +106,12 @@ public class ManagerController {
      * Counts amount of Special Routs (by Route Labels) in Requests. Sort these requests to lists.
      *
      * @param request
-     * @return specified jsp page
+     * @return current_requests.jsp
      * @throws ServletException
      * @throws IOException
      */
     @RequestMapping(value = "pick_up_requests")
     public String pickUpRequests(HttpServletRequest request) throws ServletException, IOException {
-
-//TODO Герман. Надо ли что-то делать со всеми исключениями?
 
         List<Request> requestsWithYellowRout = requestService.findRequestsWithSpecialRout("yellow");
         List<Request> requestsWithGreenRout = requestService.findRequestsWithSpecialRout("green");
@@ -137,7 +136,7 @@ public class ManagerController {
      *
      * @param httpRequest
      * @param currentRoutLabel
-     * @return specified jsp page
+     * @return create_order.jsp
      */
     @RequestMapping(value = "create_order")
     public String createOrder(Model model, HttpServletRequest httpRequest,
@@ -147,7 +146,7 @@ public class ManagerController {
         // то в базе данных у нас остаются не до конца оформленные заказы. Надо придумать как их удалять
 
         logger.info("Picking " + currentRoutLabel + " requests");
-//todo сделать защиту от дабл клика
+        //todo сделать защиту от дабл клика
 
         List<Request> requests = new ArrayList<>();
         httpRequest.getSession().setAttribute("currentRoutLabel", currentRoutLabel);
@@ -178,9 +177,9 @@ public class ManagerController {
 
         //TODO не учитывается время, которое водитель потратит на поездку в спб в случае, если конечный пункт не СПБ,
         // а начальный у нас должен быть СПБ, что кстати тоже не учитывается, если нач. точка не спб. тут тупо считаются расстояния между пунктами
-        int totalRequestAmount = requestService.getTotalRequestsAmount(requests);
+        int totalRequestAmount = requestService.getTotalTimeRequests(requests);
 
-        //TODO при подсчёте рабочих часов не уxитывается, если заказ совпадёт на переход с месяца на месяц
+        //TODO при подсчёте рабочих часов не учитывается, если заказ совпадёт на переход с месяца на месяц
         List appropriateDrivers = driverService.getAppropriateDrivers(totalRequestAmount);
         httpRequest.getSession().setAttribute("appropriateDrivers", appropriateDrivers);
 
@@ -194,7 +193,7 @@ public class ManagerController {
      * Changes request status to FINISHED, Sets choosed drivers and van to order
      *
      * @param request
-     * @return
+     * @return main_manager.jsp
      */
     @RequestMapping(value = "save_order")
     public String saveOrder(HttpServletRequest request) {
@@ -208,7 +207,7 @@ public class ManagerController {
         logger.info(idVan);
         Van van = vanService.getSelectedVan((List<Van>) request.getSession().getAttribute("appropriateVans"), idVan);
         logger.info("Choosed this " + van);
-        vanService.changeVanStatus(van);
+        vanService.changeVanStatus(van, VanStatus.BUSY);
         Order order = (Order) request.getSession().getAttribute("order");
         orderService.setVanToOrder(van, order);
         logger.info("Van is setted to order");
@@ -224,7 +223,7 @@ public class ManagerController {
             logger.debug(d);
         }
         //если водителю назначена заявка, то статус меняется на busy. на рабочие часы это не влияет
-        driverService.changeDriversStatuses(selectedDrivers);
+        driverService.changeDriversStatuses(selectedDrivers, DriverStatus.BUSY);
         orderService.setDriversToOrder(selectedDrivers, order);
 
         for (Driver d :
@@ -239,11 +238,10 @@ public class ManagerController {
      * Shows current orders and you can see finished orders.
      *
      * @param request
-     * @return specified jsp page
+     * @return orders_list.jsp
      */
     @RequestMapping(value = "orders_list")
     public String showOrdersList(HttpServletRequest request) {
-        //todo добавить кнопку, по которой заказ будет завершаться
 
         List ordersPROCESS = orderService.getOrdersProcess();
         List ordersDONE = orderService.getOrdersDone();
@@ -260,10 +258,40 @@ public class ManagerController {
     }
 
     /**
+     * Changes orderStatus to DONE.
+     * Breaks links with drivers, van, requests and goods.
+     *
+     * @param orderIDStr
+     * @return main_manager.jsp
+     */
+    @RequestMapping(value = "finishOrder")
+    public String finishOrder(@RequestParam(value = "selectedOrder") String orderIDStr) {
+
+        logger.info("Selected order ID: " + orderIDStr);
+        int orderID = Integer.valueOf(orderIDStr);
+        Order order = orderService.read(orderID);
+        order.setStatus(OrderStatus.DONE);
+        orderService.update(order);
+
+        List<Driver> busyDrivers = driverService.getBusyDrivers(orderID);
+        driverService.changeDriversStatuses(busyDrivers, DriverStatus.FREE);
+        driverService.breakLinks(busyDrivers, order);
+
+        vanService.changeVanStatus(order.getVan(), VanStatus.WAIT);
+        orderService.breakLinkWithVan(order, order.getVan());
+        List<Request> requestsToDelete = requestService.breakLinks(order);
+        List<Good> goodsToDelete = requestService.breakLinksWithGoods(requestsToDelete);
+        requestService.deleteSomeRequests(requestsToDelete);
+        goodService.deleteSomeGoods(goodsToDelete);
+
+        return "manager/main_manager";
+    }
+
+    /**
      * Shows all vans.
      *
      * @param request
-     * @return specified jsp page
+     * @return vans.jsp
      */
     @RequestMapping(value = "vans")
     public String showVansList(HttpServletRequest request) {
@@ -280,7 +308,7 @@ public class ManagerController {
      * Gets selected van from the DB.
      *
      * @param idVanStr
-     * @return specified jsp page
+     * @return editVan.jsp
      */
     @RequestMapping(value = "getVanForEdit")
     public String getVanForEdit(@RequestParam(value = "selectedVan") String idVanStr,
@@ -298,7 +326,7 @@ public class ManagerController {
      * @param driversAmount
      * @param capacity
      * @param request
-     * @return main jsp page
+     * @return main_manager.jsp
      */
     @RequestMapping(value = "editVan")
     public String editVan(@RequestParam(value = "vanNumber") String vanNumber,
@@ -329,9 +357,6 @@ public class ManagerController {
         Van van = vanService.read(Integer.valueOf(idVanStr));
         vanService.delete(van);
 
-        //todo sometimes we can't delete van if it is foreign key for order
-
-
         return "manager/main_manager";
     }
 
@@ -352,7 +377,7 @@ public class ManagerController {
      * @param vanNumber
      * @param driversAmountStr
      * @param capacityStr
-     * @return main jsp page
+     * @return main_manager.jsp
      */
     @RequestMapping(value = "addVan")
     public String addVan(@RequestParam(value = "vanNumber") String vanNumber,
@@ -373,10 +398,10 @@ public class ManagerController {
      * Shows all drivers.
      *
      * @param request
-     * @return specified jsp page
+     * @return drivers.jsp
      */
     @RequestMapping(value = "drivers")
-    public String showDriversList(Model model, HttpServletRequest request) {
+    public String showDriversList(Model model) {
 
 
         ArrayList<Driver> drivers = (ArrayList<Driver>) driverService.getAll();
@@ -393,13 +418,12 @@ public class ManagerController {
      * Gets selected driver from the DB.
      *
      * @param idDriverStr
-     * @return specified jsp page
+     * @return editDriver.jsp
      */
     @RequestMapping(value = "getDriverForEdit")
     public String getDriverForEdit(@RequestParam(value = "selectedDriver") String idDriverStr,
                                    HttpServletRequest request) {
 
-        //todo распарсить этотм метод для удаления и редактирования
         Driver driver = driverService.read(Integer.valueOf(idDriverStr));
         logger.info("selectedDriver: " + driver + ", ID=" + driver.getId());
         request.getSession().setAttribute("selectedDriver", driver);
@@ -412,7 +436,7 @@ public class ManagerController {
      * @param driverName
      * @param driverSurname
      * @param request
-     * @return main jsp page
+     * @return main_manager.jsp
      */
     @RequestMapping(value = "editDriver")
     public String editDriver(@RequestParam(value = "driverName") String driverName,
@@ -432,7 +456,7 @@ public class ManagerController {
      * Deletes selected driver.
      *
      * @param idDriverStr
-     * @return specified jsp page
+     * @return main_manager.jsp
      */
     @RequestMapping(value = "deleteDriver")
     public String deleteDriver(@RequestParam(value = "selectedDriver") String idDriverStr) {
@@ -442,12 +466,14 @@ public class ManagerController {
         logger.info("selectedDriver: " + driver + ", ID=" + driver.getId());
 
         Employee employee = employeeService.getEntityByEmail(driver.getEmployee().getEmail());
+        //todo герман. если водителя добавить, а потом снова посмотреть список, то employee.getEmployeeId()=NULL
+        //соответственно и удалить его нельзя, т.к. нулПойнтер вылетает
+        //но если передеплоить, то всё ок
         logger.info("ID employee=" + employee.getEmployeeId());
         employee.setDriverFK(null);
         employeeService.update(employee);
         driverService.delete(driver);
 
-       /* Employee employeeToBeRemoved = employeeService.getEntityByEmail(driver.getEmployee().getEmail());*/
         employeeService.delete(employee);
 
         return "manager/main_manager";
@@ -456,7 +482,7 @@ public class ManagerController {
     /**
      * Dispatches to specified jsp page where you can type new driver's date.
      *
-     * @return specified jsp page
+     * @return createDriver.jsp
      */
     @RequestMapping(value = "createDriver")
     public String createDriver() {
@@ -471,7 +497,7 @@ public class ManagerController {
      * @param driverSurname
      * @param email
      * @param password
-     * @return main jsp page
+     * @return main_manager.jsp
      */
     @RequestMapping(value = "addDriver")
     public String addDriver(@RequestParam(value = "driverName") String driverName,

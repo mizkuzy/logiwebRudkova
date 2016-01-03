@@ -25,4 +25,6 @@ public interface OrderService extends GenericService<Order,Integer>{
 
 
     void setDriversToOrder(List<Driver> selectedDrivers, Order order);
+
+    void breakLinkWithVan(Order order, Van van);
 }

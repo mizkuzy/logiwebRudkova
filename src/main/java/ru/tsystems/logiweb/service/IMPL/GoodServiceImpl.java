@@ -6,6 +6,7 @@ import ru.tsystems.logiweb.entities.Good;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.tsystems.logiweb.entities.Request;
 import ru.tsystems.logiweb.service.API.GoodService;
 
 import java.util.List;
@@ -97,5 +98,22 @@ public class GoodServiceImpl implements GoodService {
         update(good); //TODO EXCEPTION?
         logger.info("Good is created. Name: " + goodsName + ". Mass: " + mass + ". GoodNumber: " + goodNumber);
         return goodNumber;
+    }
+
+    /**
+     * Deletes all goods related with finished requests.
+     *
+     * @param goodsToDelete
+     */
+    @Override
+    @Transactional
+    public void deleteSomeGoods(List<Good> goodsToDelete) {
+        if (goodsToDelete != null) {
+            for (Good good: goodsToDelete){
+                logger.info("Goods " + good.getName() + " is going to be deleted.");
+                delete(good);
+            }
+            logger.info("All goods mentioned above were deleted");
+        }
     }
 }

@@ -184,6 +184,12 @@ public class OrderServiceImpl implements OrderService {
         return mass;
     }
 
+    /**
+     * Connects van with order.
+     *
+     * @param van
+     * @param order
+     */
     @Override
     @Transactional
     public void setVanToOrder(Van van, Order order) {
@@ -191,6 +197,12 @@ public class OrderServiceImpl implements OrderService {
         update(order);
     }
 
+    /**
+     * Connects drivers with order.
+     *
+     * @param selectedDrivers
+     * @param order
+     */
     @Override
     @Transactional
     public void setDriversToOrder(List<Driver> selectedDrivers, Order order) {
@@ -200,5 +212,19 @@ public class OrderServiceImpl implements OrderService {
             driverService.update(d);
         }
         update(order);
+    }
+
+    /**
+     * Deletes link between order and van.
+     *
+     * @param order
+     * @param van
+     */
+    @Override
+    @Transactional
+    public void breakLinkWithVan(Order order, Van van) {
+        order.setVan(null);
+        update(order);
+        logger.info("Van " + van + " is deleted from order " + order.getNumber());
     }
 }

@@ -1,5 +1,6 @@
 package ru.tsystems.logiweb.service.IMPL;
 
+import org.apache.log4j.Logger;
 import ru.tsystems.logiweb.dao.API.VanGenericDAO;
 import ru.tsystems.logiweb.entities.Order;
 import ru.tsystems.logiweb.entities.Van;
@@ -23,6 +24,8 @@ public class VanServiceImpl implements VanService {
     private static final int DRIVERS_CAPACITY_FOR_GREEN_ROUT = 3;
     private static final int DRIVERS_CAPACITY_FOR_PURPLE_ROUT = 4;
     private static final int DRIVERS_CAPACITY_FOR_BLUE_ROUT = 3;
+
+    private Logger logger = Logger.getLogger(VanServiceImpl.class);
 
     @Autowired
     private VanGenericDAO vanDAO;
@@ -131,9 +134,17 @@ public class VanServiceImpl implements VanService {
 
     @Override
     @Transactional
-    public void changeVanStatus(Van van) {
-        van.setStatusVan(VanStatus.BUSY);
+    public void changeVanStatus(Van van, VanStatus status) {
+        van.setStatusVan(status);
         update(van);
     }
 
+   /* @Override
+    public void breakLinks(Van van, Order order) {
+        logger.info("Incoming order: " + order.getNumber());
+
+        if (van!=null){
+            van.setVanNumberInOrder();
+        }
+    }*/
 }
