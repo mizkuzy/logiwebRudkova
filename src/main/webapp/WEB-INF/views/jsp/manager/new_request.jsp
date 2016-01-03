@@ -79,7 +79,6 @@
     </div>--%>
 
     <div class="container">
-        <div class="above-background">
             <form:form class="form-horizontal" role="form" action="addNewRequest" method="post">
                 <div class="form-group">
                     <div class="col-sm-5">
@@ -141,7 +140,7 @@
                 </div>
                 </form>
             </form:form>
-        </div>
+
     </div>
 </div>
 <script type="text/javascript">

@@ -65,7 +65,7 @@ th{
 }
 .td-sp{
     background: #333; /* Цвет фона */
-    color: #fc0;
+    color: orangered;
     border: 1px solid #333; /* Граница вокруг ячеек */
     padding: 5px; /* Поля в ячейках */
     opacity: 0.9; /* Полупрозрачность таблицы */
