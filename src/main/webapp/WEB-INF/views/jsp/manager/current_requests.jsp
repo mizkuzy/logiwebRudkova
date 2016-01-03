@@ -1,8 +1,5 @@
 <%@ taglib prefix="c" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="ru.tsystems.logiweb.entities.Request" %><%--
-<%-- <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
@@ -60,48 +57,59 @@
 </div>
 <div class="container">
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-        <h1>Current requests</h1>
 
-        <div class="row">
-            <div class="col-md-6">
-                <form action="create_order" method="get">
-
-                        <input type="hidden" name="currentRoutLabel" value="yellow"/>
-                        <img href="create_order" src="/resources/img/yellow.png" class="img-responsive img-thumbnail">
-
-                    WAIT:${yellowRoutRequestsSize} requests<br/>
-                    <button type="submit" title="Handle" value="HANDLE">HANDLE</button>
-                </form>
-            </div>
-            <div class="col-md-6">
-                <form action="create_order" method="get">
-                    <input type="hidden" name="currentRoutLabel" value="green"/>
-                    WAIT:${greenRoutRequestsSize} requests <br/>
-                    <img src="/resources/img/green.png" class="img-responsive img-thumbnail">
-                    <input type="submit" title="Handle" value="HANDLE">
-                </form>
-            </div>
+        <div class="background-set">
+            <img src="/resources/img/truck1.jpg" alt="truck1">
         </div>
-        <div class="row">
-            <div class="col-md-6">
-                <form action="create_order" method="get">
-                    <input type="hidden" name="currentRoutLabel" value="purple"/>
-                    WAIT: ${purpleRoutRequestsSize} requests <br/>
-                    <img src="/resources/img/purple.png" class="img-responsive img-responsive img-thumbnail">
-                    <input type="submit" title="Handle" value="HANDLE">
-                </form>
+        <div>
+            <h1>Current requests</h1>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="colored-yellow">
+                        <form action="create_order" method="get">
+                            <input type="hidden" name="currentRoutLabel" value="yellow"/>
+                            <%--<img href="create_order" src="/resources/img/yellow.png" class="img-responsive img-thumbnail">--%>
+                            WAIT:${yellowRoutRequestsSize} requests<br/>
+                            <button class="btn-warning" type="submit" title="Handle" value="HANDLE">HANDLE</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="colored-green">
+                        <form action="create_order" method="get">
+                            <input type="hidden" name="currentRoutLabel" value="green"/>
+                            WAIT:${greenRoutRequestsSize} requests <br/>
+                            <%--<img src="/resources/img/green.png" class="img-responsive img-thumbnail">--%>
+                            <button class="btn-warning" type="submit" title="Handle" value="HANDLE">HANDLE</button>
+                        </form>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-6">
-                <form action="create_order" method="get">
-                    <input type="hidden" name="currentRoutLabel" value="blue"/>
-                    WAIT:${blueRoutRequestsSize} requests <br/>
-                    <img src="/resources/img/blue.png" class="img-responsive img-responsive img-thumbnail">
-                    <input type="submit" title="Handle" value="HANDLE">
-                </form>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="colored-purple">
+                        <form action="create_order" method="get">
+                            <input type="hidden" name="currentRoutLabel" value="purple"/>
+                            WAIT: ${purpleRoutRequestsSize} requests <br/>
+                            <%--<img src="/resources/img/purple.png" class="img-responsive img-responsive img-thumbnail">--%>
+                            <button class="btn-warning" type="submit" title="Handle" value="HANDLE">HANDLE</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="colored-blue">
+                        <form action="create_order" method="get">
+                            <input type="hidden" name="currentRoutLabel" value="blue"/>
+                            WAIT:${blueRoutRequestsSize} requests <br/>
+                            <%--<img src="/resources/img/blue.png" class="img-responsive img-responsive img-thumbnail">--%>
+                            <button class="btn-warning" type="submit" title="Handle" value="HANDLE">HANDLE</button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-
 </div>
 </body>
 </html>

@@ -67,75 +67,83 @@
     </div>
 </div>
 
+
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-    <h1>Create new request</h1>
 
-    <div class="container text-center">
-        <form:form class="form-horizontal" role="form" action="addNewRequest" method="post">
+    <div class="background-set">
+        <img src="/resources/img/truck1.jpg" alt="truck1">
+    </div>
 
-            <div class="form-group">
-                <div class="col-sm-5">
-                    <b>Goods:</b><br>
-                    <input type="text" name="goods_name" class="form-control" placeholder="Goods">
+    <%--<div class="centered-set">
+        <h1>Create new request</h1>
+    </div>--%>
+
+    <div class="container">
+        <div class="above-background">
+            <form:form class="form-horizontal" role="form" action="addNewRequest" method="post">
+                <div class="form-group">
+                    <div class="col-sm-5">
+                        <b>Goods:</b><br>
+                        <input type="text" name="goods_name" class="form-control" placeholder="Goods">
+                    </div>
+
                 </div>
 
-            </div>
-
-            <div class="form-group">
-                <div class="col-sm-5">
-                    <b>Mass:</b><br>
-                    <input type="text" name="mass" class="form-control"
-                           placeholder="Mass">
+                <div class="form-group">
+                    <div class="col-sm-5">
+                        <b>Mass:</b><br>
+                        <input type="text" name="mass" class="form-control"
+                               placeholder="Mass">
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-5">
-                    <b>City from:</b><br>
-                    <select class="form-control" id="select1" name="city1" required>
-                        <option selected disabled>Choose</option>
-                        <c:forEach items="${cities}" var="city1">
-                            <option name="${city1}">${city1}</option>
-                        </c:forEach>
-                    </select>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-sm-5">
-                    <div id="step2">
-                        <b>City to:</b><br>
-                        <select  class="form-control" id="Saint-Petersburg" name="city2" required>
+                <div class="form-group">
+                    <div class="col-sm-5">
+                        <b>City from:</b><br>
+                        <select class="form-control" id="select1" name="city1" required>
                             <option selected disabled>Choose</option>
-                            <c:forEach items="${spbChoosed}" var="city2">
-                                <option name="${city2}">${city2}</option>
-                            </c:forEach>
-                        </select>
-                        <select  class="form-control" id="Veliky_Novgorod" name="city2" required>
-                            <option selected disabled>Choose</option>
-                            <c:forEach items="${velikyNovgorodChoosed}" var="city2">
-                                <option>${city2}</option>
-                            </c:forEach>
-                        </select>
-                        <select class="form-control" id="Pskov" name="city2" required>
-                            <option selected disabled>Choose</option>
-                            <c:forEach items="${pskovChoosed}" var="city2">
-                                <option>${city2}</option>
+                            <c:forEach items="${cities}" var="city1">
+                                <option name="${city1}">${city1}</option>
                             </c:forEach>
                         </select>
                     </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <div class="col-sm-5">
-                    <button type="submit" class="btn btn-success" title="Pick up requests" value="ADD">ADD</button>
+                <div class="form-group">
+                    <div class="col-sm-5">
+                        <div id="step2">
+                            <b>City to:</b><br>
+                            <select class="form-control" id="Saint-Petersburg" name="city2" required>
+                                <option selected disabled>Choose</option>
+                                <c:forEach items="${spbChoosed}" var="city2">
+                                    <option name="${city2}">${city2}</option>
+                                </c:forEach>
+                            </select>
+                            <select class="form-control" id="Veliky_Novgorod" name="city2" required>
+                                <option selected disabled>Choose</option>
+                                <c:forEach items="${velikyNovgorodChoosed}" var="city2">
+                                    <option>${city2}</option>
+                                </c:forEach>
+                            </select>
+                            <select class="form-control" id="Pskov" name="city2" required>
+                                <option selected disabled>Choose</option>
+                                <c:forEach items="${pskovChoosed}" var="city2">
+                                    <option>${city2}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            </form>
-        </form:form>
+
+                <div class="form-group">
+                    <div class="col-sm-5">
+                        <button type="submit" class="btn btn-success" title="Pick up requests" value="ADD">ADD</button>
+                    </div>
+                </div>
+                </form>
+            </form:form>
+        </div>
     </div>
 </div>
-
 <script type="text/javascript">
     $(document).ready(function (e) {
         $("#select1").change(function () {

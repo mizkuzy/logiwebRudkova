@@ -1,29 +1,72 @@
-.header{
-margin-bottom: 40px;
+.header {
+    margin-bottom: 40px;
 }
-.btn-custom {
-    background-color: #c20ae0;
-    border-color: #c20ae0;
+
+.colored-yellow {
+    background-color: yellow;
+    position: relative;
 }
-.btn-custom:hover,
-.btn-custom:focus,
-.btn-custom:active,
-.btn-custom.active {
-    background-color: #ad09c8;
-    border-color: #9808af;
+
+.colored-purple {
+    background-color: purple;
+    position: relative;
 }
-.btn-custom.disabled:hover,
-.btn-custom.disabled:focus,
-.btn-custom.disabled:active,
-.btn-custom.disabled.active,
-.btn-custom[disabled]:hover,
-.btn-custom[disabled]:focus,
-.btn-custom[disabled]:active,
-.btn-custom[disabled].active,
-fieldset[disabled] .btn-custom:hover,
-fieldset[disabled] .btn-custom:focus,
-fieldset[disabled] .btn-custom:active,
-fieldset[disabled] .btn-custom.active {
-    background-color: #c20ae0;
-    border-color: #c20ae0;
+
+.colored-green {
+    background-color: green;
+    position: relative;
 }
+
+.colored-blue {
+    background-color: blue;
+    position: relative;
+}
+
+.background-set {
+
+    min-height: 100%;
+    min-width: 1024px;
+
+    width: 100%;
+    height: auto;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+@media screen and (max-width: 1024px) {
+    /* Определяется свое для каждого конкретного изображения */
+    .background-set {
+        left: 50%;
+        margin-left: -512px; /* 50% */
+    }
+}
+
+.my-settings {
+    position: absolute;
+}
+
+.td-sett {
+    background: #333; /* Цвет фона */
+    color: #fc0;
+    border: 1px solid #333; /* Граница вокруг ячеек */
+    padding: 5px; /* Поля в ячейках */
+    opacity: 0.5; /* Полупрозрачность таблицы */
+    filter: alpha(Opacity=50); /* Для IE */
+}
+
+caption {
+    caption-side: top;
+    text-align: center;
+    padding: 10px 0;
+    font-size: 25px;
+    font-weight: bold;
+    color: grey;
+}
+
+.new-btn{
+    position: absolute;
+}
+
+

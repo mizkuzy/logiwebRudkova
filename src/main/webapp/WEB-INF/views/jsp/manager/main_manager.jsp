@@ -59,7 +59,7 @@
         </div>
     </div>
 </div>
-<div>
+<div class="background-set">
     <img src="/resources/img/truck1.jpg" alt="truck1">
 </div>
 
