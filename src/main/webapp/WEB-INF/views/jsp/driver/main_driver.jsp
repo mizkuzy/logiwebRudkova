@@ -18,8 +18,6 @@
     <![endif]-->
 </head>
 <body>
-<%--<h1>DRIVER'S APP</h1>--%>
-
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -33,7 +31,7 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Hello, ${driverName}</a></li>
+                <li><a href="#">Hello, ${driverNameSurname}</a></li>
                 <li><a href="/logout">Logout</a></li>
             </ul>
         </div>
@@ -56,7 +54,9 @@
                 <th> Co-Drivers</th>
                 <td>
                     <c:forEach items="${currentOrder.drivers}" var="driver">
-                        ${driver}<br/>
+                        <c:if test="${{driverPersonalNumber} != {driver.employee.personalNumber}}">
+                            ${driver}<br/>
+                        </c:if>
                     </c:forEach>
                 </td>
             </tr>

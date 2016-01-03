@@ -37,11 +37,12 @@ public class DriverController {
         Employee employee = employeeService.getEntityByEmail(user.getUsername());
         Driver driver = employee.getDriverFK();
 
-        String driverName = driver.getName() + " " + driver.getSurname();
-        model.addAttribute("driverName", driverName);
+        String driverNameSurname = driver.getName() + " " + driver.getSurname();
+        model.addAttribute("driverNameSurname", driverNameSurname);
         model.addAttribute("driverPersonalNumber", employee.getPersonalNumber());
         model.addAttribute("currentOrder", driver.getCurrentOrder());
 
+        //todo убрать из списка водителей самого водителя
         return "driver/main_driver";
     }
 }
