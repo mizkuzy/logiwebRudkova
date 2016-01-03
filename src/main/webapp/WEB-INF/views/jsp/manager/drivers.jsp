@@ -64,53 +64,53 @@
             <img class="img-responsive" src="/resources/img/truck1.jpg" alt="truck1">
         </div>
 
-        <table class="table table-hover my-settings" border="2" width="2" cellspacing="2" cellpadding="2">
+        <table class="table table-hover my-settings">
             <caption>DRIVERS LIST</caption>
             <tr>
-                <th class="td-sett">
+                <th >
                     Personal Number
                 </th>
-                <th class="td-sett">
+                <th >
                     Name
                 </th>
-                <th class="td-sett">
+                <th >
                     Surname
                 </th>
-                <th class="td-sett">
+                <th>
                     Work hours
                 </th>
-                <th class="td-sett">
+                <th>
                     Current state
                 </th>
-                <td class="td-sett">
+                <td>
                     Work Status
                 </td>
-                <td class="td-sett">
+                <td>
 
                 </td>
             </tr>
 
             <c:forEach items="${drivers}" var="driver" varStatus="theCount">
                 <tr>
-                    <td class="td-sett">
+                    <td>
                             ${driver.employee.personalNumber}
                     </td>
-                    <td class="td-sett">
+                    <td>
                             ${driver.name}
                     </td>
-                    <td class="td-sett">
+                    <td>
                             ${driver.surname}
                     </td>
-                    <td class="td-sett">
+                    <td>
                             ${driver.workHours}
                     </td>
-                    <td class="td-sett">
+                    <td>
                             ${driver.state}
                     </td>
-                    <td class="td-sett">
+                    <td>
                             ${driver.statusDriver}
                     </td>
-                    <td class="td-sett">
+                    <td>
                         <div>
                             <form name="edit" action="getDriverForEdit" method="get">
                                 <input type="hidden" name="selectedDriver" value="${driver.id}"/>

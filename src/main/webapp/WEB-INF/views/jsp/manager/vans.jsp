@@ -68,44 +68,44 @@
         <table class="table table-hover my-settings">
             <caption>VANS LIST</caption>
             <tr>
-                <th class="td-sett">
+                <th>
                     Number
                 </th>
-                <th class="td-sett">
+                <th>
                     Drivers amount
                 </th>
-                <th class="td-sett">
+                <th>
                     Capacity (ton)
                 </th>
-                <th class="td-sett">
+                <th>
                     State
                 </th>
-                <th class="td-sett">
+                <th>
                     Work status
                 </th>
-                <td class="td-sett">
+                <td>
 
                 </td>
             </tr>
 
             <c:forEach items="${vansList}" var="van" varStatus="theCount">
                 <tr>
-                    <td class="td-sett">
+                    <td>
                             ${van}
                     </td>
-                    <td class="td-sett">
+                    <td>
                             ${van.driversAmount}
                     </td>
-                    <td class="td-sett">
+                    <td>
                             ${van.capacity}
                     </td>
-                    <td class="td-sett">
+                    <td>
                             ${van.stateVan}
                     </td>
-                    <td class="td-sett">
+                    <td>
                             ${van.statusVan}
                     </td>
-                    <td class="td-sett">
+                    <td>
                         <div>
                             <form name="edit" action="getVanForEdit" method="get">
                                 <input type="hidden" name="selectedVan" value="${van.idVan}"/>

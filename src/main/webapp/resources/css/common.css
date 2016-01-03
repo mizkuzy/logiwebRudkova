@@ -47,12 +47,28 @@
     position: absolute;
 }
 
-.td-sett {
+td{
     background: #333; /* Цвет фона */
     color: #fc0;
     border: 1px solid #333; /* Граница вокруг ячеек */
     padding: 5px; /* Поля в ячейках */
     opacity: 0.5; /* Полупрозрачность таблицы */
+    filter: alpha(Opacity=50); /* Для IE */
+}
+th{
+    background: #333; /* Цвет фона */
+    color: #fc0;
+    border: 1px solid #333; /* Граница вокруг ячеек */
+    padding: 5px; /* Поля в ячейках */
+    opacity: 0.5; /* Полупрозрачность таблицы */
+    filter: alpha(Opacity=50); /* Для IE */
+}
+.td-sp{
+    background: #333; /* Цвет фона */
+    color: #fc0;
+    border: 1px solid #333; /* Граница вокруг ячеек */
+    padding: 5px; /* Поля в ячейках */
+    opacity: 0.9; /* Полупрозрачность таблицы */
     filter: alpha(Opacity=50); /* Для IE */
 }
 
