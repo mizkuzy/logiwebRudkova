@@ -10,6 +10,7 @@
     <packaging>war</packaging>
     <properties>
         <spring-security.version>4.0.3.RELEASE</spring-security.version>
+        <jersey.version>1.19</jersey.version>
 
     </properties>
 
@@ -132,6 +133,24 @@
             <artifactId>spring-security-taglibs</artifactId>
             <version>${spring-security.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-server</artifactId>
+            <version>${jersey.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-servlet</artifactId>
+            <version>${jersey.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-client</artifactId>
+            <version>${jersey.version}</version>
+        </dependency>
+
         <!--
          <dependency>
              <groupId>org.powermock</groupId>

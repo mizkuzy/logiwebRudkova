@@ -1,7 +1,7 @@
 package ru.tsystems.logiweb.entities.statusesAndStates;
 
 public enum DriverState {
-    REST,//выходной
+    REST,//отдыхает
     WORK,//готов к назначению заказа
     DRIVE;//выполняет заказ
 }
