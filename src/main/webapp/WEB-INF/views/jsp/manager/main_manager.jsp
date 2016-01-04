@@ -38,7 +38,7 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#"><security:authentication property="principal.username"/></a> </li>
+                <li><a href="#"><security:authentication property="principal.username"/></a></li>
                 <li><a href="/logout/">Logout</a></li>
             </ul>
         </div>
@@ -59,10 +59,20 @@
         </div>
     </div>
 </div>
-<div class="background-set">
-    <img src="/resources/img/truck1.jpg" alt="truck1">
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+
+    <div class="background-set">
+        <img src="/resources/img/truck1.jpg" alt="truck1">
+    </div>
+<div class="my-settings">
+    <c:if test="${info_msg != null}">
+        <div class="msg">
+                ${info_msg}
+        </div>
+    </c:if>
 </div>
 
+</div>
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->

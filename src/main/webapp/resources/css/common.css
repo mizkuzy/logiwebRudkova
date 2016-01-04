@@ -47,7 +47,7 @@
     position: absolute;
 }
 
-td{
+td {
     background: #333; /* Цвет фона */
     color: #fc0;
     border: 1px solid #333; /* Граница вокруг ячеек */
@@ -55,7 +55,8 @@ td{
     opacity: 0.5; /* Полупрозрачность таблицы */
     filter: alpha(Opacity=50); /* Для IE */
 }
-th{
+
+th {
     background: #333; /* Цвет фона */
     color: #fc0;
     border: 1px solid #333; /* Граница вокруг ячеек */
@@ -63,7 +64,8 @@ th{
     opacity: 0.5; /* Полупрозрачность таблицы */
     filter: alpha(Opacity=50); /* Для IE */
 }
-.td-sp{
+
+.td-sp {
     background: #333; /* Цвет фона */
     color: orangered;
     border: 1px solid #333; /* Граница вокруг ячеек */
@@ -81,13 +83,20 @@ caption {
     color: grey;
 }
 
-.new-btn{
+.new-btn {
     position: absolute;
 }
 
-.tb-driver{
+.tb-driver {
     margin-top: 40px;
     margin-right: 80px;
 }
 
-
+.msg {
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}

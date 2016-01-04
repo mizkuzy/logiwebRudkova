@@ -74,10 +74,6 @@
         <img src="/resources/img/truck1.jpg" alt="truck1">
     </div>
 
-    <%--<div class="centered-set">
-        <h1>Create new request</h1>
-    </div>--%>
-
     <div class="container">
         <form:form class="form-horizontal" role="form" action="addNewRequest" method="post">
             <div class="form-group">
@@ -142,6 +138,7 @@
         </form:form>
     </div>
 </div>
+
 <script type="text/javascript">
     $(document).ready(function (e) {
         $("#select1").change(function () {

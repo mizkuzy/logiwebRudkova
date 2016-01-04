@@ -196,7 +196,8 @@ public class ManagerController {
      * @return main_manager.jsp
      */
     @RequestMapping(value = "save_order")
-    public String saveOrder(HttpServletRequest request) {
+    public String saveOrder(HttpServletRequest request,
+                            Model model) {
         //Changes request status to FINISHED
         requestService.changeRequestsStatuses((String) request.getSession().getAttribute("currentRoutLabel"));
 
@@ -212,7 +213,7 @@ public class ManagerController {
         orderService.setVanToOrder(van, order);
         logger.info("Van is setted to order");
 
-        //Sets choosed drivers to order
+        //Sets chosen drivers to order
         String[] selectedDriversID = request.getParameterValues("selectedDriver");
         logger.info("selectedDrivers.length=" + selectedDriversID.length);
         List<Driver> selectedDrivers = driverService.getSelectedDrivers((List<Driver>) request.getSession().getAttribute("appropriateDrivers"),
@@ -230,6 +231,8 @@ public class ManagerController {
                 order.getDrivers()) {
             logger.debug(d);
         }
+
+        model.addAttribute("info_msg", "New order successfully created.");
 
         return "manager/main_manager";
     }
@@ -265,7 +268,8 @@ public class ManagerController {
      * @return main_manager.jsp
      */
     @RequestMapping(value = "finishOrder")
-    public String finishOrder(@RequestParam(value = "selectedOrder") String orderIDStr) {
+    public String finishOrder(@RequestParam(value = "selectedOrder") String orderIDStr,
+                              Model model) {
 
         logger.info("Selected order ID: " + orderIDStr);
         int orderID = Integer.valueOf(orderIDStr);
@@ -283,6 +287,8 @@ public class ManagerController {
         List<Good> goodsToDelete = requestService.breakLinksWithGoods(requestsToDelete);
         requestService.deleteSomeRequests(requestsToDelete);
         goodService.deleteSomeGoods(goodsToDelete);
+
+        model.addAttribute("info_msg", "Order successfully finished.");
 
         return "manager/main_manager";
     }
@@ -332,7 +338,8 @@ public class ManagerController {
     public String editVan(@RequestParam(value = "vanNumber") String vanNumber,
                           @RequestParam(value = "driversAmount") String driversAmount,
                           @RequestParam(value = "capacity") String capacity,
-                          HttpServletRequest request) {
+                          HttpServletRequest request,
+                          Model model) {
 
         Van van = (Van) request.getSession().getAttribute("selectedVan");
 
@@ -343,6 +350,8 @@ public class ManagerController {
 
         vanService.update(van);
 
+        model.addAttribute("info_msg", "Van successfully updated.");
+
         return "manager/main_manager";
     }
 
@@ -352,10 +361,13 @@ public class ManagerController {
      * @return main_manager.jsp
      */
     @RequestMapping(value = "deleteVan")
-    public String deleteVan(@RequestParam(value = "selectedVan") String idVanStr) {
+    public String deleteVan(@RequestParam(value = "selectedVan") String idVanStr,
+                            Model model) {
 
         Van van = vanService.read(Integer.valueOf(idVanStr));
         vanService.delete(van);
+
+        model.addAttribute("info_msg", "Van successfully deleted.");
 
         return "manager/main_manager";
     }
@@ -383,7 +395,8 @@ public class ManagerController {
     public String addVan(@RequestParam(value = "vanNumber") String vanNumber,
                          @RequestParam(value = "driversAmount") String driversAmountStr,
                          @RequestParam(value = "capacity") String capacityStr,
-                         @RequestParam(value = "routLabel") String routLabel) {
+                         @RequestParam(value = "routLabel") String routLabel,
+                         Model model) {
 
         int driversAmount = Integer.valueOf(driversAmountStr);
         RouteLabel routeLabel = routLabelService.getByName(routLabel);
@@ -391,18 +404,19 @@ public class ManagerController {
         Van van = new Van(vanNumber, driversAmount, Integer.valueOf(capacityStr), routeLabel);
         vanService.create(van);
 
+        model.addAttribute("info_msg", "Van successfully created.");
+
         return "manager/main_manager";
     }
 
     /**
      * Shows all drivers.
      *
-     * @param request
+     * @param model
      * @return drivers.jsp
      */
     @RequestMapping(value = "drivers")
     public String showDriversList(Model model) {
-
 
         ArrayList<Driver> drivers = (ArrayList<Driver>) driverService.getAll();
 
@@ -441,13 +455,16 @@ public class ManagerController {
     @RequestMapping(value = "editDriver")
     public String editDriver(@RequestParam(value = "driverName") String driverName,
                              @RequestParam(value = "driverSurname") String driverSurname,
-                             HttpServletRequest request) {
+                             HttpServletRequest request,
+                             Model model) {
 
         Driver driver = (Driver) request.getSession().getAttribute("selectedDriver");
         driver.setName(driverName);
         driver.setSurname(driverSurname);
 
         driverService.update(driver);
+
+        model.addAttribute("info_msg", "Driver successfully updated.");
 
         return "manager/main_manager";
     }
@@ -459,7 +476,8 @@ public class ManagerController {
      * @return main_manager.jsp
      */
     @RequestMapping(value = "deleteDriver")
-    public String deleteDriver(@RequestParam(value = "selectedDriver") String idDriverStr) {
+    public String deleteDriver(@RequestParam(value = "selectedDriver") String idDriverStr,
+                               Model model) {
 
 
         Driver driver = driverService.read(Integer.valueOf(idDriverStr));
@@ -475,6 +493,8 @@ public class ManagerController {
         driverService.delete(driver);
 
         employeeService.delete(employee);
+
+        model.addAttribute("info_msg", "Driver successfully deleted.");
 
         return "manager/main_manager";
     }
@@ -503,7 +523,8 @@ public class ManagerController {
     public String addDriver(@RequestParam(value = "driverName") String driverName,
                             @RequestParam(value = "driverSurname") String driverSurname,
                             @RequestParam(value = "email") String email,
-                            @RequestParam(value = "password") String password) {
+                            @RequestParam(value = "password") String password,
+                            Model model) {
 
         Employee employee = new Employee(email, password, POSITION.DRIVER);
         employeeService.create(employee);
@@ -515,6 +536,8 @@ public class ManagerController {
 
         employee.setPersonalNumber(driver.getId());
         employeeService.update(employee);
+
+        model.addAttribute("info_msg", "Driver successfully created.");
 
         return "manager/main_manager";
     }
