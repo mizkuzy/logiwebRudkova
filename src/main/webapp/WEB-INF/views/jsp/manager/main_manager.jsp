@@ -66,7 +66,7 @@
     </div>
 <div class="my-settings">
     <c:if test="${info_msg != null}">
-        <div class="msg">
+        <div class="alert alert-success">
                 ${info_msg}
         </div>
     </c:if>

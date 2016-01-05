@@ -66,46 +66,44 @@
 
             <div class="row">
                 <div class="col-md-6">
-                    <div class="colored-yellow">
+                    <div class="make-disabled-if-request-zero">
                         <form action="create_order" method="get">
                             <input type="hidden" name="currentRoutLabel" value="yellow"/>
-                            <%--<img href="create_order" src="/resources/img/yellow.png" class="img-responsive img-thumbnail">--%>
-                            WAIT:${yellowRoutRequestsSize} requests<br/>
-                            <button class="btn-warning" type="submit" title="Handle" value="HANDLE">HANDLE</button>
+                            <button class="btn-yellow" type="submit" title="Handle"
+                                    value="${yellowRoutRequestsSize} REQUESTS">
+                                ${yellowRoutRequestsSize} REQUESTS
+                            </button>
                         </form>
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="colored-green">
-                        <form action="create_order" method="get">
-                            <input type="hidden" name="currentRoutLabel" value="green"/>
-                            WAIT:${greenRoutRequestsSize} requests <br/>
-                            <%--<img src="/resources/img/green.png" class="img-responsive img-thumbnail">--%>
-                            <button class="btn-warning" type="submit" title="Handle" value="HANDLE">HANDLE</button>
-                        </form>
-                    </div>
+                    <form action="create_order" method="get">
+                        <input type="hidden" name="currentRoutLabel" value="green"/>
+                        <button class="btn-green" type="submit" title="Handle"
+                                value="${greenRoutRequestsSize} REQUESTS">
+                            ${greenRoutRequestsSize} REQUESTS
+                        </button>
+                    </form>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <div class="colored-purple">
-                        <form action="create_order" method="get">
-                            <input type="hidden" name="currentRoutLabel" value="purple"/>
-                            WAIT: ${purpleRoutRequestsSize} requests <br/>
-                            <%--<img src="/resources/img/purple.png" class="img-responsive img-responsive img-thumbnail">--%>
-                            <button class="btn-warning" type="submit" title="Handle" value="HANDLE">HANDLE</button>
-                        </form>
-                    </div>
+                    <form action="create_order" method="get">
+                        <input type="hidden" name="currentRoutLabel" value="purple"/>
+                        <button class="btn-purple" type="submit" title="Handle"
+                                value="${purpleRoutRequestsSize} REQUESTS">
+                            ${purpleRoutRequestsSize} REQUESTS
+                        </button>
+                    </form>
                 </div>
                 <div class="col-md-6">
-                    <div class="colored-blue">
-                        <form action="create_order" method="get">
-                            <input type="hidden" name="currentRoutLabel" value="blue"/>
-                            WAIT:${blueRoutRequestsSize} requests <br/>
-                            <%--<img src="/resources/img/blue.png" class="img-responsive img-responsive img-thumbnail">--%>
-                            <button class="btn-warning" type="submit" title="Handle" value="HANDLE">HANDLE</button>
-                        </form>
-                    </div>
+                    <form action="create_order" method="get">
+                        <input type="hidden" name="currentRoutLabel" value="blue"/>
+                        <button class="btn-blue" type="submit" title="Handle"
+                                value="${blueRoutRequestsSize} REQUESTS">
+                            ${blueRoutRequestsSize} REQUESTS
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>

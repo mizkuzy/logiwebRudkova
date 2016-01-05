@@ -50,15 +50,6 @@
                            placeholder="Password">
                 </div>
             </div>
-            <%--<div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox"> Запомнить меня
-                        </label>
-                    </div>
-                </div>
-            </div>--%>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
                     <button type="submit" class="btn btn-success">Log in</button>
@@ -66,32 +57,15 @@
             </div>
         </form>
     </div>
+
+    <div class="alert-warning">
+        <c:if test="${error_msg != null}">
+            ${error_msg}
+        </c:if>
+    </div>
+
 </div>
 
 </body>
 
 </html>
-
-
-<%--
-<form class="form-signin" role="form" method="POST" action="<c:url value="/j_spring_security_check" />">
-
-    <table>
-        <tr>
-            <td align="right"></td>
-            <td><input type="text" name="username"/></td>
-        </tr>
-        <tr>
-            <td align="right"></td>
-            <td><input type="password" name="password"/></td>
-        </tr>
-        &lt;%&ndash;<tr>
-            <td align="right"><spring:message code="label.remember" /></td>
-            <td><input type="checkbox" name="_spring_security_remember_me" /></td>
-        </tr>&ndash;%&gt;
-        <tr>
-            <td colspan="2" align="right"><input type="submit" value="Login"/>
-                &lt;%&ndash;<input type="reset" value="Reset" /></td>&ndash;%&gt;
-        </tr>
-    </table>
-</form>--%>

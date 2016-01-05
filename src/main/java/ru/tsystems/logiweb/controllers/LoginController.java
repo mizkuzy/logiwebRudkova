@@ -42,14 +42,24 @@ public class LoginController {
         return "index";
     }
 
-    // todo разрыва сесси не происходит при логАуте, при нажатии на бэкспейс я могу зайти в приложение
+    // todo герман. разрыва сесси не происходит при логАуте, при нажатии на бэкспейс я могу зайти в приложение
     @RequestMapping(value = "/logout")
     public String logout() {
+
+        return "login";
+    }
+
+    @RequestMapping(value = "/login_error")
+    public String login_error(Model model) {
+        //todo герман. работает неправильно
+        logger.info("Tried to log in");
+        model.addAttribute("error_msg", "Incorrect pair Username and Password." + "\n" +
+                "Please enter correct username and password");
         return "login";
     }
 
     @RequestMapping(value = "/denied")
-    public String denied(@RequestParam(value = "usesrname") String usesrname,
+    public String denied(@RequestParam(value = "username") String usesrname,
                          @RequestParam(value = "password") String password,
                          Model model) {
         logger.info("Tried to log in");
@@ -61,7 +71,8 @@ public class LoginController {
      * Decide what page app should show manager or driver or wrong authentication
      */
     @RequestMapping(value = "/loginDispatcher")
-    public String loginDispatcher(HttpServletRequest request) {
+    public String loginDispatcher(HttpServletRequest request,
+                                  Model model) {
 
         //todo герман. достаточно ли такой авторизации?
 
@@ -74,15 +85,15 @@ public class LoginController {
         GrantedAuthority roleDriver = new SimpleGrantedAuthority(
                 "ROLE_DRIVER");
 
-        logger.info("currentUser "+request.getSession().getAttribute("currentUser"));
+        logger.info("currentUser " + request.getSession().getAttribute("currentUser"));
         request.getSession().setAttribute("username", currentUser);
-
 
         if (currentUser.getAuthorities().contains(roleManager)) {
             return "forward:/main_manager";
         } else if (currentUser.getAuthorities().contains(roleDriver)) {
             return "forward:/main_driver";
         }
+
         return "login";
     }
 }
