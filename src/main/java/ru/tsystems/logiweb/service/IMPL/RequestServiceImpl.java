@@ -2,10 +2,7 @@ package ru.tsystems.logiweb.service.IMPL;
 
 import org.apache.log4j.Logger;
 import ru.tsystems.logiweb.dao.API.RequestGenericDAO;
-import ru.tsystems.logiweb.entities.Good;
-import ru.tsystems.logiweb.entities.Order;
-import ru.tsystems.logiweb.entities.Request;
-import ru.tsystems.logiweb.entities.Rout;
+import ru.tsystems.logiweb.entities.*;
 import ru.tsystems.logiweb.entities.statusesAndStates.RequestStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,10 +19,16 @@ import java.util.List;
 @Service("requestService")
 public class RequestServiceImpl implements RequestService {
 
+    /**
+     * This constant needs to compare hours from requests.
+     * This number is arbitrary, but bigger then all possible values hours in routs.
+     */
+    private static final int HOURS = 100;
     private Logger logger = Logger.getLogger(RequestServiceImpl.class);
 
     @Autowired
     private RequestGenericDAO requestDAO;
+    private int requestHoursForYellowRout;
 
     /**
      * Create required entity.
@@ -113,7 +116,7 @@ public class RequestServiceImpl implements RequestService {
         request.setRoutForRequest(rout);
         request.setStatusRequest(RequestStatus.NO);
         create(request);//TODO EXCEPTION?
-        logger.info("Adding of new request is finished. Number of request: " + request.getIdRequest());
+        logger.info("Adding of new request is finished.ID Number of request: " + request.getIdRequest());
     }
 
     /**
@@ -133,11 +136,179 @@ public class RequestServiceImpl implements RequestService {
             }
         }
 
+        time += countHours(requests);
+        logger.info("Total time=" + time);
         return time;
     }
 
     /**
+     * Sums hours for yellow rout.
+     *
+     * @param requests
+     * @return hours.
+     */
+    private int countHours(List<Request> requests) {
+
+        String routLabel = requests.get(0).getRoutForRequest().getRouteLabelFK().getLabel();
+
+        int timeToFirstCity1 = addHoursTo(requests, routLabel);
+        logger.info("timeToFirstCity1=" + timeToFirstCity1);
+        int timeFromLastCity2 = addHoursFrom(requests, routLabel);
+        logger.info("timeFromLastCity2" + timeFromLastCity2);
+        return timeToFirstCity1 + timeFromLastCity2;
+    }
+
+
+    /**
+     * Counts hours need to reach first city on the yellow rout of order from list of request.
+     *
+     * @param requests
+     * @param routLabel
+     * @return hours
+     */
+    private int addHoursTo(List<Request> requests, String routLabel) {
+
+        int hours = HOURS;
+        int requestHours = 0;
+
+        for (Request r : requests) {
+
+            String city1 = r.getRoutForRequest().getCity1();
+
+            if (city1.equals("Saint-Petersburg")) {
+                logger.info("First city is Saint-Petersburg");
+                return 0;
+            }
+
+            switch (routLabel) {
+                case "yellow":
+                    requestHours = getRequestHoursForYellowRout(city1);
+                    break;
+                case "green":
+                    requestHours = getRequestHoursForGreenRout(city1);
+                    break;
+                case "purple":
+                    requestHours = getRequestHoursForPurpleRout(city1);
+                    break;
+                case "blue":
+                    requestHours = getRequestHoursForBlueRout(city1);
+            }
+
+            if (requestHours < hours) {
+                hours = requestHours;
+            }
+        }
+
+        return hours;
+    }
+
+    /**
+     * Counts hours need to reach Saint-Petersburg from the last city on the yellow rout of order from list of request.
+     *
+     * @param requests
+     * @param routLabel
+     * @return hours
+     */
+    private int addHoursFrom(List<Request> requests, String routLabel) {
+
+        int hours = HOURS;
+        int requestHours = 0;
+
+        for (Request r : requests) {
+
+            String city2 = r.getRoutForRequest().getCity2();
+
+            if (city2.equals("Saint-Petersburg")) {
+                logger.info("Last city is Saint-Petersburg");
+                return 0;
+            }
+
+            switch (routLabel) {
+                case "yellow":
+                    requestHours = getRequestHoursForYellowRout(city2);
+                    break;
+                case "green":
+                    requestHours = getRequestHoursForGreenRout(city2);
+                    break;
+                case "purple":
+                    requestHours = getRequestHoursForPurpleRout(city2);
+                    break;
+                case "blue":
+                    requestHours = getRequestHoursForBlueRout(city2);
+            }
+
+            if (requestHours < hours) {
+                hours = requestHours;
+            }
+        }
+
+        return hours;
+    }
+
+
+    public int getRequestHoursForYellowRout(String city) {
+
+        switch (city) {
+            case "Veliky_Novgorod":
+                return 3;
+
+            case "Pskov":
+                return 5;
+
+            case "Kaliningrad":
+                return 14;
+        }
+        //this line will be never reach if all cities are correct
+        return 0;
+    }
+
+    public int getRequestHoursForGreenRout(String city) {
+
+        switch (city) {
+            case "Petrozavodsk":
+                return 5;
+
+            case "Murmansk":
+                return 17;
+
+        }
+        //this line will be never reach if all cities are correct
+        return 0;
+    }
+
+    public int getRequestHoursForPurpleRout(String city) {
+
+        switch (city) {
+            case "Cherepovec":
+                return 6;
+
+            case "Arhangelsk":
+                return 18;
+
+            case "Naryan-Mar":
+                return 45;
+
+        }
+        //this line will be never reach if all cities are correct
+        return 0;
+    }
+
+    public int getRequestHoursForBlueRout(String city) {
+
+        switch (city) {
+            case "Vologda":
+                return 8;
+
+            case "Siktivkar":
+                return 19;
+        }
+        //this line will be never reach if all cities are correct
+        return 0;
+    }
+
+    /**
      * Changes requests statuses to FINISH.
+     *
      * @param routLabel
      */
     @Override
@@ -220,4 +391,6 @@ public class RequestServiceImpl implements RequestService {
         }
         return goodsToDelete;
     }
+
+
 }

@@ -205,7 +205,7 @@ public class ManagerController {
         String[] selectedVans = request.getParameterValues("selectedVan");
         logger.info("selectedVans.length=" + selectedVans.length);
         int idVan = Integer.valueOf(selectedVans[0]) - 1;
-        logger.info(idVan);
+        logger.info("idVan" + idVan);
         Van van = vanService.getSelectedVan((List<Van>) request.getSession().getAttribute("appropriateVans"), idVan);
         logger.info("Choosed this " + van);
         vanService.changeVanStatus(van, VanStatus.BUSY);
