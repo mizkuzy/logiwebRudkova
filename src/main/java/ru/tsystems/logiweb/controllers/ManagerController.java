@@ -11,10 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.tsystems.logiweb.entities.*;
-import ru.tsystems.logiweb.entities.statusesAndStates.DriverStatus;
-import ru.tsystems.logiweb.entities.statusesAndStates.OrderStatus;
-import ru.tsystems.logiweb.entities.statusesAndStates.POSITION;
-import ru.tsystems.logiweb.entities.statusesAndStates.VanStatus;
+import ru.tsystems.logiweb.entities.statusesAndStates.*;
 import ru.tsystems.logiweb.service.API.*;
 
 import javax.servlet.ServletException;
@@ -175,22 +172,20 @@ public class ManagerController {
         List appropriateVans = vanService.getAppropriateVans(currentRoutLabel);
         httpRequest.getSession().setAttribute("appropriateVans", appropriateVans);
 
-        //TODO не учитывается время, которое водитель потратит на поездку в спб в случае, если конечный пункт не СПБ,
-        // а начальный у нас должен быть СПБ, что кстати тоже не учитывается, если нач. точка не спб. тут тупо считаются расстояния между пунктами
-        int totalRequestAmount = requestService.getTotalTimeRequests(requests);
+        int totalHoursAmount = requestService.getTotalTimeRequests(requests);
+        httpRequest.getSession().setAttribute("totalHoursAmount", totalHoursAmount);
 
         //TODO при подсчёте рабочих часов не учитывается, если заказ совпадёт на переход с месяца на месяц
-        List appropriateDrivers = driverService.getAppropriateDrivers(totalRequestAmount);
+        List appropriateDrivers = driverService.getAppropriateDrivers(totalHoursAmount);
         httpRequest.getSession().setAttribute("appropriateDrivers", appropriateDrivers);
 
         int maxCheckboxSelections = vanService.getDriversCapacity(currentRoutLabel) + 1;//+1 means 1 van
-        /*model.addAttribute("maxCheckboxSelections", maxCheckboxSelections);*/
         httpRequest.getSession().setAttribute("maxCheckboxSelections", maxCheckboxSelections);
         return "manager/create_order";
     }
 
     /**
-     * Changes request status to FINISHED, Sets choosed drivers and van to order
+     * Changes requests statuses to FINISHED, Sets chose drivers and van to order
      *
      * @param request
      * @return main_manager.jsp
@@ -201,7 +196,7 @@ public class ManagerController {
         //Changes request status to FINISHED
         requestService.changeRequestsStatuses((String) request.getSession().getAttribute("currentRoutLabel"));
 
-        //Sets choosed van to order
+        //Sets chose van to order
         String[] selectedVans = request.getParameterValues("selectedVan");
         logger.info("selectedVans.length=" + selectedVans.length);
         int idVan = Integer.valueOf(selectedVans[0]) - 1;
@@ -213,18 +208,16 @@ public class ManagerController {
         orderService.setVanToOrder(van, order);
         logger.info("Van is setted to order");
 
-        //Sets chosen drivers to order
+        //Sets chose drivers to order
         String[] selectedDriversID = request.getParameterValues("selectedDriver");
         logger.info("selectedDrivers.length=" + selectedDriversID.length);
         List<Driver> selectedDrivers = driverService.getSelectedDrivers((List<Driver>) request.getSession().getAttribute("appropriateDrivers"),
                 selectedDriversID);
-        logger.debug("Drivers selected:");
-        for (Driver d :
-                selectedDrivers) {
-            logger.debug(d);
-        }
+
         //если водителю назначена заявка, то статус меняется на busy. на рабочие часы это не влияет
         driverService.changeDriversStatuses(selectedDrivers, DriverStatus.BUSY);
+        Integer totalHoursAmount = (Integer) request.getSession().getAttribute("totalHoursAmount");
+        driverService.setWorkHours(selectedDrivers, totalHoursAmount);
         orderService.setDriversToOrder(selectedDrivers, order);
 
         for (Driver d :
@@ -279,6 +272,7 @@ public class ManagerController {
 
         List<Driver> busyDrivers = driverService.getBusyDrivers(orderID);
         driverService.changeDriversStatuses(busyDrivers, DriverStatus.FREE);
+        driverService.changeDriversStates(busyDrivers, DriverState.WORK);
         driverService.breakLinks(busyDrivers, order);
 
         vanService.changeVanStatus(order.getVan(), VanStatus.WAIT);

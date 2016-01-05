@@ -2,6 +2,7 @@ package ru.tsystems.logiweb.service.API;
 
 import ru.tsystems.logiweb.entities.Driver;
 import ru.tsystems.logiweb.entities.Order;
+import ru.tsystems.logiweb.entities.statusesAndStates.DriverState;
 import ru.tsystems.logiweb.entities.statusesAndStates.DriverStatus;
 
 import java.util.List;
@@ -16,4 +17,8 @@ public interface DriverService extends GenericService<Driver, Integer> {
     List<Driver> getBusyDrivers(int order);
 
     void breakLinks(List<Driver> busyDrivers, Order order);
+
+    void changeDriversStates(List<Driver> busyDrivers, DriverState work);
+
+    void setWorkHours(List<Driver> selectedDrivers, Integer totalHoursAmount);
 }

@@ -86,6 +86,9 @@ public class DriverServiceImpl implements DriverService {
     }
 
     /**
+     * Choose appropriate drivers from all drivers who corresponds to conditions:
+     * has not enough work hours per month,  DriverState=WORK, DriverStatus=FREE.
+     *
      * @param orderHours
      * @return list of appropriate drivers for this order
      */
@@ -102,7 +105,6 @@ public class DriverServiceImpl implements DriverService {
                         (d.getState().equals(DriverState.WORK)) & (d.getStatusDriver().equals(DriverStatus.FREE))) {
                     appropriateDrivers.add(d);
                 }
-
             }
         }
         return appropriateDrivers;
@@ -166,6 +168,22 @@ public class DriverServiceImpl implements DriverService {
     }
 
     /**
+     * Changes driver's state to state in parameter.
+     *
+     * @param selectedDrivers
+     * @param driverState
+     */
+    @Override
+    @Transactional
+    public void changeDriversStates(List<Driver> selectedDrivers, DriverState driverState) {
+        for (Driver d : selectedDrivers) {
+            d.setState(driverState);
+            update(d);
+        }
+        logger.info("Selected drivers' states are changed to " + driverState);
+    }
+
+    /**
      * Gets drivers related to orderID.
      *
      * @param orderID
@@ -214,6 +232,23 @@ public class DriverServiceImpl implements DriverService {
                 update(d);
             }
             logger.info("All links between " + order.getNumber() + " and chosen drivers are deleted");
+        }
+    }
+
+    /**
+     * Sets work hours to drivers who was appointed to execute the order.
+     *
+     * @param selectedDrivers
+     * @param totalHoursAmount
+     */
+    @Override
+    @Transactional
+    public void setWorkHours(List<Driver> selectedDrivers, Integer totalHoursAmount) {
+        if (selectedDrivers!=null){
+            for (Driver driver: selectedDrivers){
+                driver.setWorkHours(totalHoursAmount);
+                update(driver);
+            }
         }
     }
 }
