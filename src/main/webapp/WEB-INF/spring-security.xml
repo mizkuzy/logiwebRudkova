@@ -14,6 +14,7 @@
           use-expressions="true">
         <csrf disabled="true"/>
 
+        <intercept-url pattern="/index" access="permitAll"/>
         <intercept-url pattern="/login" access="permitAll"/>
         <intercept-url pattern="/driver/**" access="ROLE_DRIVER"/>
         <intercept-url pattern="/manager/**" access="ROLE_MANAGER"/>
@@ -38,7 +39,7 @@
                 logout-success-url="/login"
                 logout-url="/j_spring_security_logout"
         />
-        <access-denied-handler error-page="/denied"/>
+
         <session-management invalid-session-url="/login">
             <concurrency-control max-sessions="1"
                                  expired-url="/login"/>

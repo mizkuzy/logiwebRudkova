@@ -58,15 +58,6 @@ public class LoginController {
         return "login";
     }
 
-    @RequestMapping(value = "/denied")
-    public String denied(@RequestParam(value = "username") String usesrname,
-                         @RequestParam(value = "password") String password,
-                         Model model) {
-        logger.info("Tried to log in");
-        model.addAttribute("error_msg", "Access denied!");
-        return "login";
-    }
-
     /**
      * Decide what page app should show manager or driver or wrong authentication
      */
