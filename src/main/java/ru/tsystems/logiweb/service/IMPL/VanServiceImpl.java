@@ -1,8 +1,7 @@
 package ru.tsystems.logiweb.service.IMPL;
 
 import org.apache.log4j.Logger;
-import ru.tsystems.logiweb.dao.API.VanGenericDAO;
-import ru.tsystems.logiweb.entities.Order;
+import ru.tsystems.logiweb.dao.API.VanDAO;
 import ru.tsystems.logiweb.entities.Van;
 import ru.tsystems.logiweb.entities.statusesAndStates.VanState;
 import ru.tsystems.logiweb.entities.statusesAndStates.VanStatus;
@@ -28,7 +27,7 @@ public class VanServiceImpl implements VanService {
     private Logger logger = Logger.getLogger(VanServiceImpl.class);
 
     @Autowired
-    private VanGenericDAO vanDAO;
+    private VanDAO vanDAO;
 
     /**
      * Create required entity.
@@ -107,6 +106,12 @@ public class VanServiceImpl implements VanService {
         return appropriateVans;
     }
 
+    /**
+     * Gets drivers capacity.
+     *
+     * @param routLabel
+     * @return drivers' capacity
+     */
     @Override
     public int getDriversCapacity(String routLabel) {
         int driversCapacity = 0;
@@ -127,24 +132,28 @@ public class VanServiceImpl implements VanService {
         return driversCapacity;
     }
 
+    /**
+     * Gets selected van.
+     *
+     * @param vans
+     * @param idVan
+     * @return selected van
+     */
     @Override
     public Van getSelectedVan(List<Van> vans, int idVan) {
         return vans.get(idVan);
     }
 
+    /**
+     * Changes van's status to required.
+     *
+     * @param van
+     * @param status
+     */
     @Override
     @Transactional
     public void changeVanStatus(Van van, VanStatus status) {
         van.setStatusVan(status);
         update(van);
     }
-
-   /* @Override
-    public void breakLinks(Van van, Order order) {
-        logger.info("Incoming order: " + order.getNumber());
-
-        if (van!=null){
-            van.setVanNumberInOrder();
-        }
-    }*/
 }

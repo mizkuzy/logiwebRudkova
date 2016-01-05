@@ -38,6 +38,7 @@ public class RunToDB {
         Employee employee11 = new Employee("dr11@lw.ru", "pswd", POSITION.DRIVER);
         Employee employee12 = new Employee("dr12@lw.ru", "pswd", POSITION.DRIVER);
         Employee employee13 = new Employee("dr13@lw.ru", "pswd", POSITION.DRIVER);
+        Employee employee14 = new Employee("dr14@lw.ru", "pswd", POSITION.DRIVER);
 
         Driver driver1 = new Driver("Petr", "Severe");
         Driver driver2 = new Driver("Andrey", "Knyaz");
@@ -50,6 +51,7 @@ public class RunToDB {
         Driver driver9 = new Driver("Gustav", "Bok");
         Driver driver10 = new Driver("Till", "Lindemann");
         Driver driver11 = new Driver("Henry", "Ford");
+        Driver driver12 = new Driver("Max", "Bobkin");
 
         employee1.setDriverFK(driver1);
         employee2.setDriverFK(driver2);
@@ -62,6 +64,7 @@ public class RunToDB {
         employee11.setDriverFK(driver9);
         employee12.setDriverFK(driver10);
         employee13.setDriverFK(driver11);
+        employee14.setDriverFK(driver12);
 
         em.persist(driver1);
         em.persist(driver2);
@@ -74,18 +77,20 @@ public class RunToDB {
         em.persist(driver9);
         em.persist(driver10);
         em.persist(driver11);
+        em.persist(driver12);
 
         employee1.setPersonalNumber(driver1.getId());
-        employee2.setPersonalNumber(driver1.getId());
-        employee5.setPersonalNumber(driver1.getId());
-        employee6.setPersonalNumber(driver1.getId());
-        employee7.setPersonalNumber(driver1.getId());
-        employee8.setPersonalNumber(driver1.getId());
-        employee9.setPersonalNumber(driver1.getId());
-        employee10.setPersonalNumber(driver1.getId());
-        employee11.setPersonalNumber(driver1.getId());
-        employee12.setPersonalNumber(driver1.getId());
-        employee13.setPersonalNumber(driver1.getId());
+        employee2.setPersonalNumber(driver2.getId());
+        employee5.setPersonalNumber(driver3.getId());
+        employee6.setPersonalNumber(driver4.getId());
+        employee7.setPersonalNumber(driver5.getId());
+        employee8.setPersonalNumber(driver6.getId());
+        employee9.setPersonalNumber(driver7.getId());
+        employee10.setPersonalNumber(driver8.getId());
+        employee11.setPersonalNumber(driver9.getId());
+        employee12.setPersonalNumber(driver10.getId());
+        employee13.setPersonalNumber(driver11.getId());
+        employee14.setPersonalNumber(driver12.getId());
 
         em.persist(employee1);
         em.persist(employee2);
@@ -100,6 +105,7 @@ public class RunToDB {
         em.persist(employee11);
         em.persist(employee12);
         em.persist(employee13);
+        em.persist(employee14);
 
 
         Rout rout1 = new Rout("Saint-Petersburg", "Veliky_Novgorod", 194, 3);
@@ -223,16 +229,19 @@ public class RunToDB {
         em.persist(rout35);
         em.persist(rout36);
 
-        Van van1 = new Van("AA12345", 4, 10);
-        Van van2 = new Van("BB12345", 3, 20);
-        Van van3 = new Van("CC12345", 3, 30);
-        Van van4 = new Van("EE12345", 2, 40);
-        Van van5 = new Van("HH12345", 4, 10);
-        Van van6 = new Van("KK12345", 3, 20);
-        Van van7 = new Van("MM12345", 3, 30);
-        Van van8 = new Van("OO12345", 2, 40);
-        Van van9 = new Van("PP12345", 2, 50);
-        Van van10 = new Van("TT12345", 2, 10);
+        Van van1 = new Van("AA12345", 2, 10);
+        Van van2 = new Van("BB12345", 2, 20);
+        Van van3 = new Van("CC12345", 2, 30);
+        Van van4 = new Van("EE12345", 3, 40);
+        Van van5 = new Van("HH12345", 3, 10);
+        Van van6 = new Van("KK12345", 4, 20);
+        Van van7 = new Van("MM12345", 4, 30);
+        Van van8 = new Van("OO12345", 3, 40);
+        Van van9 = new Van("PP12345", 3, 50);
+        Van van10 = new Van("TT12345", 3, 10);
+        Van van11 = new Van("AB54321", 4, 7);
+        Van van12 = new Van("CC53261", 3, 12);
+
 
         van1.setRoutLabelForVan(routeLabel1);
         van2.setRoutLabelForVan(routeLabel1);
@@ -244,6 +253,8 @@ public class RunToDB {
         van8.setRoutLabelForVan(routeLabel4);
         van9.setRoutLabelForVan(routeLabel4);
         van10.setRoutLabelForVan(routeLabel4);
+        van11.setRoutLabelForVan(routeLabel3);
+        van12.setRoutLabelForVan(routeLabel2);
 
         em.persist(van1);
         em.persist(van2);
@@ -255,6 +266,8 @@ public class RunToDB {
         em.persist(van8);
         em.persist(van9);
         em.persist(van10);
+        em.persist(van11);
+        em.persist(van12);
 
         em.getTransaction().commit();
         em.close();

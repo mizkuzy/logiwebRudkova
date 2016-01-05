@@ -15,6 +15,7 @@
         <class>ru.tsystems.logiweb.entities.Rout</class>
         <class>ru.tsystems.logiweb.entities.RouteLabel</class>
         <class>ru.tsystems.logiweb.entities.Van</class>
+        <class>ru.tsystems.logiweb.entities.TurnDriver</class>
 
         <properties>
             <property name="dialect" value="org.hibernate.dialect.MySQLDialect"/>
