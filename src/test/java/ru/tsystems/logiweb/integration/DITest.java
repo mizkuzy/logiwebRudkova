@@ -53,7 +53,7 @@ public class DITest extends AbstractJUnit4SpringContextTests{
     @Autowired
     private RoutLabelGenericDAO routLabelGenericDAO;
     @Autowired
-    private VanGenericDAO vanGenericDAO;
+    private VanDAO vanGenericDAO;
 
     @Test
     public void testEntityManager() {
