@@ -30,7 +30,7 @@ public class VanServiceImpl implements VanService {
     private VanDAO vanDAO;
 
     /**
-     * Create required entity.
+     * {@inheritDoc}
      *
      * @param entity
      */
@@ -41,10 +41,10 @@ public class VanServiceImpl implements VanService {
     }
 
     /**
-     * Read required entity.
+     * {@inheritDoc}
      *
      * @param id
-     * @return
+     * @return entity
      */
     @Override
     @Transactional
@@ -53,7 +53,7 @@ public class VanServiceImpl implements VanService {
     }
 
     /**
-     * Update required entity.
+     * {@inheritDoc}
      *
      * @param entity
      */
@@ -64,7 +64,7 @@ public class VanServiceImpl implements VanService {
     }
 
     /**
-     * Delete required entity.
+     * {@inheritDoc}
      *
      * @param entity
      */
@@ -75,9 +75,9 @@ public class VanServiceImpl implements VanService {
     }
 
     /**
-     * Get list of required ru.tsystems.logiweb.entities.
+     * {@inheritDoc}
      *
-     * @return list of ru.tsystems.logiweb.entities
+     * @return list of entities
      */
     @Override
     @Transactional
@@ -86,7 +86,7 @@ public class VanServiceImpl implements VanService {
     }
 
     /**
-     * Get list of vans with specialized routLabel
+     * Gets list of vans with specialized routLabel.
      *
      * @param routLabelType
      * @return list of appropriate vans
@@ -95,7 +95,7 @@ public class VanServiceImpl implements VanService {
     @Override
     public List<Van> getAppropriateVans(String routLabelType) {
         List<Van> vans = vanDAO.getAll();
-        List<Van> appropriateVans = new ArrayList<Van>();
+        List<Van> appropriateVans = new ArrayList<>();
         if (vans != null) {
             for (Van van : vans) {
                 if ((van.getRoutLabelForVan().getLabel().equals(routLabelType)) && (van.getStatusVan().equals(VanStatus.WAIT)) && (van.getStateVan().equals(VanState.OK))) {
