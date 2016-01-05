@@ -63,6 +63,8 @@ public class LoginController {
     @RequestMapping(value = "/loginDispatcher")
     public String loginDispatcher(HttpServletRequest request) {
 
+        //todo герман. достаточно ли такой авторизации?
+
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User currentUser = (User) userService.loadUserByUsername(user.getUsername());
         request.getSession().setAttribute("currentUser", currentUser);
