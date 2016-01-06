@@ -58,11 +58,11 @@
         </form>
     </div>
 
-    <div class="alert-warning">
-        <c:if test="${error_msg != null}">
-            ${error_msg}
-        </c:if>
-    </div>
+    <c:if test="${error_msg != null}">
+        <div class="alert-warning">
+                ${error_msg}
+        </div>
+    </c:if>
 
 </div>
 

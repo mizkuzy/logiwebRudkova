@@ -25,7 +25,6 @@ public class DriverServiceImpl implements DriverService {
 
     private Logger logger = Logger.getLogger(DriverServiceImpl.class);
 
-    //TODO ещё лучше разобраться с этой аннотацией
     @Autowired
     private DriverGenericDAO driverDao;
 
@@ -95,35 +94,18 @@ public class DriverServiceImpl implements DriverService {
     @Override
     @Transactional
     public List getAppropriateDrivers(int orderHours) {
-        checkFirstMonthDay();
         //todo смену месяцев надо учесть
         List<Driver> allDrivers = getAll();
         List<Driver> appropriateDrivers = new ArrayList<>(allDrivers.size());//size of this list obviously will not more then size of all drivers list
         if (allDrivers != null) {
             for (Driver d : allDrivers) {
-                if (((orderHours + d.getWorkHours()) <= MAX_WORK_HOURS_PER_MONTH) &
-                        (d.getState().equals(DriverState.WORK)) & (d.getStatusDriver().equals(DriverStatus.FREE))) {
+                if (((orderHours + d.getWorkHours()) <= MAX_WORK_HOURS_PER_MONTH) &&
+                        (d.getState().equals(DriverState.WORK)) && (d.getStatusDriver().equals(DriverStatus.FREE))) {
                     appropriateDrivers.add(d);
                 }
             }
         }
         return appropriateDrivers;
-    }
-
-    /**
-     * Checks whether today is first day of month. If so then work hours of driver will be zero.
-     */
-    @Transactional
-    private void checkFirstMonthDay() {
-        if ((new Date().getDate()) == 1) {
-            List<Driver> allDrivers = getAll();
-            if (allDrivers != null) {
-                for (Driver d : allDrivers) {
-                    d.setWorkHours(0);
-                    update(d);
-                }
-            }
-        }
     }
 
     /**
@@ -244,11 +226,27 @@ public class DriverServiceImpl implements DriverService {
     @Override
     @Transactional
     public void setWorkHours(List<Driver> selectedDrivers, Integer totalHoursAmount) {
-        if (selectedDrivers!=null){
-            for (Driver driver: selectedDrivers){
+        if (selectedDrivers != null) {
+            for (Driver driver : selectedDrivers) {
                 driver.setWorkHours(totalHoursAmount);
                 update(driver);
             }
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @Transactional
+    public void setWorksHoursToZeroAllDrivers() {
+        List<Driver> allDrivers = getAll();
+        if (allDrivers != null) {
+            for (Driver d : allDrivers) {
+                d.setWorkHours(0);
+                update(d);
+            }
+        }
+        logger.info("Work hours of all drivers are zero.");
     }
 }

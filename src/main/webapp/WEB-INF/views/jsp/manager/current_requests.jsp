@@ -69,7 +69,7 @@
                     <div class="make-disabled-if-request-zero">
                         <form action="create_order" method="get">
                             <input type="hidden" name="currentRoutLabel" value="yellow"/>
-                            <button class="btn-yellow" type="submit" title="Handle"
+                            <button class="btn-yellow" type="submit" title="Saint-Petersburg - Velikiy Novgorod - Pskov - Kaliningrad"
                                     value="${yellowRoutRequestsSize} REQUESTS">
                                 ${yellowRoutRequestsSize} REQUESTS
                             </button>
@@ -79,7 +79,7 @@
                 <div class="col-md-6">
                     <form action="create_order" method="get">
                         <input type="hidden" name="currentRoutLabel" value="green"/>
-                        <button class="btn-green" type="submit" title="Handle"
+                        <button class="btn-green" type="submit" title="Saint-Petersburg - Petrozavodsk - Murmansk"
                                 value="${greenRoutRequestsSize} REQUESTS">
                             ${greenRoutRequestsSize} REQUESTS
                         </button>
@@ -90,7 +90,7 @@
                 <div class="col-md-6">
                     <form action="create_order" method="get">
                         <input type="hidden" name="currentRoutLabel" value="purple"/>
-                        <button class="btn-purple" type="submit" title="Handle"
+                        <button class="btn-purple" type="submit" title="Saint-Petersburg - Cherepovec - Arhangelsk - Naryan-Mar"
                                 value="${purpleRoutRequestsSize} REQUESTS">
                             ${purpleRoutRequestsSize} REQUESTS
                         </button>
@@ -99,7 +99,7 @@
                 <div class="col-md-6">
                     <form action="create_order" method="get">
                         <input type="hidden" name="currentRoutLabel" value="blue"/>
-                        <button class="btn-blue" type="submit" title="Handle"
+                        <button class="btn-blue" type="submit" title="Saint-Petersburg - Vologda - Siktivkar"
                                 value="${blueRoutRequestsSize} REQUESTS">
                             ${blueRoutRequestsSize} REQUESTS
                         </button>

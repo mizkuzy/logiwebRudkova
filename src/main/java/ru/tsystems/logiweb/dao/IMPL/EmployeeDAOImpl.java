@@ -22,7 +22,7 @@ public class EmployeeDAOImpl extends GenericDAOImpl<Employee, Integer> implement
      * Get required EmployeeEntity by specified email.
      *
      * @param email
-     * @return Employee's instance. //TODO Герман. Можно ли здесь употребить instance?
+     * @return Employee's instance.
      */
     @Override
     public Employee getEmployeeByEmail(String email) {

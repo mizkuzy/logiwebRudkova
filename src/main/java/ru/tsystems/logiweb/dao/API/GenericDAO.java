@@ -15,7 +15,6 @@ public interface GenericDAO<E, K> {
     void update(E entity);
 
     void delete(E entity);
-    //void delete(K id); TODO сделать удаление по id
 
     List<E> getAll();
 }

@@ -21,4 +21,9 @@ public interface DriverService extends GenericService<Driver, Integer> {
     void changeDriversStates(List<Driver> busyDrivers, DriverState work);
 
     void setWorkHours(List<Driver> selectedDrivers, Integer totalHoursAmount);
+
+    /**
+     * Sets work hours to zero to all drivers.
+     */
+    void setWorksHoursToZeroAllDrivers();
 }

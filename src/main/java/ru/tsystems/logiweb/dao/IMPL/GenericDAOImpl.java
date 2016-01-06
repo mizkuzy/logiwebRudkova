@@ -19,7 +19,7 @@ public abstract class GenericDAOImpl<E, K> implements GenericDAO<E, K> {
 
     protected Class<E> entityDAOType;
 
-    @SuppressWarnings("unchecked") //TODO таки разобраться что это или сделать по-другому
+    @SuppressWarnings("unchecked")
     public GenericDAOImpl() {
         entityDAOType = (Class<E>) ((ParameterizedType) getClass().getGenericSuperclass())
                 .getActualTypeArguments()[0];

@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * An implementation of EmployeeService API.
  */
-@Service("employeeService") //TODO почему здесь название сервиса с маленькой буквы?
+@Service("employeeService")
 public class EmployeeServiceImpl implements EmployeeService {
 
     private Logger logger = Logger.getLogger(EmployeeServiceImpl.class);
@@ -112,7 +112,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         try {
             Employee employee = employeeDAO.getEmployeeByEmail(email);
-            if ((employee.getEmail().equals(email)) & (employee.getPassword().equals(password))) {
+            if ((employee.getEmail().equals(email)) && (employee.getPassword().equals(password))) {
                 return true;
             }
         } catch (NoResultException e) {

@@ -4,5 +4,5 @@ import ru.tsystems.logiweb.entities.Rout;
 
 public interface RoutGenericDAO extends GenericDAO<Rout, Integer> {
 
-    Rout getByCities(String city1, String city2); //TODO не сделано
+    Rout getByCities(String city1, String city2);
 }

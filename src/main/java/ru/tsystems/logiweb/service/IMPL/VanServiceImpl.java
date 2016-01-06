@@ -91,7 +91,7 @@ public class VanServiceImpl implements VanService {
      * @param routLabelType
      * @return list of appropriate vans
      */
-    //TODO вообще говоря можно хранить сразу типизированные Фуры
+    //TODO герман. вообще говоря можно хранить сразу типизированные Фуры. Или не надо? Или ещё один named query создать?
     @Override
     public List<Van> getAppropriateVans(String routLabelType) {
         List<Van> vans = vanDAO.getAll();

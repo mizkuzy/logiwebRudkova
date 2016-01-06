@@ -1,10 +1,10 @@
 package ru.tsystems.logiweb.controllers;
-
-//todo удалить requests со статусом finished и определённым routlabel после выполнения заказа
-// todo заменить одинарный амперсанд на двойной везде и или тоже
-
+//todo герман. при первом запуске приложения и первой попытке входа вылетает ошибка про favicon.ico (см. скриншот)
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
+@EnableScheduling
 public class ManagerController {
 
     private Logger logger = Logger.getLogger(ManagerController.class);
@@ -41,6 +42,16 @@ public class ManagerController {
     private EmployeeService employeeService;
     @Autowired
     private RoutLabelService routLabelService;
+
+    /**
+     * Sets work hours to zero to all drivers on 1st day in 0:00 every month.
+     */
+    @Scheduled(cron = "0 0 7 * * ?")
+    //@Scheduled(cron = "*/60 * * * * ?") //every minute. but 2 times. i don't know why
+    public void checkFirstMonthDay() {
+        logger.info("Hi from cron!");
+        driverService.setWorksHoursToZeroAllDrivers();
+    }
 
     /**
      * Dispatch to the main jsp page for manager.
@@ -247,8 +258,7 @@ public class ManagerController {
 
         request.getSession().setAttribute("ordersPROCESS", ordersPROCESS);
         request.getSession().setAttribute("ordersDONE", ordersDONE);
-
-        //TODO Должна быть кнопка посмотреть выполненные заказы (ordersDONE) в orders_list.jsp
+        // TODO Можно сделать кнопку посмотреть выполненные заказы (ordersDONE) в orders_list.jsp
 
         return "manager/orders_list";
     }
@@ -263,6 +273,8 @@ public class ManagerController {
     @RequestMapping(value = "finishOrder")
     public String finishOrder(@RequestParam(value = "selectedOrder") String orderIDStr,
                               Model model) {
+
+        //todo если есть не до конца обработанный заказ, то при нажатии на кнопку финиш вылетит NPE
 
         logger.info("Selected order ID: " + orderIDStr);
         int orderID = Integer.valueOf(orderIDStr);
@@ -417,8 +429,6 @@ public class ManagerController {
         model.addAttribute("drivers", drivers);
         //todo добавить запрет на редактирование и удаление, если статус BUSY
 
-        //todo Как только добавил нового водителя через приложение, а потом смотришь список водителей,
-        // то personalNumber не отображается. Остальное работает
         return "manager/drivers";
     }
 

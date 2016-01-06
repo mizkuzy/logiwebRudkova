@@ -10,8 +10,4 @@ import org.springframework.stereotype.Repository;
 @Repository("vanDAO")
 public class VanGenericDAOImpl extends GenericDAOImpl<Van, Integer> implements VanDAO {
 
-    @Override
-    public Van getByNumber(String name) {
-        return null;
-    }//TODO не сделано
 }

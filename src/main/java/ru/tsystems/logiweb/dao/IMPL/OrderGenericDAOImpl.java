@@ -21,7 +21,7 @@ public class OrderGenericDAOImpl extends GenericDAOImpl<Order, Integer> implemen
     /**
      * Get required OrderEntity by specified number
      * @param number
-     * @return Order's instance. //TODO Герман. Можно ли здесь употребить instance?
+     * @return Order's instance.
      */
     @Override
     public Order getByNumber(Integer number) {
