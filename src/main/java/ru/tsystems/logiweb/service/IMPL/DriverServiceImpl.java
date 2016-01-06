@@ -240,10 +240,11 @@ public class DriverServiceImpl implements DriverService {
     @Override
     @Transactional
     public void setWorksHoursToZeroAllDrivers() {
+        int HOUR = 0;
         List<Driver> allDrivers = getAll();
         if (allDrivers != null) {
             for (Driver d : allDrivers) {
-                d.setWorkHours(0);
+                d.setWorkHours(HOUR);
                 update(d);
             }
         }

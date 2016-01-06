@@ -46,11 +46,10 @@ public class ManagerController {
     /**
      * Sets work hours to zero to all drivers on 1st day in 0:00 every month.
      */
-    @Scheduled(cron = "0 0 7 * * ?")
-    //@Scheduled(cron = "*/60 * * * * ?") //every minute. but 2 times. i don't know why
-    public void checkFirstMonthDay() {
+    @Scheduled(cron = "0 0 0 1 * ?")
+    public void setWorksHoursToZeroAllDrivers() {
         logger.info("Hi from cron!");
-        driverService.setWorksHoursToZeroAllDrivers();
+        driverService.setWorksHoursToZeroAllDrivers();//todo Why this method is executed 2 times?
     }
 
     /**
