@@ -56,91 +56,95 @@
         </div>
     </div>
 </div>
-<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 
-    <div class="background-set">
-        <img class="img-responsive" src="/resources/img/truck1.jpg" alt="truck1">
-    </div>
-    <div class="container text-center">
-        <table class="table table-hover my-settings">
-            <caption>Create order</caption>
-            <tr class="td-sp">
-                <th>Order number</th>
-                <td>${order.number} </td>
-            </tr>
-            <tr class="td-sp">
-                <th>Status</th>
-                <td>${order.status}</td>
-            </tr>
-            <tr class="td-sp">
-                <th>Routs points:</th>
-                <td>
-                    <table>
-                        <tr>
-                            <th>GOOD</th>
-                            <th>CITY FROM</th>
-                            <th>CITY TO</th>
-                        </tr>
-                        <c:forEach items="${order.requests}" var="request">
+<div class="container text-center">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+
+        <div class="background-set">
+            <img class="img-responsive" src="/resources/img/truck1.jpg" alt="truck1">
+        </div>
+        <div class="container text-center">
+            <table class="table table-hover my-settings">
+                <caption>Create order</caption>
+                <tr class="td-sp">
+                    <th>Order number</th>
+                    <td>${order.number} </td>
+                </tr>
+                <tr class="td-sp">
+                    <th>Status</th>
+                    <td>${order.status}</td>
+                </tr>
+                <tr class="td-sp">
+                    <th>Routs points:</th>
+                    <td>
+                        <table>
                             <tr>
-                                <td>
-                                        ${request.goodForRequest.name}
-                                </td>
-                                <td>
-                                        ${request.routForRequest.city1}
-                                </td>
-                                <td>
-                                        ${request.routForRequest.city2}
-                                </td>
+                                <th>GOOD</th>
+                                <th>CITY FROM</th>
+                                <th>CITY TO</th>
                             </tr>
-                        </c:forEach>
-                    </table>
-                </td>
-            </tr>
-            <tr class="td-sp">
-                <th>Total mass</th>
-                <td>${mass}</td>
-            </tr>
-            <tr>
-                <form:form class="form-horizontal" role="form" action="save_order" method="get">
-                    <td>
-                        <div class="form-group">
-                            <div class="col-sm-5">
-                                <b>Choose ${maxCheckboxSelections-1} drivers:</b><br>
-                                <c:forEach items="${appropriateDrivers}" var="driver" varStatus="theCount">
-                                    <input type="checkbox" class="checkbox_drivers" name="selectedDriver"
-                                           value="${theCount.count}"
-                                           max="3">${driver}<br>
-                                </c:forEach>
-                            </div>
-                        </div>
+                            <c:forEach items="${order.requests}" var="request">
+                                <tr>
+                                    <td>
+                                            ${request.goodForRequest.name}
+                                    </td>
+                                    <td>
+                                            ${request.routForRequest.city1}
+                                    </td>
+                                    <td>
+                                            ${request.routForRequest.city2}
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </table>
                     </td>
-
-                    <td>
-                        <div class="form-group">
-                            <div class="col-sm-5">
-                                <b>Choose van:</b><br>
-                                <c:forEach items="${appropriateVans}" var="van" varStatus="theCount">
-                                    <input type="checkbox" class="checkbox_vans" name="selectedVan"
-                                           value="${theCount.count}"
-                                           max="1">${van}<br>
-                                </c:forEach>
+                </tr>
+                <tr class="td-sp">
+                    <th>Total mass</th>
+                    <td>${mass}</td>
+                </tr>
+                <tr>
+                    <form:form class="form-horizontal" role="form" action="save_order" method="get">
+                        <td>
+                            <div class="form-group">
+                                <div class="col-sm-5">
+                                    <b>Choose ${maxCheckboxSelections-1} drivers:</b><br>
+                                    <c:forEach items="${appropriateDrivers}" var="driver" varStatus="theCount">
+                                        <input type="checkbox" class="checkbox_drivers" name="selectedDriver"
+                                               value="${theCount.count}"
+                                               max="3">${driver}<br>
+                                    </c:forEach>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-5">
-                                <button type="submit" class="btn btn-success" title="Save order"
-                                        value="SAVE ORDER">SAVE ORDER
-                                </button>
-                            </div>
-                        </div>
-                    </td>
-                </form:form>
-            </tr>
-        </table>
+                        </td>
 
+                        <td>
+                            <div class="form-group">
+                                <div class="col-sm-5">
+                                    <b>Choose van:</b><br>
+                                    <c:forEach items="${appropriateVans}" var="van" varStatus="theCount">
+                                        <input type="checkbox" class="checkbox_vans" name="selectedVan"
+                                               value="${theCount.count}"
+                                               max="1">${van}<br>
+                                    </c:forEach>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-5">
+                                    <button type="submit" class="btn btn-success" title="Save order"
+                                            value="SAVE ORDER">SAVE ORDER
+                                    </button>
+                                </div>
+                            </div>
+                        </td>
+                    </form:form>
+                </tr>
+            </table>
+
+        </div>
     </div>
 </div>
+
 <script>
     jQuery(function () {
         var max = <%=session.getAttribute("maxCheckboxSelections")%>;
