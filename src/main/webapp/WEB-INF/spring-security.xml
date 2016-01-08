@@ -36,12 +36,12 @@
                 authentication-failure-url="/login_error"
                 username-parameter="username"
                 password-parameter="password"
-        />
+                />
 
         <logout invalidate-session="true"
                 logout-success-url="/login"
                 logout-url="/j_spring_security_logout"
-        />
+                />
 
         <session-management invalid-session-url="/login">
             <concurrency-control max-sessions="1"

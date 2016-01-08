@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 import ru.tsystems.logiweb.dao.API.EmployeeGenericDAO;
 import ru.tsystems.logiweb.entities.Employee;
 import org.springframework.stereotype.Repository;
+import ru.tsystems.logiweb.exceptions.CustomLogiwebException;
 
 import javax.persistence.*;
 
@@ -32,7 +33,7 @@ public class EmployeeDAOImpl extends GenericDAOImpl<Employee, Integer> implement
             return (Employee) query.getSingleResult();
         } catch (PersistenceException ex) {
             logger.info("There was NoResultException because of wrong email: " + email);
-            throw new NoResultException("Entity with e-mail: " + email + " not found ");
+            throw new CustomLogiwebException("Entity with e-mail: " + email + " not found ");
         }
     }
 }

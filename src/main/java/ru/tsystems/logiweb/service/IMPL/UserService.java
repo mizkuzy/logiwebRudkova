@@ -38,7 +38,6 @@ public class UserService implements UserDetailsService {
             authorities.add(new SimpleGrantedAuthority("ROLE_MANAGER"));
             logger.info("The authorities of the user - ROLE_MANAGER");
         }
-
         return new User(email, employee.getPassword(), authorities);
     }
 }

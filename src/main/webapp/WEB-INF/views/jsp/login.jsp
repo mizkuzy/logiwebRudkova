@@ -26,10 +26,6 @@
 
 <body>
 
-<%--<c:if test="${not empty param.error}">
-    ERROR VALIDATION
-</c:if>--%>
-
 <div class="container text-center">
     <div class="col-sm-6">
         <h1 class="header">Please sign in</h1>
@@ -56,13 +52,14 @@
                 </div>
             </div>
         </form>
-    </div>
 
-    <c:if test="${error_msg != null}">
-        <div class="alert-warning">
-                ${error_msg}
-        </div>
-    </c:if>
+        <c:if test="${error_msg != null}">
+            <div class="alert-warning">
+                    ${error_msg}
+            </div>
+        </c:if>
+
+    </div>
 
 </div>
 

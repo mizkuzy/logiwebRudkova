@@ -42,7 +42,6 @@ public class LoginController {
         return "index";
     }
 
-    // todo герман. разрыва сесси не происходит при логАуте, при нажатии на бэкспейс я могу зайти в приложение
     @RequestMapping(value = "/logout")
     public String logout() {
 
