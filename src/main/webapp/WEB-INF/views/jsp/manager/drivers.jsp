@@ -68,13 +68,13 @@
         <table class="table table-hover my-settings">
             <caption>DRIVERS LIST</caption>
             <tr>
-                <th >
+                <th>
                     Personal Number
                 </th>
-                <th >
+                <th>
                     Name
                 </th>
-                <th >
+                <th>
                     Surname
                 </th>
                 <th>
@@ -115,13 +115,19 @@
                         <div>
                             <form name="edit" action="getDriverForEdit" method="get">
                                 <input type="hidden" name="selectedDriver" value="${driver.id}"/>
-                                <button class="btn-info" type="submit" title="Edit" value="EDIT">EDIT</button>
+                                <button class="btn-info" type="submit"
+                                    ${driver.statusDriver eq "BUSY" ? 'disabled="disabled"' : ''}
+                                        title="Edit" value="EDIT">EDIT
+                                </button>
                             </form>
                         </div>
                         <div>
                             <form name="delete" action="deleteDriver" method="get">
                                 <input type="hidden" name="selectedDriver" value="${driver.id}"/>
-                                <button class="btn-danger" type="submit" title="Delete" value="DELETE">DELETE</button>
+                                <button class="btn-danger" type="submit"
+                                    ${driver.statusDriver eq "BUSY" ? 'disabled="disabled"' : ''}
+                                        title="Delete" value="DELETE">DELETE
+                                </button>
                             </form>
                         </div>
                     </td>
