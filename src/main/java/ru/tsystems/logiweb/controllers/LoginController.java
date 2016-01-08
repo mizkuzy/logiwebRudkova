@@ -22,8 +22,6 @@ public class LoginController {
     private Logger logger = Logger.getLogger(LoginController.class);
 
     @Autowired
-    private EmployeeService employeeService;
-    @Autowired
     private UserService userService;
 
     /**

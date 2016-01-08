@@ -25,6 +25,10 @@
     box-shadow: 0px 0px 2px #bababa, inset 0px 0px 1px #ffffff;
 }
 
+/*.btn-yellow:disabled {
+    background : gainsboro;
+}*/
+
 .cities-yellow {
     visibility: hidden;
 }

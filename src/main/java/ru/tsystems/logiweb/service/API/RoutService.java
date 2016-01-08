@@ -16,4 +16,20 @@ public interface RoutService extends GenericService<Rout, Integer> {
     List<String> getCitiesForVelikyNovgorod();
 
     List<String> getCitiesForPskov();
+
+    List<String> getCitiesForPetrozavodsk();
+
+    List<String> getCitiesForArhangelsk();
+
+    List<String> getCitiesForVologda();
+
+    List<String> getCitiesForSiktivkar();
+
+    List<String> getCitiesForNaryanMar();
+
+    List<String> getCitiesForMurmansk();
+
+    List<String> getCitiesForKaliningrad();
+
+    List<String> getCitiesForCherepovec();
 }

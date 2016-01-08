@@ -152,4 +152,80 @@ public class RoutServiceImpl implements RoutService {
         cities.add("Kaliningrad");
         return cities;
     }
+
+    @Override
+    public List<String> getCitiesForPetrozavodsk() {
+        final int CITIES_AMOUNT = 2;
+        List<String> cities = new ArrayList<>(CITIES_AMOUNT);
+        cities.add("Saint-Petersburg");
+        cities.add("Murmansk");
+        return cities;
+    }
+
+    @Override
+    public List<String> getCitiesForArhangelsk() {
+        final int CITIES_AMOUNT = 3;
+        List<String> cities = new ArrayList<>(CITIES_AMOUNT);
+        cities.add("Saint-Petersburg");
+        cities.add("Naryan-Mar");
+        cities.add("Cherepovec");
+        return cities;
+    }
+
+    @Override
+    public List<String> getCitiesForVologda() {
+        final int CITIES_AMOUNT = 2;
+        List<String> cities = new ArrayList<>(CITIES_AMOUNT);
+        cities.add("Saint-Petersburg");
+        cities.add("Siktivkar");
+        return cities;
+    }
+
+    @Override
+    public List<String> getCitiesForSiktivkar() {
+        final int CITIES_AMOUNT = 2;
+        List<String> cities = new ArrayList<>(CITIES_AMOUNT);
+        cities.add("Saint-Petersburg");
+        cities.add("Vologda");
+        return cities;
+    }
+
+    @Override
+    public List<String> getCitiesForNaryanMar() {
+        final int CITIES_AMOUNT = 3;
+        List<String> cities = new ArrayList<>(CITIES_AMOUNT);
+        cities.add("Saint-Petersburg");
+        cities.add("Arhangelsk");
+        cities.add("Cherepovec");
+        return cities;
+    }
+
+    @Override
+    public List<String> getCitiesForMurmansk() {
+        final int CITIES_AMOUNT = 2;
+        List<String> cities = new ArrayList<>(CITIES_AMOUNT);
+        cities.add("Saint-Petersburg");
+        cities.add("Petrozavodsk");
+        return cities;
+    }
+
+    @Override
+    public List<String> getCitiesForKaliningrad() {
+        final int CITIES_AMOUNT = 3;
+        List<String> cities = new ArrayList<>(CITIES_AMOUNT);
+        cities.add("Saint-Petersburg");
+        cities.add("Veliky_Novgorod");
+        cities.add("Pskov");
+        return cities;
+    }
+
+    @Override
+    public List<String> getCitiesForCherepovec() {
+        final int CITIES_AMOUNT = 3;
+        List<String> cities = new ArrayList<>(CITIES_AMOUNT);
+        cities.add("Saint-Petersburg");
+        cities.add("Arhangelsk");
+        cities.add("Naryan-Mar");
+        return cities;
+    }
 }

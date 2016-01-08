@@ -32,7 +32,7 @@ public class RestDriverController {
     /**
      * Sets beginning of the driver's turn.
      *
-     * @param username
+     *
      */
     @RequestMapping("/beginTurn")
     public String setBeginTurn(@RequestParam(value = "username") String username) {

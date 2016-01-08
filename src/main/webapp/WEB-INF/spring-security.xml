@@ -10,25 +10,24 @@
 
     <global-method-security secured-annotations="enabled"/>
 
+    <http pattern="/rest/**" security="none"/>
     <http auto-config="true"
           use-expressions="true">
         <csrf disabled="true"/>
 
-        <intercept-url pattern="/rest/**" access="permitAll"/>
+        <intercept-url pattern="/rest/**" access="ROLE_DRIVER"/>
 
-        <intercept-url pattern="/index" access="permitAll"/>
+        <!--<intercept-url pattern="/index" access="permitAll"/>-->
+
         <intercept-url pattern="/login" access="permitAll"/>
         <intercept-url pattern="/driver/**" access="ROLE_DRIVER"/>
         <intercept-url pattern="/manager/**" access="ROLE_MANAGER"/>
-
 
         <!--нижеследующая строчка добавляется в конце всех паттернов, т.к. права доступа раздаются сверху вниз.
         и теперь только зарегистрированные пользователи смогут блуждать по приложению
         -->
         <intercept-url pattern="/*" access="isAuthenticated()"/>
 
-        <!--поменять потом на  login-processing-url="/loginDispatcher"-->
-        <!--login-processing-url="/static/spring_security_check"-->
         <form-login
                 login-processing-url="/j_spring_security_check"
                 login-page="/login"

@@ -8,9 +8,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import ru.tsystems.logiweb.entities.*;
 import ru.tsystems.logiweb.entities.statusesAndStates.*;
 import ru.tsystems.logiweb.service.API.*;
@@ -74,17 +72,31 @@ public class ManagerController {
         List<String> cities = routService.getCities();
         model.addAttribute("cities", cities);
         logger.info("Got cities list and set in session");
-        model.addAttribute("spbChoosed", routService.getCitiesForSPb());
-        model.addAttribute("velikyNovgorodChoosed", routService.getCitiesForVelikyNovgorod());
-        model.addAttribute("pskovChoosed", routService.getCitiesForPskov());
-
-        // todo если я сделаю ajax: считываем routlabel у выделенного города, а затем достаём список этих городо, удалив тот, который выделили
+        model.addAttribute("spb", routService.getCitiesForSPb());
+        model.addAttribute("velikyNovgorod", routService.getCitiesForVelikyNovgorod());
+        model.addAttribute("pskov", routService.getCitiesForPskov());
+        model.addAttribute("petrozavodsk",routService.getCitiesForPetrozavodsk());
+       /* model.addAttribute("arhangelsk", routService.getCitiesForArhangelsk());
+        //TODO фиг знает почему, но нижеследующие списки не отображаются
+        model.addAttribute("vologda",routService.getCitiesForVologda());
+        model.addAttribute("siktivkar",routService.getCitiesForSiktivkar());
+        model.addAttribute("naryan-Mar",routService.getCitiesForNaryanMar());
+        model.addAttribute("murmansk",routService.getCitiesForMurmansk());
+        model.addAttribute("kaliningrad",routService.getCitiesForKaliningrad());
+        model.addAttribute("cherepovec",routService.getCitiesForCherepovec());*/
 
         //todo если в названии товара пробел, то вылетит ошибка
-        //todo либо сделать ajax запрос, либо добавить все остальные варианты city2
-
         return "manager/new_request";
     }
+
+    /*@RequestMapping(value = "get_corresponding_cities/{city1}")
+    @ResponseBody
+    public List<String> getCorrespondingCities(@PathVariable String city1) {
+        logger.info("Chosen city" + city1);
+        List<String> citiesTo = routService.getCitiesForSPb();
+
+        return citiesTo;
+    }*/
 
     /**
      * Adds new request.
