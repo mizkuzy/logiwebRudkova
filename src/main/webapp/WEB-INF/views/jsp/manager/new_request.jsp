@@ -113,7 +113,7 @@
                                 <option name="${city2}">${city2}</option>
                             </c:forEach>
                         </select>
-                        <select class="form-control" id="Veliky_Novgorod" name="city2" required>
+                        <%--<select class="form-control" id="Veliky_Novgorod" name="city2" required>
                             <option selected disabled>Choose</option>
                             <c:forEach items="${velikyNovgorodChoosed}" var="city2">
                                 <option>${city2}</option>
@@ -124,7 +124,7 @@
                             <c:forEach items="${pskovChoosed}" var="city2">
                                 <option>${city2}</option>
                             </c:forEach>
-                        </select>
+                        </select>--%>
                     </div>
                 </div>
             </div>
@@ -148,6 +148,7 @@
         })
     });
 </script>
+
 <style>
     #step2 select {
         display: none;
