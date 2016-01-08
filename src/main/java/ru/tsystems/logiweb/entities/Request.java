@@ -3,6 +3,7 @@ package ru.tsystems.logiweb.entities;
 import ru.tsystems.logiweb.entities.statusesAndStates.RequestStatus;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "REQUESTS")

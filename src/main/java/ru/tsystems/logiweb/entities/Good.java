@@ -3,6 +3,9 @@ package ru.tsystems.logiweb.entities;
 import ru.tsystems.logiweb.entities.statusesAndStates.GoodsStatus;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "GOODS")
@@ -26,9 +29,13 @@ public class Good {
     @Column(name = "number")
     private Integer goodNumber;
 
+    @NotNull
+    @Size(min = 5, max = 30, message = "Invalid good's name.")
     @Column(name = "name")
     private String name;
 
+    @NotNull
+    @Max(50)
     @Column(name = "mass")
     private Integer mass;
 

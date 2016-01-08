@@ -32,7 +32,7 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#">Hello, ${driverNameSurname}</a></li>
-                <li><a href="/logout">Logout</a></li>
+                <li><a href="/j_spring_security_logout">Logout</a></li>
             </ul>
         </div>
     </div>

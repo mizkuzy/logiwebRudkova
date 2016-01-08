@@ -1,12 +1,13 @@
 package ru.tsystems.logiweb.controllers;
 //todo герман. при первом запуске приложения и первой попытке входа вылетает ошибка про favicon.ico (см. скриншот)
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,6 +17,7 @@ import ru.tsystems.logiweb.service.API.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -76,6 +78,8 @@ public class ManagerController {
         model.addAttribute("velikyNovgorodChoosed", routService.getCitiesForVelikyNovgorod());
         model.addAttribute("pskovChoosed", routService.getCitiesForPskov());
 
+        // todo если я сделаю ajax: считываем routlabel у выделенного города, а затем достаём список этих городо, удалив тот, который выделили
+
         //todo если в названии товара пробел, то вылетит ошибка
         //todo либо сделать ajax запрос, либо добавить все остальные варианты city2
 
@@ -97,6 +101,12 @@ public class ManagerController {
                                 @RequestParam(value = "city1") String city1,
                                 @RequestParam(value = "city2") String city2,
                                 Model model) {
+
+        /*if (result.hasErrors()) {
+            logger.info("hello from spring validation");
+            //model.addAttribute("info_msg", goodsName);
+            return "manager/new_request";
+        }*/
 
         int goodNumber = goodService.addNewGood(goodsName, mass);
 

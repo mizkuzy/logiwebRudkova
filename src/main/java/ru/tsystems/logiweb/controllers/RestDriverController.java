@@ -1,5 +1,6 @@
 package ru.tsystems.logiweb.controllers;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,8 +14,11 @@ import ru.tsystems.logiweb.service.API.TurnDriverService;
 
 import java.time.LocalDateTime;
 
+@RequestMapping("/rest")
 @RestController
 public class RestDriverController {
+
+    private Logger logger = Logger.getLogger(RestDriverController.class);
 
     @Autowired
     private TurnDriverService turnDriverService;
@@ -29,19 +33,18 @@ public class RestDriverController {
      * Sets beginning of the driver's turn.
      *
      * @param username
-     * @param beginTurnDateTime
      */
     @RequestMapping("/beginTurn")
-    public void setBeginTurn(@RequestParam(value = "username") String username,
-                             LocalDateTime beginTurnDateTime) {
-
-        Driver driver = employeeService.getEntityByEmail(username).getDriverFK();//TODO проверить как это работает
-        beginTurnDateTime = LocalDateTime.now();//TODO удалить этустроку. значение beginTurnDateTime нужно из сессии вытаскивать
+    public String setBeginTurn(@RequestParam(value = "username") String username) {
+        logger.info("hello from rest");
+        Driver driver = employeeService.getEntityByEmail(username).getDriverFK();
+        LocalDateTime beginTurnDateTime = LocalDateTime.now();
         TurnDriver turnDriver = new TurnDriver(driver.getId(), beginTurnDateTime);
         turnDriverService.create(turnDriver);
 
         driver.setState(DriverState.DRIVE);
         driverService.update(driver);
+        return "OK";
     }
 
     /**
@@ -50,6 +53,7 @@ public class RestDriverController {
      * @param driver
      * @param endTurnDateTime
      */
+    @RequestMapping("/endTurn")
     public void setBeginEnd(Driver driver, LocalDateTime endTurnDateTime) {
 
         TurnDriver turnDriver = turnDriverService.getTurnDriverByDriverNumber(driver);

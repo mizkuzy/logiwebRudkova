@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
@@ -34,7 +35,7 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#"><security:authentication property="principal.username"/></a></li>
-                <li><a href="/logout/">Logout</a></li>
+                <li><a href="/j_spring_security_logout">Logout</a></li>
             </ul>
         </div>
     </div>

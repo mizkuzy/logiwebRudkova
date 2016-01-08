@@ -62,10 +62,7 @@ public class LoginController {
      * Decide what page app should show manager or driver or wrong authentication
      */
     @RequestMapping(value = "/loginDispatcher")
-    public String loginDispatcher(HttpServletRequest request,
-                                  Model model) {
-
-        //todo герман. достаточно ли такой авторизации?
+    public String loginDispatcher(HttpServletRequest request) {
 
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User currentUser = (User) userService.loadUserByUsername(user.getUsername());
@@ -85,6 +82,6 @@ public class LoginController {
             return "forward:/main_driver";
         }
 
-        return "login";
+        return "login_error";
     }
 }
