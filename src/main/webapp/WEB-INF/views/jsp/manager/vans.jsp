@@ -110,13 +110,19 @@
                         <div>
                             <form name="edit" action="getVanForEdit" method="get">
                                 <input type="hidden" name="selectedVan" value="${van.idVan}"/>
-                                <button class="btn-info" type="submit" title="Edit" value="EDIT">EDIT</button>
+                                <button class="btn-info" type="submit"
+                                    ${van.statusVan eq "BUSY" ? 'disabled="disabled"' : ''}
+                                        title="Edit" value="EDIT">EDIT
+                                </button>
                             </form>
                         </div>
                         <div>
                             <form name="delete" action="deleteVan" method="get">
                                 <input type="hidden" name="selectedVan" value="${van.idVan}"/>
-                                <button class="btn-danger" type="submit" title="Delete" value="DELETE">DELETE</button>
+                                <button class="btn-danger" type="submit"
+                                    ${van.statusVan eq "BUSY" ? 'disabled="disabled"' : ''}
+                                        title="Delete" value="DELETE">DELETE
+                                </button>
                             </form>
                         </div>
                     </td>
