@@ -34,7 +34,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">LOGIWEB</a>
+            <a class="navbar-brand" href="main_manager">LOGIWEB</a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
@@ -64,13 +64,19 @@
     <div class="background-set">
         <img src="/resources/img/truck1.jpg" alt="truck1">
     </div>
-<div class="my-settings">
-    <c:if test="${info_msg != null}">
-        <div class="alert alert-success">
-                ${info_msg}
-        </div>
-    </c:if>
-</div>
+    <div class="my-settings">
+        <c:if test="${info_msg != null}">
+            <div class="alert alert-success">
+                    ${info_msg}
+            </div>
+        </c:if>
+        <c:if test="${error_msg != null}">
+            <div class="alert alert-danger">
+                <strong>${error_msg}</strong></br>
+                    ${exception}
+            </div>
+        </c:if>
+    </div>
 
 </div>
 <!-- Bootstrap core JavaScript
