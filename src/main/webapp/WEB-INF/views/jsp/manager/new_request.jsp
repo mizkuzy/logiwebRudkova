@@ -23,6 +23,7 @@
     <link href="<c:url value="/resources/css/common.css"/>" rel="stylesheet">
     <link href="<c:url value="/resources/css/dashboard.css"/>" rel="stylesheet">
     <script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
+    <script src="<c:url value="/resources/js/common.js"/>"></script>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 
@@ -69,6 +70,7 @@
 
 
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+
 
     <div class="background-set">
         <img src="/resources/img/truck1.jpg" alt="truck1">

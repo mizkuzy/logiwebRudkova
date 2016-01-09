@@ -69,23 +69,23 @@
             <div class="form-group">
                 <div class="col-sm-5">
                     <b>Registration Number:</b><br>
-                    <input type="text"name="vanNumber" class="form-control" placeholder="Registration Number">
+                    <input type="text"name="vanNumber" class="form-control" placeholder="Registration Number" pattern="[A-Z]{2}\d{5}">
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-sm-5">
                     <b>Drivers capacity:</b><br>
-                    <input type="text"name="driversAmount" class="form-control" placeholder="Drivers capacity">
+                    <input type="text"name="driversAmount" class="form-control" placeholder="Drivers capacity" required>
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-sm-5">
                     <b>Capacity (ton):</b><br>
-                    <input type="text"name="capacity" class="form-control" placeholder=">Capacity">
+                    <input type="text"name="capacity" class="form-control" placeholder=">Capacity" required>
                 </div>
             </div>
             <div class="form-group">
-                <div class="checkbox">
+                <div class="checkbox" aria-required="true">
                     <b>RouteLabel:</b><br>
                     <label>
                         <input type="checkbox" name="routLabel" value="yellow"> yellow

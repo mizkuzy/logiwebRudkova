@@ -113,12 +113,6 @@ public class ManagerController {
                                 @RequestParam(value = "city2") String city2,
                                 Model model) throws Exception {
 
-        /*if (result.hasErrors()) {
-            logger.info("hello from spring validation");
-            //model.addAttribute("info_msg", goodsName);
-            return "manager/new_request";
-        }*/
-
         int goodNumber = goodService.addNewGood(goodsName, mass);
 
         Rout rout = routService.getByCities(city1, city2);
@@ -132,7 +126,7 @@ public class ManagerController {
 
     @ExceptionHandler
     public String handleAllExceptions(Exception ex, Model model) {
-        logger.info("Exception: "+ ex.getMessage());
+        logger.info("Exception: " + ex.getMessage());
         model.addAttribute("error_msg", "Sorry something wrong" + ex);
         return "main_manager";
     }
@@ -174,7 +168,7 @@ public class ManagerController {
      */
     @RequestMapping(value = "create_order")
     public String createOrder(Model model, HttpServletRequest httpRequest,
-                              @RequestParam(value = "currentRoutLabel") String currentRoutLabel) throws Exception{
+                              @RequestParam(value = "currentRoutLabel") String currentRoutLabel) throws Exception {
 
         //todo если мы попали на эту страницу, но не нажали saveOrder, а решили вернуться,
         // то в базе данных у нас остаются не до конца оформленные заказы. Надо придумать как их удалять

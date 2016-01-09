@@ -68,7 +68,7 @@
                 <div class="col-sm-5">
                     <b>Registration Number:</b><br>
                     <input type="text" name="vanNumber" class="form-control" placeholder="Registration Number"
-                           value="${selectedVan.vanNumber}">
+                           value="${selectedVan.vanNumber}" pattern="[A-Z]{2}\d{5}">
                 </div>
             </div>
             <div class="form-group">
