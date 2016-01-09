@@ -1,3 +1,4 @@
+/*
 package ru.tsystems.logiweb.controllers;
 
 import org.apache.log4j.Logger;
@@ -14,7 +15,6 @@ import ru.tsystems.logiweb.service.API.TurnDriverService;
 
 import java.time.LocalDateTime;
 
-@RequestMapping("/rest")
 @RestController
 public class RestDriverController {
 
@@ -29,11 +29,13 @@ public class RestDriverController {
 
     //TODO метод finishOrder доступен и через приложение для водителя
 
-    /**
+    */
+/**
      * Sets beginning of the driver's turn.
      *
      *
-     */
+     *//*
+
     @RequestMapping("/beginTurn")
     public String setBeginTurn(@RequestParam(value = "username") String username) {
         logger.info("hello from rest");
@@ -47,12 +49,14 @@ public class RestDriverController {
         return "OK";
     }
 
-    /**
+    */
+/**
      * Sets end of the driver's turn.
      *
      * @param driver
      * @param endTurnDateTime
-     */
+     *//*
+
     @RequestMapping("/endTurn")
     public void setBeginEnd(Driver driver, LocalDateTime endTurnDateTime) {
 
@@ -64,3 +68,4 @@ public class RestDriverController {
     }
 }
 
+*/

@@ -1,3 +1,4 @@
+
 package ru.tsystems.logiweb.integration;
 
 import static org.junit.Assert.*;

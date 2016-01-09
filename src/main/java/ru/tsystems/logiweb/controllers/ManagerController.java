@@ -15,7 +15,6 @@ import ru.tsystems.logiweb.service.API.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -75,9 +74,9 @@ public class ManagerController {
         model.addAttribute("spb", routService.getCitiesForSPb());
         model.addAttribute("velikyNovgorod", routService.getCitiesForVelikyNovgorod());
         model.addAttribute("pskov", routService.getCitiesForPskov());
-        model.addAttribute("petrozavodsk",routService.getCitiesForPetrozavodsk());
+        model.addAttribute("petrozavodsk", routService.getCitiesForPetrozavodsk());
        /* model.addAttribute("arhangelsk", routService.getCitiesForArhangelsk());
-        //TODO фиг знает почему, но нижеследующие списки не отображаются
+        //TODO фиг знает почему, но нижеследующие списки не отображаются/ возможно не хватает памяти
         model.addAttribute("vologda",routService.getCitiesForVologda());
         model.addAttribute("siktivkar",routService.getCitiesForSiktivkar());
         model.addAttribute("naryan-Mar",routService.getCitiesForNaryanMar());
@@ -112,7 +111,7 @@ public class ManagerController {
                                 @RequestParam(value = "mass") Integer mass,
                                 @RequestParam(value = "city1") String city1,
                                 @RequestParam(value = "city2") String city2,
-                                Model model) {
+                                Model model) throws Exception {
 
         /*if (result.hasErrors()) {
             logger.info("hello from spring validation");
@@ -129,6 +128,13 @@ public class ManagerController {
         model.addAttribute("info_msg", "New request successfully created");
 
         return "manager/main_manager";
+    }
+
+    @ExceptionHandler
+    public String handleAllExceptions(Exception ex, Model model) {
+        logger.info("Exception: "+ ex.getMessage());
+        model.addAttribute("error_msg", "Sorry something wrong" + ex);
+        return "main_manager";
     }
 
     /**
@@ -156,7 +162,6 @@ public class ManagerController {
         request.getSession().setAttribute("blueRoutRequests", requestsWithBlueRout);
         request.getSession().setAttribute("blueRoutRequestsSize", requestsWithBlueRout.size());
 
-        //TODO сделать неактивной кнопку handle, если заявок нет
         return "manager/current_requests";
     }
 
@@ -169,13 +174,12 @@ public class ManagerController {
      */
     @RequestMapping(value = "create_order")
     public String createOrder(Model model, HttpServletRequest httpRequest,
-                              @RequestParam(value = "currentRoutLabel") String currentRoutLabel) {
+                              @RequestParam(value = "currentRoutLabel") String currentRoutLabel) throws Exception{
 
         //todo если мы попали на эту страницу, но не нажали saveOrder, а решили вернуться,
         // то в базе данных у нас остаются не до конца оформленные заказы. Надо придумать как их удалять
 
         logger.info("Picking " + currentRoutLabel + " requests");
-        //todo сделать защиту от дабл клика
 
         List<Request> requests = new ArrayList<>();
         httpRequest.getSession().setAttribute("currentRoutLabel", currentRoutLabel);
@@ -207,7 +211,6 @@ public class ManagerController {
         int totalHoursAmount = requestService.getTotalTimeRequests(requests);
         httpRequest.getSession().setAttribute("totalHoursAmount", totalHoursAmount);
 
-        //TODO при подсчёте рабочих часов не учитывается, если заказ совпадёт на переход с месяца на месяц
         List appropriateDrivers = driverService.getAppropriateDrivers(totalHoursAmount);
         httpRequest.getSession().setAttribute("appropriateDrivers", appropriateDrivers);
 

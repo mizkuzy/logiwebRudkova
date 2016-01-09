@@ -79,15 +79,14 @@
             <div class="form-group">
                 <div class="col-sm-5">
                     <b>Goods:</b><br>
-                    <input type="text" name="goods_name" class="form-control" placeholder="Goods">
+                    <input type="text" name="goods_name" class="form-control" placeholder="Goods" required>
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="col-sm-5">
                     <b>Mass:</b><br>
-                    <input type="text" name="mass" class="form-control"
-                           placeholder="Mass">
+                    <input type="text" name="mass" class="form-control" placeholder="Mass" required>
                 </div>
             </div>
 
@@ -131,55 +130,56 @@
                                 <option>${city2}</option>
                             </c:forEach>
                         </select>
-                        <%--<select class="form-control" id="Arhangelsk" name="city2" required>
-                            <option selected disabled>Choose</option>
-                            <c:forEach items="${arhangelsk}" var="city2">
-                                <option>${city2}</option>
-                            </c:forEach>
-                        </select>
-                        <select class="form-control" id="Vologda" name="city2" required>
-                            <option selected disabled>Choose</option>
-                            <c:forEach items="${vologda}" var="city2">
-                                <option>${city2}</option>
-                            </c:forEach>
-                        </select>
-                        <select class="form-control" id="Siktivkar" name="city2" required>
-                            <option selected disabled>Choose</option>
-                            <c:forEach items="${siktivkar}" var="city2">
-                                <option>${city2}</option>
-                            </c:forEach>
-                        </select>
-                        <select class="form-control" id="Naryan-Mar" name="city2" required>
-                            <option selected disabled>Choose</option>
-                            <c:forEach items="${naryan-Mar}" var="city2">
-                                <option>${city2}</option>
-                            </c:forEach>
-                        </select>
-                        <select class="form-control" id="Murmansk" name="city2" required>
-                            <option selected disabled>Choose</option>
-                            <c:forEach items="${murmansk}" var="city2">
-                                <option>${city2}</option>
-                            </c:forEach>
-                        </select>
-                        <select class="form-control" id="Kaliningrad" name="city2" required>
-                            <option selected disabled>Choose</option>
-                            <c:forEach items="${kaliningrad}" var="city2">
-                                <option>${city2}</option>
-                            </c:forEach>
-                        </select>
-                        <select class="form-control" id="Cherepovec" name="city2" required>
-                            <option selected disabled>Choose</option>
-                            <c:forEach items="${cherepovec}" var="city2">
-                                <option>${city2}</option>
-                            </c:forEach>
-                        </select>--%>
+                            <%--<select class="form-control" id="Arhangelsk" name="city2" required>
+                                <option selected disabled>Choose</option>
+                                <c:forEach items="${arhangelsk}" var="city2">
+                                    <option>${city2}</option>
+                                </c:forEach>
+                            </select>
+                            <select class="form-control" id="Vologda" name="city2" required>
+                                <option selected disabled>Choose</option>
+                                <c:forEach items="${vologda}" var="city2">
+                                    <option>${city2}</option>
+                                </c:forEach>
+                            </select>
+                            <select class="form-control" id="Siktivkar" name="city2" required>
+                                <option selected disabled>Choose</option>
+                                <c:forEach items="${siktivkar}" var="city2">
+                                    <option>${city2}</option>
+                                </c:forEach>
+                            </select>
+                            <select class="form-control" id="Naryan-Mar" name="city2" required>
+                                <option selected disabled>Choose</option>
+                                <c:forEach items="${naryan-Mar}" var="city2">
+                                    <option>${city2}</option>
+                                </c:forEach>
+                            </select>
+                            <select class="form-control" id="Murmansk" name="city2" required>
+                                <option selected disabled>Choose</option>
+                                <c:forEach items="${murmansk}" var="city2">
+                                    <option>${city2}</option>
+                                </c:forEach>
+                            </select>
+                            <select class="form-control" id="Kaliningrad" name="city2" required>
+                                <option selected disabled>Choose</option>
+                                <c:forEach items="${kaliningrad}" var="city2">
+                                    <option>${city2}</option>
+                                </c:forEach>
+                            </select>
+                            <select class="form-control" id="Cherepovec" name="city2" required>
+                                <option selected disabled>Choose</option>
+                                <c:forEach items="${cherepovec}" var="city2">
+                                    <option>${city2}</option>
+                                </c:forEach>
+                            </select>--%>
                     </div>
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="col-sm-5">
-                    <button type="submit" id="btn" class="btn btn-success" title="Pick up requests" value="ADD">ADD</button>
+                    <button type="submit" id="btn" class="btn btn-success" title="Pick up requests" value="ADD">ADD
+                    </button>
                 </div>
             </div>
 

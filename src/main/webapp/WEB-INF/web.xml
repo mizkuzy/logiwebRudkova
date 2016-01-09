@@ -9,7 +9,9 @@
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>classpath*:spring.xml
-            /WEB-INF/dispatcher-servlet.xml, /WEB-INF/spring-security.xml
+            /WEB-INF/dispatcher-servlet.xml,
+            /WEB-INF/spring-security.xml,
+            classpath*:applicationContext.xml
         </param-value>
     </context-param>
     <listener>
@@ -43,4 +45,24 @@
         <url-pattern>/</url-pattern>
     </servlet-mapping>
     <!-- Spring MVC - END -->
+
+    <servlet>
+        <servlet-name>jersey-serlvet</servlet-name>
+        <servlet-class>
+            com.sun.jersey.spi.container.servlet.ServletContainer
+        </servlet-class>
+        <init-param>
+            <param-name>
+                com.sun.jersey.config.property.packages
+            </param-name>
+            <param-value>ru.tsystems.logiweb</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>jersey-serlvet</servlet-name>
+        <url-pattern>/rest/*</url-pattern>
+    </servlet-mapping>
+
 </web-app>
