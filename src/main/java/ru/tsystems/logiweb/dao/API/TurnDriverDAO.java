@@ -5,6 +5,6 @@ import ru.tsystems.logiweb.entities.TurnDriver;
 
 public interface TurnDriverDAO extends GenericDAO<TurnDriver,Integer> {
 
-    TurnDriver getTurnDriverByDriverNumber(Driver driverNumber);
+    TurnDriver getTurnDriverByDriverNumber(Integer driverNumber);
 
 }

@@ -81,7 +81,7 @@ public class TurnDriverServiceImpl implements TurnDriverService {
      */
     @Override
     @Transactional
-    public TurnDriver getTurnDriverByDriverNumber(Driver driverNumber) {
+    public TurnDriver getTurnDriverByDriverNumber(Integer driverNumber) {
         return turnDriverDAO.getTurnDriverByDriverNumber(driverNumber);
     }
 }

@@ -20,7 +20,7 @@ public class TurnDriverDAOImpl extends GenericDAOImpl<TurnDriver, Integer> imple
     private EntityManager entityManager;
 
     @Override
-    public TurnDriver getTurnDriverByDriverNumber(Driver driverNumber) {
+    public TurnDriver getTurnDriverByDriverNumber(Integer driverNumber) {
         try {
             Query query = entityManager.createQuery("select turn from TurnDriver turn where turn.driverNumber=:driverNumber");
             query.setParameter("driverNumber", driverNumber);
