@@ -53,6 +53,7 @@ public class TurnDriverServiceImpl implements TurnDriverService {
     @Override
     @Transactional
     public void update(TurnDriver entity) {
+        turnDriverDAO.update(entity);
 
     }
 
