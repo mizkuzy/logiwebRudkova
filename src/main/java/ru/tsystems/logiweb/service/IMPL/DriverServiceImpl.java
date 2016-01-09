@@ -94,7 +94,7 @@ public class DriverServiceImpl implements DriverService {
     @Override
     @Transactional
     public List getAppropriateDrivers(int orderHours) {
-        //todo смену месяцев надо учесть
+
         List<Driver> allDrivers = getAll();
         List<Driver> appropriateDrivers = new ArrayList<>(allDrivers.size());//size of this list obviously will not more then size of all drivers list
         if (allDrivers != null) {
