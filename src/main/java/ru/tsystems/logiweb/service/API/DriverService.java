@@ -24,6 +24,7 @@ public interface DriverService extends GenericService<Driver, Integer> {
 
     /**
      * Sets work hours to zero to all drivers.
+     * This method executes every 1st day every month.
      */
     void setWorksHoursToZeroAllDrivers();
 }
