@@ -107,7 +107,6 @@ public class RunToDB {
         em.persist(employee13);
         em.persist(employee14);
 
-
         Rout rout1 = new Rout("Saint-Petersburg", "Veliky_Novgorod", 194, 3);
         Rout rout19 = new Rout("Veliky_Novgorod", "Saint-Petersburg", 194, 3);
         Rout rout2 = new Rout("Saint-Petersburg", "Pskov", 408, 5);
