@@ -34,19 +34,14 @@ public abstract class GenericDAOImpl<E, K> implements GenericDAO<E, K> {
      * @param entity
      * @throws PersistenceException
      */
-
-    //TODO Герман. Что делать с исключениями? Нужно ли создавать свои или достаточно залогировать?
     @Override
     public void create(E entity) throws PersistenceException {
         try {
             entityManager.persist(entity);
         } catch (PersistenceException e) {
-            //TODO Герман. Какой тут тип логирования? error или warn?
             logger.error("Creation is failed. Exception in GenericDAOImpl, create().", e);
             throw new PersistenceException(e);
-            //TODO ОТЛОВИТЬ В СЕРВИСАХ.
-            //TODO СПРОСИТЬ ЗАЧЕМ ПРОБРАСЫВАТЬ НАВЕРХ
-        }
+             }
     }
 
     /**

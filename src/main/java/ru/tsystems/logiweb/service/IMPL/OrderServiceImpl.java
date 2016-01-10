@@ -10,6 +10,7 @@ import ru.tsystems.logiweb.entities.statusesAndStates.OrderStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.tsystems.logiweb.exceptions.CustomLogiwebException;
 import ru.tsystems.logiweb.service.API.DriverService;
 import ru.tsystems.logiweb.service.API.OrderService;
 import ru.tsystems.logiweb.service.API.RequestService;
@@ -32,7 +33,7 @@ public class OrderServiceImpl implements OrderService {
     private OrderGenericDAO orderDAO;
 
     /**
-     * Create required entity.
+     * Creates required entity.
      *
      * @param entity
      */
@@ -43,7 +44,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     /**
-     * Read required entity.
+     * Reads required entity.
      *
      * @param id
      * @return
@@ -55,7 +56,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     /**
-     * Update required entity.
+     * Updates required entity.
      *
      * @param entity
      */
@@ -66,7 +67,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     /**
-     * Delete required entity.
+     * Deletes required entity.
      *
      * @param entity
      */
@@ -77,9 +78,9 @@ public class OrderServiceImpl implements OrderService {
     }
 
     /**
-     * Get list of required ru.tsystems.logiweb.entities.
+     * Gets list of required entities.
      *
-     * @return list of ru.tsystems.logiweb.entities
+     * @return list of entities
      */
     @Override
     @Transactional
@@ -87,13 +88,10 @@ public class OrderServiceImpl implements OrderService {
         return orderDAO.getAll();
     }
 
-    //TODO объединить два нижеследующих метода в один с помощью параметра OrderStatus
-    //TODO TEST
-
     /**
-     * Get List of orders with OrderStatus=DONE.
+     * Gets List of orders with OrderStatus=DONE.
      *
-     * @return
+     * @return list of orders with status DONE
      */
     @Override
     public ArrayList<Order> getOrdersDone() {
@@ -112,9 +110,9 @@ public class OrderServiceImpl implements OrderService {
     }
 
     /**
-     * Get List of orders with OrderStatus=PROCESS.
+     * Gets List of orders with OrderStatus=PROCESS.
      *
-     * @return ordersProcess
+     * @return list of orders with status PROCESS
      */
     @Override
     public ArrayList<Order> getOrdersProcess() {
@@ -132,13 +130,13 @@ public class OrderServiceImpl implements OrderService {
     }
 
     /**
-     * Get required OrderEntity by specified number
+     * Gets required OrderEntity by specified number
      *
      * @param number
      * @return Order's instance.
      */
     @Override
-    public Order getByNumber(Integer number) {
+    public Order getByNumber(Integer number) throws CustomLogiwebException {
         return orderDAO.getByNumber(number);
     }
 
@@ -175,11 +173,12 @@ public class OrderServiceImpl implements OrderService {
      * @return order mass
      */
     @Override
-    public int countOrderMass(List<Request> requests) {
+    public int countOrderMass(List<Request> requests) {//todo возможно логичнее перенести этот метод в requestService
         int mass = 0;
         for (Request r :
                 requests) {
             mass += r.getGoodForRequest().getMass();
+            logger.info("r.getGoodForRequest(): " + r.getGoodForRequest().getMass());
         }
         return mass;
     }
