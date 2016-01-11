@@ -69,7 +69,7 @@
             <div class="form-group">
                 <div class="col-sm-5">
                     <b>Registration Number:</b><br>
-                    <input type="text"name="vanNumber" class="form-control" placeholder="Registration Number" pattern="[A-Z]{2}\d{5}">
+                    <input type="text"name="vanNumber" class="form-control" placeholder="Registration Number" title="pattern = XX12345" pattern="[A-Z]{2}\d{5}">
                 </div>
             </div>
             <div class="form-group">
