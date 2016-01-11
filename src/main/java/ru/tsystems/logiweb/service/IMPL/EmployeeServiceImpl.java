@@ -6,6 +6,7 @@ import ru.tsystems.logiweb.entities.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.tsystems.logiweb.exceptions.CustomLogiwebException;
 import ru.tsystems.logiweb.service.API.EmployeeService;
 
 import javax.persistence.NoResultException;
@@ -77,13 +78,13 @@ public class EmployeeServiceImpl implements EmployeeService {
      */
     @Override
     @Transactional
-    public Employee getEntityByEmail(String email) throws NoResultException {
+    public Employee getEntityByEmail(String email) throws CustomLogiwebException {
         Employee employee;
         try {
             employee = employeeDAO.getEmployeeByEmail(email);
         } catch (NoResultException e) {
             logger.warn("There is no entity with such email. Exception in EmployeeServiceImpl, getEntityByEmail().", e);
-            throw new NoResultException();
+            throw new CustomLogiwebException("There is no entity with such email: " + email, e.getMessage());
         }
         return employee;
     }

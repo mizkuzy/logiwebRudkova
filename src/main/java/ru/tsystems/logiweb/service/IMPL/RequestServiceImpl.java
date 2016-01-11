@@ -139,7 +139,9 @@ public class RequestServiceImpl implements RequestService {
             }
         }
 
-        time += countHours(requests);
+        int additionalWorkHours = countHours(requests);
+        logger.info("Additional hours = " + additionalWorkHours);
+        time += additionalWorkHours;
         logger.info("Total time=" + time);
         return time;
     }
@@ -157,7 +159,7 @@ public class RequestServiceImpl implements RequestService {
         int timeToFirstCity1 = addHoursTo(requests, routLabel);
         logger.info("timeToFirstCity1=" + timeToFirstCity1);
         int timeFromLastCity2 = addHoursFrom(requests, routLabel);
-        logger.info("timeFromLastCity2" + timeFromLastCity2);
+        logger.info("timeFromLastCity2=" + timeFromLastCity2);
         return timeToFirstCity1 + timeFromLastCity2;
     }
 
