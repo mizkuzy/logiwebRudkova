@@ -46,7 +46,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     /**
-     * Update required entity.
+     * Updates required entity.
      *
      * @param entity
      */
@@ -57,7 +57,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     /**
-     * Delete required entity.
+     * Deletes required entity.
      *
      * @param entity
      */
@@ -69,7 +69,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 
     /**
-     * Get required EmployeeEntity by specified email.
+     * Gets required EmployeeEntity by specified email.
      *
      * @param email
      * @return Employee's instance.
@@ -89,7 +89,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     /**
-     * Get list of required ru.tsystems.logiweb.entities.
+     * Gets list of required ru.tsystems.logiweb.entities.
      *
      * @return list of ru.tsystems.logiweb.entities
      */
@@ -100,7 +100,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     /**
-     * Check existence EmployeeEntity by email and password
+     * Checks existence EmployeeEntity by email and password.
      *
      * @param email
      * @param password
@@ -125,7 +125,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     /**
-     * Get personal number by email
+     * Gets personal number by email.
      *
      * @param email
      * @return

@@ -178,8 +178,8 @@ public class OrderServiceImpl implements OrderService {
         for (Request r :
                 requests) {
             mass += r.getGoodForRequest().getMass();
-            logger.info("r.getGoodForRequest(): " + r.getGoodForRequest().getMass());
         }
+        logger.info("Mass of order: " + mass);
         return mass;
     }
 

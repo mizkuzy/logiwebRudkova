@@ -4,11 +4,12 @@ import ru.tsystems.logiweb.entities.statusesAndStates.DriverState;
 import ru.tsystems.logiweb.entities.statusesAndStates.DriverStatus;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "DRIVERS")
 @NamedQuery(name = "Driver.getAll", query = "SELECT d FROM Driver d")
-public class Driver {
+public class Driver implements Serializable{
 
     public Driver() {
     }

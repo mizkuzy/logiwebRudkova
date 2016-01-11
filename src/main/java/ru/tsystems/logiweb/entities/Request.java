@@ -4,11 +4,12 @@ import ru.tsystems.logiweb.entities.statusesAndStates.RequestStatus;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "REQUESTS")
 @NamedQuery(name = "Request.getAll", query = "SELECT req FROM Request req")
-public class Request {
+public class Request implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

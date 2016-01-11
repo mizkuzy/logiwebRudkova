@@ -1,11 +1,12 @@
 package ru.tsystems.logiweb.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "ROUTE_LABELS")
 @NamedQuery(name = "RouteLabel.getAll", query = "SELECT rl FROM RouteLabel rl")
-public class RouteLabel {
+public class RouteLabel implements Serializable {
 
     public RouteLabel() {
     }

@@ -3,13 +3,14 @@ package ru.tsystems.logiweb.entities;
 import ru.tsystems.logiweb.entities.statusesAndStates.OrderStatus;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "ORDERS")
 @NamedQuery(name = "Order.getAll", query = "SELECT ord FROM Order ord")
-public class Order {
+public class Order implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -45,7 +46,7 @@ public class Order {
         return drivers;
     }
 
-    public void addDriver(Driver driver){
+    public void addDriver(Driver driver) {
         this.drivers.add(driver);
     }
 
@@ -53,7 +54,7 @@ public class Order {
         return requests;
     }
 
-    public void addRequest (Request request){
+    public void addRequest(Request request) {
         this.requests.add(request);
     }
 

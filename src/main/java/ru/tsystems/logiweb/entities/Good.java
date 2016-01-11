@@ -6,11 +6,12 @@ import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "GOODS")
 @NamedQuery(name = "Good.getAll", query = "SELECT good FROM Good good")
-public class Good {
+public class Good implements Serializable {
 
     public Good() {
     }

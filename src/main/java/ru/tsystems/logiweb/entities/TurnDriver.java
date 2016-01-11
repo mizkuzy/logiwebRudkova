@@ -1,11 +1,12 @@
 package ru.tsystems.logiweb.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "TURNS_DRIVERS")
-public class TurnDriver {
+public class TurnDriver implements Serializable {
 
     public TurnDriver() {
     }

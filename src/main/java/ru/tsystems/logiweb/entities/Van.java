@@ -4,11 +4,12 @@ import ru.tsystems.logiweb.entities.statusesAndStates.VanState;
 import ru.tsystems.logiweb.entities.statusesAndStates.VanStatus;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "VANS")
 @NamedQuery(name = "Van.getAll", query = "SELECT v FROM Van v")
-public class Van {
+public class Van implements Serializable {
 
     public Van() {
     }

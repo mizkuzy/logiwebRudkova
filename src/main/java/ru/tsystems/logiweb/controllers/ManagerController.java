@@ -142,10 +142,10 @@ public class ManagerController {
     @RequestMapping(value = "pick_up_requests")
     public String pickUpRequests(HttpServletRequest request) throws ServletException, IOException {
 
-        List<Request> requestsWithYellowRout = requestService.findRequestsWithSpecialRout("yellow");
-        List<Request> requestsWithGreenRout = requestService.findRequestsWithSpecialRout("green");
-        List<Request> requestsWithPurpleRout = requestService.findRequestsWithSpecialRout("purple");
-        List<Request> requestsWithBlueRout = requestService.findRequestsWithSpecialRout("blue");
+        ArrayList<Request> requestsWithYellowRout = (ArrayList<Request>) requestService.findRequestsWithSpecialRout("yellow");
+        ArrayList<Request> requestsWithGreenRout = (ArrayList<Request>) requestService.findRequestsWithSpecialRout("green");
+        ArrayList<Request> requestsWithPurpleRout = (ArrayList<Request>) requestService.findRequestsWithSpecialRout("purple");
+        ArrayList<Request> requestsWithBlueRout = (ArrayList<Request>) requestService.findRequestsWithSpecialRout("blue");
 
         request.getSession().setAttribute("yellowRoutRequests", requestsWithYellowRout);
         request.getSession().setAttribute("yellowRoutRequestsSize", requestsWithYellowRout.size());
@@ -175,21 +175,21 @@ public class ManagerController {
 
         logger.info("Picking " + currentRoutLabel + " requests");
 
-        List<Request> requests = new ArrayList<>();
+        ArrayList<Request> requests = new ArrayList<>();
         httpRequest.getSession().setAttribute("currentRoutLabel", currentRoutLabel);
 
         switch (currentRoutLabel) {
             case "yellow":
-                requests = (List<Request>) httpRequest.getSession().getAttribute("yellowRoutRequests");
+                requests = (ArrayList<Request>) httpRequest.getSession().getAttribute("yellowRoutRequests");
                 break;
             case "green":
-                requests = (List<Request>) httpRequest.getSession().getAttribute("greenRoutRequests");
+                requests = (ArrayList<Request>) httpRequest.getSession().getAttribute("greenRoutRequests");
                 break;
             case "purple":
-                requests = (List<Request>) httpRequest.getSession().getAttribute("purpleRoutRequests");
+                requests = (ArrayList<Request>) httpRequest.getSession().getAttribute("purpleRoutRequests");
                 break;
             case "blue":
-                requests = (List<Request>) httpRequest.getSession().getAttribute("blueRoutRequests");
+                requests = (ArrayList<Request>) httpRequest.getSession().getAttribute("blueRoutRequests");
                 break;
         }
 

@@ -4,11 +4,12 @@ import javax.persistence.Entity;
 
 import ru.tsystems.logiweb.entities.statusesAndStates.*;
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "EMPLOYEES")
 @NamedQuery(name = "Employee.getAll", query = "SELECT em FROM Employee em")
-public class Employee {
+public class Employee implements Serializable{
 
     public Employee() {
     }
