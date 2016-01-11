@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="MySQL - logiweb@localhost [2]" uuid="c575d9ee-4d40-4736-841a-35e0666c1776">
+    <database-info product="MySQL" version="5.7.9-log" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
+    <schema name="" catalog="logiweb"/>
+    <table name="drivers" schema="" catalog="logiweb" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="state" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="status" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="surname" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="workHours" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="current_Order" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK19ux7f1l62rpwb6x2u0igfwg9" columns="current_Order" ref-table="orders" ref-schema="" ref-catalog="logiweb" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FK6tgf2wtc8a1ueifmdeh7yu20c" table="employees" schema="" catalog="logiweb" columns="driver_FK"/>
+      <index name="FK19ux7f1l62rpwb6x2u0igfwg9" unique="false" columns="current_Order"/>
+    </table>
+    <table name="employees" schema="" catalog="logiweb" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="email" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="password" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="personalNumber" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="POSITION" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="driver_FK" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK6tgf2wtc8a1ueifmdeh7yu20c" columns="driver_FK" ref-table="drivers" ref-schema="" ref-catalog="logiweb" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="UK_gltdyu7bx16ppkrqj6djvp2j8" unique="true" columns="email"/>
+      <index name="UK_qcd0ayhd8638bp96ltm577s33" unique="true" columns="driver_FK"/>
+    </table>
+    <table name="goods" schema="" catalog="logiweb" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="number" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="mass" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="status" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="FK3oa71d77rf9dx6ixpw0ysdru4" table="requests" schema="" catalog="logiweb" columns="good"/>
+    </table>
+    <table name="hibernate_sequence" schema="" catalog="logiweb" type="TABLE">
+      <column name="next_val" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+    </table>
+    <table name="orders" schema="" catalog="logiweb" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="number" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="status" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="vanNumber" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK8t5mi99odyceriwr9kt3q9chx" columns="vanNumber" ref-table="vans" ref-schema="" ref-catalog="logiweb" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FK19ux7f1l62rpwb6x2u0igfwg9" table="drivers" schema="" catalog="logiweb" columns="current_Order"/>
+      <exported-key name="FKoiuco6rgh20ijf1634mja8cih" table="requests" schema="" catalog="logiweb" columns="current_Order"/>
+      <index name="FK8t5mi99odyceriwr9kt3q9chx" unique="false" columns="vanNumber"/>
+    </table>
+    <table name="requests" schema="" catalog="logiweb" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="statusRequest" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="current_Order" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="good" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="rout" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK3oa71d77rf9dx6ixpw0ysdru4" columns="good" ref-table="goods" ref-schema="" ref-catalog="logiweb" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FKoiuco6rgh20ijf1634mja8cih" columns="current_Order" ref-table="orders" ref-schema="" ref-catalog="logiweb" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FKvmgotqkni0eisr2dvv0w9uko" columns="rout" ref-table="routs" ref-schema="" ref-catalog="logiweb" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="FK3oa71d77rf9dx6ixpw0ysdru4" unique="false" columns="good"/>
+      <index name="FKoiuco6rgh20ijf1634mja8cih" unique="false" columns="current_Order"/>
+      <index name="FKvmgotqkni0eisr2dvv0w9uko" unique="false" columns="rout"/>
+    </table>
+    <table name="route_labels" schema="" catalog="logiweb" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="label" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="FKpwqixjkbbn1bivmkqhynj8uk5" table="routs" schema="" catalog="logiweb" columns="routLabel"/>
+      <exported-key name="FKh0km897qfpvutkxjsut96fmfb" table="vans" schema="" catalog="logiweb" columns="routeLabel"/>
+    </table>
+    <table name="routs" schema="" catalog="logiweb" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="city1" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="city2" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="distance" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="timeDistance" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="routLabel" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FKpwqixjkbbn1bivmkqhynj8uk5" columns="routLabel" ref-table="route_labels" ref-schema="" ref-catalog="logiweb" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FKvmgotqkni0eisr2dvv0w9uko" table="requests" schema="" catalog="logiweb" columns="rout"/>
+      <index name="FKpwqixjkbbn1bivmkqhynj8uk5" unique="false" columns="routLabel"/>
+    </table>
+    <table name="turns_drivers" schema="" catalog="logiweb" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="begin_turn" sqlType="TINYBLOB" precision="255" scale="0" nullable="true" jdbcType="-2"/>
+      <column name="driver_number" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="end_turn" sqlType="TINYBLOB" precision="255" scale="0" nullable="true" jdbcType="-2"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="vans" schema="" catalog="logiweb" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="capacity" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="driversAmount" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="stateVan" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="statusVan" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="vanNumber" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="routeLabel" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FKh0km897qfpvutkxjsut96fmfb" columns="routeLabel" ref-table="route_labels" ref-schema="" ref-catalog="logiweb" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FK8t5mi99odyceriwr9kt3q9chx" table="orders" schema="" catalog="logiweb" columns="vanNumber"/>
+      <index name="FKh0km897qfpvutkxjsut96fmfb" unique="false" columns="routeLabel"/>
+    </table>
+  </data-source>
+</component>

@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="logiwebRudkova:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="mylogiweb.war">
+      <element id="artifact" artifact-name="logiwebRudkova:war exploded" />
+    </root>
+  </artifact>
+</component>
