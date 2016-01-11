@@ -22,9 +22,6 @@ public class GoodServiceImpl implements GoodService {
     @Autowired
     private GoodGenericDAO goodDAO;
 
-   /* @Autowired
-    private GoodService goodService;*/
-
     /**
      * Create required entity.
      *

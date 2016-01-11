@@ -85,7 +85,7 @@ public class RestJersey extends SpringBeanAutowiringSupport {
     @Path("/validate/{username}/{password}")
     public Response validateDriver(@PathParam("username") String username,
                                    @PathParam("password") String password) {
-        String output = "";
+        String output;
         boolean validationIsOK = employeeService.checkEmailAndPassword(username, password);
 
         if (validationIsOK) {

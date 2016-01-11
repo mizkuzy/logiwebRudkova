@@ -184,11 +184,9 @@ public class DriverServiceImpl implements DriverService {
             Order currentOrder = d.getCurrentOrder();
             if (currentOrder != null) {
                 Integer currentOrderID = d.getCurrentOrder().getIdOrder();
-                if (currentOrderID != null) {
-                    if (currentOrderID.equals(orderID)) {
-                        logger.info("Driver: " + d + ", currentOrder: " + currentOrderID);
-                        busyDrivers.add(d);
-                    }
+                if ((currentOrderID != null) && (currentOrderID.equals(orderID))) {
+                    logger.info("Driver: " + d + ", currentOrder: " + currentOrderID);
+                    busyDrivers.add(d);
                 }
             }
         }
