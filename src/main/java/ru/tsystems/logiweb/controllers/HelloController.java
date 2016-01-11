@@ -19,7 +19,7 @@ public class HelloController {
     EmployeeService employeeService;
 
     @RequestMapping(value = "/")
-    public String mainPage(Model model) {
+    public String mainPage() {
 
         return "index";
     }
