@@ -116,8 +116,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 return true;
             }
         } catch (NoResultException e) {
-            //TODO Герман. Может как-то по другому обрабатывать ошибки надо?
-            logger.info("There was NoResultException because of wrong email: " + email);
+            logger.info("Wrong email: " + email, e);
             return false;
         }
         logger.info("Wrong password: " + password);

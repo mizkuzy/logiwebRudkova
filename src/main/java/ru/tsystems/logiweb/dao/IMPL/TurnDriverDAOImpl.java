@@ -26,7 +26,7 @@ public class TurnDriverDAOImpl extends GenericDAOImpl<TurnDriver, Integer> imple
             query.setParameter("driverNumber", driverNumber);
             return (TurnDriver) query.getSingleResult();
         } catch (PersistenceException ex) {
-            logger.info("There is no required turnDriver with driverNumber" + driverNumber);
+            logger.info("There is no required turnDriver with driverNumber" + driverNumber, ex);
 
             throw new NoResultException("Entity with e-driverNumber: " + driverNumber + " not found ");
         }

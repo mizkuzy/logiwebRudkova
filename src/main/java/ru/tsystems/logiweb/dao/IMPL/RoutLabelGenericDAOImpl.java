@@ -25,7 +25,7 @@ public class RoutLabelGenericDAOImpl extends GenericDAOImpl<RouteLabel, Integer>
             query.setParameter("routLabel", routLabel);
             return (RouteLabel) query.getSingleResult();
         } catch (PersistenceException ex) {
-            logger.info("There was NoResultException because of wrong routLabel: " + routLabel);
+            logger.info("There was NoResultException because of wrong routLabel: " + routLabel, ex);
             throw new NoResultException("Entity with routLabel " + routLabel + "not found ");
         }
 

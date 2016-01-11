@@ -32,7 +32,7 @@ public class EmployeeDAOImpl extends GenericDAOImpl<Employee, Integer> implement
             query.setParameter("email", email);
             return (Employee) query.getSingleResult();
         } catch (PersistenceException ex) {
-            logger.info("There was NoResultException because of wrong email: " + email);
+            logger.info(ex.getMessage()+"Wrong email: " + email, ex);
             throw new CustomLogiwebException("Entity with e-mail: " + email + " not found ", ex.getMessage());
         }
     }

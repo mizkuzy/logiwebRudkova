@@ -32,7 +32,7 @@ public class OrderGenericDAOImpl extends GenericDAOImpl<Order, Integer> implemen
             query.setParameter("number", number);
             return (Order) query.getSingleResult();
         } catch (NoResultException e) {
-            logger.info("Entity with number " + number + " not found.");
+            logger.info("Entity with number " + number + " not found. Exception: ", e);
           throw   new CustomLogiwebException(e.toString(), e.getMessage());
         }
     }
