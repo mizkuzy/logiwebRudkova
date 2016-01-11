@@ -28,10 +28,9 @@ public class RequestServiceImpl implements RequestService {
 
     @Autowired
     private RequestGenericDAO requestDAO;
-    private int requestHoursForYellowRout;
 
     /**
-     * Create required entity.
+     * Creates required entity.
      *
      * @param entity
      */
@@ -42,7 +41,7 @@ public class RequestServiceImpl implements RequestService {
     }
 
     /**
-     * Read required entity.
+     * Reads required entity.
      *
      * @param id
      * @return
@@ -54,7 +53,7 @@ public class RequestServiceImpl implements RequestService {
     }
 
     /**
-     * Update required entity.
+     * Updates required entity.
      *
      * @param entity
      */
@@ -65,7 +64,7 @@ public class RequestServiceImpl implements RequestService {
     }
 
     /**
-     * Delete required entity.
+     * Deletes required entity.
      *
      * @param entity
      */
@@ -76,7 +75,7 @@ public class RequestServiceImpl implements RequestService {
     }
 
     /**
-     * Get list of required entities.
+     * Gets list of required entities.
      *
      * @return list of entities
      */
@@ -95,9 +94,7 @@ public class RequestServiceImpl implements RequestService {
     @Override
     public List<Request> findRequestsWithSpecialRout(String routeLabelSpecial) {
         List<Request> requests = getAll();
-        //System.err.println("requests= " + requests);
         ArrayList<Request> specialRequests = new ArrayList<>();
-        //System.err.println("specialRequests= " + specialRequests);
         if (requests != null) {
             for (Request request : requests) {
                 if ((request.getRoutForRequest().getRouteLabelFK().getLabel().equals(routeLabelSpecial)) && (request.getStatusRequest().equals(RequestStatus.NO))) {
@@ -108,6 +105,12 @@ public class RequestServiceImpl implements RequestService {
         return specialRequests;
     }
 
+    /**
+     * Adds new request and link it with good and rout.
+     *
+     * @param good
+     * @param rout
+     */
     @Override
     @Transactional
     public void addNewRequest(Good good, Rout rout) {
@@ -115,7 +118,7 @@ public class RequestServiceImpl implements RequestService {
         request.setGoodForRequest(good);
         request.setRoutForRequest(rout);
         request.setStatusRequest(RequestStatus.NO);
-        create(request);//TODO EXCEPTION?
+        create(request);
         logger.info("Adding of new request is finished.ID Number of request: " + request.getIdRequest());
     }
 
@@ -245,7 +248,12 @@ public class RequestServiceImpl implements RequestService {
         return hours;
     }
 
-
+    /**
+     * Gets requested work hours corresponding to required city and yellow rout.
+     *
+     * @param city
+     * @return work hours
+     */
     public int getRequestHoursForYellowRout(String city) {
 
         switch (city) {
@@ -258,10 +266,16 @@ public class RequestServiceImpl implements RequestService {
             case "Kaliningrad":
                 return 14;
         }
-        //this line will be never reach if all cities are correct
+        /* this line will be never reach if all cities are correct */
         return 0;
     }
 
+    /**
+     * Gets requested work hours corresponding to required city and green rout.
+     *
+     * @param city
+     * @return work hours
+     */
     public int getRequestHoursForGreenRout(String city) {
 
         switch (city) {
@@ -272,10 +286,16 @@ public class RequestServiceImpl implements RequestService {
                 return 17;
 
         }
-        //this line will be never reach if all cities are correct
+        /* this line will be never reach if all cities are correct */
         return 0;
     }
 
+    /**
+     * Gets requested work hours corresponding to required city and purple rout.
+     *
+     * @param city
+     * @return work hours
+     */
     public int getRequestHoursForPurpleRout(String city) {
 
         switch (city) {
@@ -289,10 +309,16 @@ public class RequestServiceImpl implements RequestService {
                 return 45;
 
         }
-        //this line will be never reach if all cities are correct
+        /* this line will be never reach if all cities are correct */
         return 0;
     }
 
+    /**
+     * Gets requested work hours corresponding to required city and blue rout.
+     *
+     * @param city
+     * @return work hours
+     */
     public int getRequestHoursForBlueRout(String city) {
 
         switch (city) {
@@ -302,7 +328,7 @@ public class RequestServiceImpl implements RequestService {
             case "Siktivkar":
                 return 19;
         }
-        //this line will be never reach if all cities are correct
+        /* this line will be never reach if all cities are correct */
         return 0;
     }
 
