@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 import ru.tsystems.logiweb.dao.API.RoutGenericDAO;
 import ru.tsystems.logiweb.entities.Rout;
 import org.springframework.stereotype.Repository;
+import ru.tsystems.logiweb.exceptions.CustomLogiwebException;
 
 import javax.persistence.*;
 
@@ -18,8 +19,16 @@ public class RoutDAOImpl extends GenericDAOImpl<Rout, Integer> implements RoutGe
     @PersistenceContext(type = PersistenceContextType.EXTENDED)
     private EntityManager entityManager;
 
+    /**
+     * Gets required rout.
+     *
+     * @param city1
+     * @param city2
+     * @return rout
+     * @throws PersistenceException
+     */
     @Override
-    public Rout getByCities(String city1, String city2) throws PersistenceException {
+    public Rout getByCities(String city1, String city2) throws CustomLogiwebException {
         try {
             Query query = entityManager.createQuery("select rout from Rout rout where (rout.city1=:city1 and rout.city2=:city2)");
 
@@ -29,9 +38,9 @@ public class RoutDAOImpl extends GenericDAOImpl<Rout, Integer> implements RoutGe
             return (Rout) query.getSingleResult();
 
         } catch (PersistenceException ex) {
-            logger.error("Rout not found in method getByCities()");
 
-            throw new PersistenceException(ex);
+            logger.info(ex.getMessage() + "Wrong rout: city1 - " + city1 + "; city2 - " + city2, ex);
+            throw new CustomLogiwebException("Rout with parameters: city1 - " + city1 + "; city2 - " + city2+" not found.",ex.getMessage());
         }
     }
 }

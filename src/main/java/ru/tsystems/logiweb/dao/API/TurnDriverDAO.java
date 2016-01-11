@@ -1,6 +1,7 @@
 package ru.tsystems.logiweb.dao.API;
 
 import ru.tsystems.logiweb.entities.TurnDriver;
+import ru.tsystems.logiweb.exceptions.CustomLogiwebException;
 
 public interface TurnDriverDAO extends GenericDAO<TurnDriver,Integer> {
 
@@ -10,6 +11,6 @@ public interface TurnDriverDAO extends GenericDAO<TurnDriver,Integer> {
      * @param driverNumber
      * @return driver number
      */
-    TurnDriver getTurnDriverByDriverNumber(Integer driverNumber);
+    TurnDriver getTurnDriverByDriverNumber(Integer driverNumber) throws CustomLogiwebException;
 
 }

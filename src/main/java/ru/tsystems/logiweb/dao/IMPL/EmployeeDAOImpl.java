@@ -26,13 +26,13 @@ public class EmployeeDAOImpl extends GenericDAOImpl<Employee, Integer> implement
      * @return Employee's instance.
      */
     @Override
-    public Employee getEmployeeByEmail(String email) {
+    public Employee getEmployeeByEmail(String email) throws CustomLogiwebException {
         try {
             Query query = entityManager.createQuery("select emp from Employee emp where emp.email=:email");
             query.setParameter("email", email);
             return (Employee) query.getSingleResult();
         } catch (PersistenceException ex) {
-            logger.info(ex.getMessage()+"Wrong email: " + email, ex);
+            logger.info(ex.getMessage() + "Wrong email: " + email, ex);
             throw new CustomLogiwebException("Entity with e-mail: " + email + " not found ", ex.getMessage());
         }
     }
