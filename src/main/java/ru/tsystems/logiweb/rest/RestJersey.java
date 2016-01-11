@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 import ru.tsystems.logiweb.entities.*;
 import ru.tsystems.logiweb.entities.statusesAndStates.*;
+import ru.tsystems.logiweb.exceptions.CustomLogiwebException;
 import ru.tsystems.logiweb.service.API.*;
 
 import javax.ws.rs.GET;
@@ -51,8 +52,19 @@ public class RestJersey extends SpringBeanAutowiringSupport {
 
         Driver driver = employeeService.getEntityByEmail(username).getDriverFK();
         LocalDateTime beginTurnDateTime = LocalDateTime.now();
-        TurnDriver turnDriver = new TurnDriver(driver.getId(), beginTurnDateTime);
-        turnDriverService.create(turnDriver);
+
+        TurnDriver turnDriver;
+
+        try {
+            turnDriver = turnDriverService.getTurnDriverByDriverNumber(driver.getId());
+            turnDriver.setBeginTurn(beginTurnDateTime);
+            turnDriver.setDriverNumber(driver.getId());
+        }
+        catch (CustomLogiwebException e){
+            logger.info("There is now records with driver " + driver);
+            turnDriver = new TurnDriver(driver.getId(), beginTurnDateTime);
+            turnDriverService.create(turnDriver);
+        }
 
         driver.setState(DriverState.DRIVE);
         driverService.update(driver);

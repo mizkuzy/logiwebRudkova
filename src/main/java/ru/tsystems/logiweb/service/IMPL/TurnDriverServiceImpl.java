@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.tsystems.logiweb.dao.API.TurnDriverDAO;
 import ru.tsystems.logiweb.entities.Driver;
 import ru.tsystems.logiweb.entities.TurnDriver;
+import ru.tsystems.logiweb.exceptions.CustomLogiwebException;
 import ru.tsystems.logiweb.service.API.TurnDriverService;
 
 import java.util.List;
@@ -65,13 +66,7 @@ public class TurnDriverServiceImpl implements TurnDriverService {
     @Override
     @Transactional
     public void delete(TurnDriver entity) {
-
-    }
-
-    @Override
-    @Transactional
-    public List getAll() {
-        return null;
+        turnDriverDAO.delete(entity);
     }
 
     /**
@@ -82,7 +77,19 @@ public class TurnDriverServiceImpl implements TurnDriverService {
      */
     @Override
     @Transactional
-    public TurnDriver getTurnDriverByDriverNumber(Integer driverNumber) {
+    public TurnDriver getTurnDriverByDriverNumber(Integer driverNumber) throws CustomLogiwebException{
+        logger.info("Requested driverNumber: " + driverNumber);
         return turnDriverDAO.getTurnDriverByDriverNumber(driverNumber);
+    }
+
+    /**
+     * {@inheritDoc}
+     * @return
+     */
+    @Override
+    @Transactional
+    public List getAll() {
+        //i don't need this method yet so it's not realized
+        return null;
     }
 }
