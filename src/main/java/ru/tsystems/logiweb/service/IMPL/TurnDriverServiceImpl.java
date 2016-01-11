@@ -10,6 +10,7 @@ import ru.tsystems.logiweb.entities.TurnDriver;
 import ru.tsystems.logiweb.exceptions.CustomLogiwebException;
 import ru.tsystems.logiweb.service.API.TurnDriverService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -77,19 +78,21 @@ public class TurnDriverServiceImpl implements TurnDriverService {
      */
     @Override
     @Transactional
-    public TurnDriver getTurnDriverByDriverNumber(Integer driverNumber) throws CustomLogiwebException{
+    public TurnDriver getTurnDriverByDriverNumber(Integer driverNumber) throws CustomLogiwebException {
         logger.info("Requested driverNumber: " + driverNumber);
         return turnDriverDAO.getTurnDriverByDriverNumber(driverNumber);
     }
 
     /**
      * {@inheritDoc}
+     *
      * @return
      */
     @Override
     @Transactional
     public List getAll() {
         //i don't need this method yet so it's not realized
-        return null;
+        List<TurnDriver> turnDrivers = new ArrayList<>();
+        return turnDrivers;
     }
 }

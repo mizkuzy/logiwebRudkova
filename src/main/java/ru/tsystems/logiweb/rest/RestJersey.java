@@ -61,7 +61,7 @@ public class RestJersey extends SpringBeanAutowiringSupport {
             turnDriver.setDriverNumber(driver.getId());
         }
         catch (CustomLogiwebException e){
-            logger.info("There is now records with driver " + driver);
+            logger.info("There is now records with driver " + driver, e);
             turnDriver = new TurnDriver(driver.getId(), beginTurnDateTime);
             turnDriverService.create(turnDriver);
         }

@@ -24,8 +24,6 @@ public class VanServiceImpl implements VanService {
     private static final int DRIVERS_CAPACITY_FOR_PURPLE_ROUT = 4;
     private static final int DRIVERS_CAPACITY_FOR_BLUE_ROUT = 3;
 
-    private Logger logger = Logger.getLogger(VanServiceImpl.class);
-
     @Autowired
     private VanDAO vanDAO;
 
