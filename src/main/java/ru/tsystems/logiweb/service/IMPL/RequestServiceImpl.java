@@ -100,7 +100,7 @@ public class RequestServiceImpl implements RequestService {
         //System.err.println("specialRequests= " + specialRequests);
         if (requests != null) {
             for (Request request : requests) {
-                if ((request.getRoutForRequest().getRouteLabelFK().getLabel().equals(routeLabelSpecial)) & (request.getStatusRequest().equals(RequestStatus.NO))) {
+                if ((request.getRoutForRequest().getRouteLabelFK().getLabel().equals(routeLabelSpecial)) && (request.getStatusRequest().equals(RequestStatus.NO))) {
                     specialRequests.add(request);
                 }
             }

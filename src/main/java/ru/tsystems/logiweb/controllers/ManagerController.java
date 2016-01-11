@@ -199,13 +199,13 @@ public class ManagerController {
         int mass = orderService.countOrderMass(requests);
         model.addAttribute("mass", mass);
 
-        List appropriateVans = vanService.getAppropriateVans(currentRoutLabel);
+        ArrayList<Van> appropriateVans = (ArrayList<Van>) vanService.getAppropriateVans(currentRoutLabel);
         httpRequest.getSession().setAttribute("appropriateVans", appropriateVans);
 
         int totalHoursAmount = requestService.getTotalTimeRequests(requests);
         httpRequest.getSession().setAttribute("totalHoursAmount", totalHoursAmount);
 
-        List appropriateDrivers = driverService.getAppropriateDrivers(totalHoursAmount);
+        ArrayList<Driver> appropriateDrivers = (ArrayList<Driver>) driverService.getAppropriateDrivers(totalHoursAmount);
         httpRequest.getSession().setAttribute("appropriateDrivers", appropriateDrivers);
 
         int maxCheckboxSelections = vanService.getDriversCapacity(currentRoutLabel) + 1;//+1 means 1 van
@@ -268,8 +268,8 @@ public class ManagerController {
     @RequestMapping(value = "orders_list")
     public String showOrdersList(HttpServletRequest request) {
 
-        List ordersPROCESS = orderService.getOrdersProcess();
-        List ordersDONE = orderService.getOrdersDone();
+        ArrayList<Order> ordersPROCESS = orderService.getOrdersProcess();
+        ArrayList<Order> ordersDONE = orderService.getOrdersDone();
 
         logger.info("ordersPROCESS.size()= " + ordersPROCESS.size());
         logger.info("ordersDONE.size()" + ordersDONE.size());
