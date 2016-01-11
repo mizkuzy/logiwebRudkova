@@ -111,7 +111,7 @@ public class ManagerController {
                                 @RequestParam(value = "mass") Integer mass,
                                 @RequestParam(value = "city1") String city1,
                                 @RequestParam(value = "city2") String city2,
-                                Model model) throws Exception {
+                                Model model) throws NullPointerException {
 
         int goodNumber = goodService.addNewGood(goodsName, mass);
 
@@ -140,7 +140,7 @@ public class ManagerController {
      * @throws IOException
      */
     @RequestMapping(value = "pick_up_requests")
-    public String pickUpRequests(HttpServletRequest request) throws ServletException, IOException {
+    public String pickUpRequests(HttpServletRequest request) throws NullPointerException {
 
         ArrayList<Request> requestsWithYellowRout = (ArrayList<Request>) requestService.findRequestsWithSpecialRout("yellow");
         ArrayList<Request> requestsWithGreenRout = (ArrayList<Request>) requestService.findRequestsWithSpecialRout("green");
@@ -168,7 +168,7 @@ public class ManagerController {
      */
     @RequestMapping(value = "create_order")
     public String createOrder(Model model, HttpServletRequest httpRequest,
-                              @RequestParam(value = "currentRoutLabel") String currentRoutLabel) throws Exception {
+                              @RequestParam(value = "currentRoutLabel") String currentRoutLabel) throws NullPointerException {
 
         //todo если мы попали на эту страницу, но не нажали saveOrder, а решили вернуться,
         // то в базе данных у нас остаются не до конца оформленные заказы. Надо придумать как их удалять
@@ -295,7 +295,7 @@ public class ManagerController {
         //todo если есть не до конца обработанный заказ, то при нажатии на кнопку финиш вылетит NPE
 
         logger.info("Selected order ID: " + orderIDStr);
-        int orderID = Integer.valueOf(orderIDStr);
+        int orderID = Integer.parseInt(orderIDStr);
         Order order = orderService.read(orderID);
         order.setStatus(OrderStatus.DONE);
         orderService.update(order);
@@ -422,7 +422,7 @@ public class ManagerController {
                          @RequestParam(value = "routLabel") String routLabel,
                          Model model) {
 
-        int driversAmount = Integer.valueOf(driversAmountStr);
+        int driversAmount = Integer.parseInt(driversAmountStr);
         RouteLabel routeLabel = routLabelService.getByName(routLabel);
 
         Van van = new Van(vanNumber, driversAmount, Integer.valueOf(capacityStr), routeLabel);

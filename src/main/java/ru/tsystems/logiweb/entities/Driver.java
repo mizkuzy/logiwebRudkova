@@ -12,6 +12,8 @@ import java.io.Serializable;
 public class Driver implements Serializable{
 
     public Driver() {
+        //Does nothing because this class is POJO
+        // and it's required to have an empty constructor
     }
 
     public Driver(String name, String surname) {
