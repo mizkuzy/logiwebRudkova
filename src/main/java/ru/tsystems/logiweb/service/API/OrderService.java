@@ -10,9 +10,9 @@ import java.util.List;
 
 public interface OrderService extends GenericService<Order,Integer>{
 
-    ArrayList<Order> getOrdersDone();
+    List<Order> getOrdersDone();
 
-    ArrayList<Order> getOrdersProcess();
+    List<Order> getOrdersProcess();
 
     Order getByNumber(Integer number);
 

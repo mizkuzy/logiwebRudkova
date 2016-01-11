@@ -178,7 +178,7 @@ public class RequestServiceImpl implements RequestService {
 
             String city1 = r.getRoutForRequest().getCity1();
 
-            if (city1.equals("Saint-Petersburg")) {
+            if ("Saint-Petersburg".equals(city1)) {
                 logger.info("First city is Saint-Petersburg");
                 return 0;
             }
@@ -221,7 +221,7 @@ public class RequestServiceImpl implements RequestService {
 
             String city2 = r.getRoutForRequest().getCity2();
 
-            if (city2.equals("Saint-Petersburg")) {
+            if ("Saint-Petersburg".equals(city2)) {
                 logger.info("Last city is Saint-Petersburg");
                 return 0;
             }
@@ -366,13 +366,11 @@ public class RequestServiceImpl implements RequestService {
         if (requests != null) {
             for (Request r : requests) {
                 Order currentOrder = r.getCurrentOrder();
-                if (currentOrder != null) {
-                    if (currentOrder.getNumber().equals(order.getNumber())) {
-                        logger.info("Founded request " + r.getIdRequest() + " with orderNumber: " + r.getCurrentOrder().getNumber());
-                        r.setCurrentOrder(null);
-                        requestsToDelete.add(r);
-                        update(r);
-                    }
+                if ((currentOrder != null) && (currentOrder.getNumber().equals(order.getNumber()))) {
+                    logger.info("Founded request " + r.getIdRequest() + " with orderNumber: " + r.getCurrentOrder().getNumber());
+                    r.setCurrentOrder(null);
+                    requestsToDelete.add(r);
+                    update(r);
                 }
             }
         }

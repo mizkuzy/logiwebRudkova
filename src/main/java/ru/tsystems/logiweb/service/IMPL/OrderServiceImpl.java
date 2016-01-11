@@ -94,7 +94,7 @@ public class OrderServiceImpl implements OrderService {
      * @return list of orders with status DONE
      */
     @Override
-    public ArrayList<Order> getOrdersDone() {
+    public List<Order> getOrdersDone() {
 
         List<Order> ordersList = getAll();
         ArrayList<Order> ordersDone = new ArrayList<>();
@@ -115,7 +115,7 @@ public class OrderServiceImpl implements OrderService {
      * @return list of orders with status PROCESS
      */
     @Override
-    public ArrayList<Order> getOrdersProcess() {
+    public List<Order> getOrdersProcess() {
         List<Order> ordersList = getAll();
         ArrayList<Order> ordersProcess = new ArrayList<>();
 

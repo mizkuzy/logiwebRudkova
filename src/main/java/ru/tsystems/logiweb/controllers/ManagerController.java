@@ -268,8 +268,8 @@ public class ManagerController {
     @RequestMapping(value = "orders_list")
     public String showOrdersList(HttpServletRequest request) {
 
-        ArrayList<Order> ordersPROCESS = orderService.getOrdersProcess();
-        ArrayList<Order> ordersDONE = orderService.getOrdersDone();
+        ArrayList<Order> ordersPROCESS = (ArrayList<Order>) orderService.getOrdersProcess();
+        ArrayList<Order> ordersDONE = (ArrayList<Order>) orderService.getOrdersDone();
 
         logger.info("ordersPROCESS.size()= " + ordersPROCESS.size());
         logger.info("ordersDONE.size()" + ordersDONE.size());
