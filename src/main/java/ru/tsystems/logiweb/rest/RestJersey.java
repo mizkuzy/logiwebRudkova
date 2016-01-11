@@ -6,14 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
-import ru.tsystems.logiweb.entities.Driver;
-import ru.tsystems.logiweb.entities.Employee;
-import ru.tsystems.logiweb.entities.TurnDriver;
-import ru.tsystems.logiweb.entities.statusesAndStates.DriverState;
-import ru.tsystems.logiweb.entities.statusesAndStates.POSITION;
-import ru.tsystems.logiweb.service.API.DriverService;
-import ru.tsystems.logiweb.service.API.EmployeeService;
-import ru.tsystems.logiweb.service.API.TurnDriverService;
+import ru.tsystems.logiweb.entities.*;
+import ru.tsystems.logiweb.entities.statusesAndStates.*;
+import ru.tsystems.logiweb.service.API.*;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -22,7 +17,11 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
+/**
+ * Rest web service Jersey.
+ */
 @Component
 @Path("/hello")
 public class RestJersey extends SpringBeanAutowiringSupport {
@@ -33,13 +32,20 @@ public class RestJersey extends SpringBeanAutowiringSupport {
     private DriverService driverService;
     @Autowired
     private EmployeeService employeeService;
-
+    @Autowired
+    private OrderService orderService;
+    @Autowired
+    private VanService vanService;
+    @Autowired
+    private GoodService goodService;
+    @Autowired
+    private RequestService requestService;
 
     private Logger logger = Logger.getLogger(RestJersey.class);
 
     @GET
     @Path("begin/{param}")
-    public Response getMsg(@PathParam("param") String username) {
+    public Response setBeginTurn(@PathParam("param") String username) {
 
         logger.info("Hello from Jersey rest. Here is " + username);
 
@@ -61,7 +67,7 @@ public class RestJersey extends SpringBeanAutowiringSupport {
 
     @GET
     @Path("/end/{username}")
-    public Response setBeginTurn(@PathParam("username") String username) {
+    public Response setEndTurn(@PathParam("username") String username) {
 
         Driver driver = employeeService.getEntityByEmail(username).getDriverFK();
         TurnDriver turnDriver = turnDriverService.getTurnDriverByDriverNumber(driver.getId());
@@ -76,9 +82,39 @@ public class RestJersey extends SpringBeanAutowiringSupport {
         DateTimeFormatter f = DateTimeFormatter.ofPattern("dd.MM.YYY HH:mm");
         String endTurnDateTimeStr = endTurnDateTime.format(f);
 
-        String output = "Hello from main app! Username: " + username + " Status set to DRIVE. EndTurnDateTime: " + endTurnDateTimeStr;
+        String output = "Hello from main app! Username: " + username + " Status set to REST. EndTurnDateTime: " + endTurnDateTimeStr;
         logger.info(output);
         return Response.status(200).entity(output).build();
+    }
+
+    @GET
+    @Path("/finish_order/{username}")
+    public Response finishOrder(@PathParam("username") String username) {
+        String output;
+        Driver driver = employeeService.getEntityByEmail(username).getDriverFK();
+        Order order = driver.getCurrentOrder();
+        if (order != null) {
+            order.setStatus(OrderStatus.DONE);
+            orderService.update(order);
+
+            List<Driver> busyDrivers = driverService.getBusyDrivers(order.getIdOrder());
+            driverService.changeDriversStatuses(busyDrivers, DriverStatus.FREE);
+            driverService.changeDriversStates(busyDrivers, DriverState.WORK);
+            driverService.breakLinks(busyDrivers, order);
+
+            vanService.changeVanStatus(order.getVan(), VanStatus.WAIT);
+            orderService.breakLinkWithVan(order, order.getVan());
+            List<Request> requestsToDelete = requestService.breakLinks(order);
+            List<Good> goodsToDelete = requestService.breakLinksWithGoods(requestsToDelete);
+            requestService.deleteSomeRequests(requestsToDelete);
+            goodService.deleteSomeGoods(goodsToDelete);
+            output = "Order " + order.getNumber() + " is finished";
+            return Response.status(200).entity(output).build();
+
+        } else {
+            output = "This driver " + driver + " doesn't have current order.";
+            return Response.status(200).entity(output).build();
+        }
     }
 
     @GET
@@ -96,4 +132,6 @@ public class RestJersey extends SpringBeanAutowiringSupport {
 
         return Response.status(200).entity(output).build();
     }
+
+
 }

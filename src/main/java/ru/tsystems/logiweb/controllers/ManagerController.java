@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.tsystems.logiweb.entities.*;
 import ru.tsystems.logiweb.entities.statusesAndStates.*;
+import ru.tsystems.logiweb.exceptions.CustomLogiwebException;
 import ru.tsystems.logiweb.service.API.*;
 
 import javax.servlet.ServletException;
@@ -128,7 +129,7 @@ public class ManagerController {
     public String handleAllExceptions(Exception ex, Model model) {
         logger.info("Exception: " + ex.getMessage());
         model.addAttribute("error_msg", "Sorry something wrong" + ex);
-        return "main_manager";
+        return "redirect: main_manager"; //todo потестить!
     }
 
     /**
@@ -284,15 +285,14 @@ public class ManagerController {
     /**
      * Changes orderStatus to DONE.
      * Breaks links with drivers, van, requests and goods.
-     *
      * @param orderIDStr
+     * @param model
      * @return main_manager.jsp
+     * @throws NullPointerException
      */
     @RequestMapping(value = "finishOrder")
     public String finishOrder(@RequestParam(value = "selectedOrder") String orderIDStr,
-                              Model model) {
-
-        //todo если есть не до конца обработанный заказ, то при нажатии на кнопку финиш вылетит NPE
+                              Model model) throws CustomLogiwebException {
 
         logger.info("Selected order ID: " + orderIDStr);
         int orderID = Integer.parseInt(orderIDStr);
@@ -330,7 +330,6 @@ public class ManagerController {
 
         request.getSession().setAttribute("vansList", vansList);
 
-        //todo добавить запрет на редактирование и удаление, если статус BUSY
         return "manager/vans";
     }
 
