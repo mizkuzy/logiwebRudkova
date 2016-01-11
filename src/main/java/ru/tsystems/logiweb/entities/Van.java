@@ -12,6 +12,8 @@ import java.io.Serializable;
 public class Van implements Serializable {
 
     public Van() {
+        //Does nothing because this class is POJO
+        // and it's required to have an empty constructor
     }
 
     public Van(Integer driversAmount, Integer capacity) {

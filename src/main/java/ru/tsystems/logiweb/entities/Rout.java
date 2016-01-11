@@ -9,6 +9,8 @@ import java.io.Serializable;
 public class Rout implements Serializable {
 
     public Rout() {
+        //Does nothing because this class is POJO
+        // and it's required to have an empty constructor
     }
 
     public Rout(String city1, String city2, Integer distance, Integer timeDistance) {

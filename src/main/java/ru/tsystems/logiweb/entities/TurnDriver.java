@@ -9,6 +9,8 @@ import java.time.LocalDateTime;
 public class TurnDriver implements Serializable {
 
     public TurnDriver() {
+        //Does nothing because this class is POJO
+        // and it's required to have an empty constructor
     }
 
     public TurnDriver(Integer driverNumber, LocalDateTime beginTurn) {

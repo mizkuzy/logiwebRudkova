@@ -9,6 +9,8 @@ import java.io.Serializable;
 public class RouteLabel implements Serializable {
 
     public RouteLabel() {
+        //Does nothing because this class is POJO
+        // and it's required to have an empty constructor
     }
 
     public RouteLabel(String label) {

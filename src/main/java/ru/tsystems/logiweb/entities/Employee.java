@@ -12,6 +12,8 @@ import java.io.Serializable;
 public class Employee implements Serializable{
 
     public Employee() {
+        //Does nothing because this class is POJO
+        // and it's required to have an empty constructor
     }
 
     public Employee(String email, String password, POSITION position) {

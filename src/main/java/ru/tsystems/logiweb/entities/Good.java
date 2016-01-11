@@ -14,6 +14,8 @@ import java.io.Serializable;
 public class Good implements Serializable {
 
     public Good() {
+        //Does nothing because this class is POJO
+        // and it's required to have an empty constructor
     }
 
     public Good(String name, Integer mass) {
