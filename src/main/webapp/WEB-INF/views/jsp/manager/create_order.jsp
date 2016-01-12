@@ -110,7 +110,7 @@
                                 <div class="col-sm-5">
                                     <b>Choose ${maxCheckboxSelections-1} drivers:</b><br>
                                     <c:forEach items="${appropriateDrivers}" var="driver" varStatus="theCount">
-                                        <input type="checkbox" class="checkbox_drivers" name="selectedDriver"
+                                        <input id="driver" type="checkbox" class="checkbox_drivers" name="selectedDriver"
                                                value="${theCount.count}"
                                                max="3">${driver}<br>
                                     </c:forEach>
@@ -123,7 +123,7 @@
                                 <div class="col-sm-5">
                                     <b>Choose van:</b><br>
                                     <c:forEach items="${appropriateVans}" var="van" varStatus="theCount">
-                                        <input type="checkbox" class="checkbox_vans" name="selectedVan"
+                                        <input id="van" type="checkbox" class="checkbox_vans" name="selectedVan"
                                                value="${theCount.count}"
                                                max="1">${van}<br>
                                     </c:forEach>
@@ -149,7 +149,7 @@
     jQuery(function () {
         var max = <%=session.getAttribute("maxCheckboxSelections")%>;
         var checkboxes = $('input[type="checkbox"]');
-        /*добавить jQuery selector*/
+
         checkboxes.change(function () {
             var current = checkboxes.filter(':checked').length;
             checkboxes.filter(':not(:checked)').prop('disabled', current >= max);
