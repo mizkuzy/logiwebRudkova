@@ -1,5 +1,4 @@
 package ru.tsystems.logiweb.controllers;
-//todo герман. при первом запуске приложения и первой попытке входа вылетает ошибка про favicon.ico (см. скриншот)
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +6,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.tsystems.logiweb.entities.*;
 import ru.tsystems.logiweb.entities.statusesAndStates.*;
@@ -16,6 +14,7 @@ import ru.tsystems.logiweb.service.API.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.PathParam;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -63,12 +62,25 @@ public class ManagerController {
     }
 
     /**
+     * Handles all exception and redirect to main page.
+     *
+     * @param ex
+     * @return main_manager.jsp
+     */
+    @ExceptionHandler
+    public String handleAllExceptions(Exception ex) {
+        logger.info("Exception: " + ex.getMessage());
+        logger.warn("Exception: " + ex.getMessage());
+        return "redirect: main_manager";
+    }
+
+    /**
      * Dispatch to jsp page where you can type good dates.
      *
      * @return new_request.jsp
      */
     @RequestMapping(value = "new_request")
-    public String newRequest(Model model) {
+    public String newRequest(Model model) throws Exception {
         List<String> cities = routService.getCities();
         model.addAttribute("cities", cities);
         logger.info("Got cities list and set in session");
@@ -112,7 +124,7 @@ public class ManagerController {
                                 @RequestParam(value = "mass") Integer mass,
                                 @RequestParam(value = "city1") String city1,
                                 @RequestParam(value = "city2") String city2,
-                                Model model) throws NullPointerException {
+                                Model model) throws CustomLogiwebException {
 
         int goodNumber = goodService.addNewGood(goodsName, mass);
 
@@ -125,13 +137,6 @@ public class ManagerController {
         return "manager/main_manager";
     }
 
-    @ExceptionHandler
-    public String handleAllExceptions(Exception ex, Model model) {
-        logger.info("Exception: " + ex.getMessage());
-        model.addAttribute("error_msg", "Sorry something wrong" + ex);
-        return "redirect: main_manager"; //todo потестить!
-    }
-
     /**
      * Counts amount of Special Routs (by Route Labels) in Requests. Sort these requests to lists.
      *
@@ -141,7 +146,7 @@ public class ManagerController {
      * @throws IOException
      */
     @RequestMapping(value = "pick_up_requests")
-    public String pickUpRequests(HttpServletRequest request) throws NullPointerException {
+    public String pickUpRequests(HttpServletRequest request) throws CustomLogiwebException {
 
         ArrayList<Request> requestsWithYellowRout = (ArrayList<Request>) requestService.findRequestsWithSpecialRout("yellow");
         ArrayList<Request> requestsWithGreenRout = (ArrayList<Request>) requestService.findRequestsWithSpecialRout("green");
@@ -169,10 +174,7 @@ public class ManagerController {
      */
     @RequestMapping(value = "create_order")
     public String createOrder(Model model, HttpServletRequest httpRequest,
-                              @RequestParam(value = "currentRoutLabel") String currentRoutLabel) throws NullPointerException {
-
-        //todo если мы попали на эту страницу, но не нажали saveOrder, а решили вернуться,
-        // то в базе данных у нас остаются не до конца оформленные заказы. Надо придумать как их удалять
+                              @RequestParam(value = "currentRoutLabel") String currentRoutLabel) throws CustomLogiwebException {
 
         logger.info("Picking " + currentRoutLabel + " requests");
 
@@ -222,7 +224,7 @@ public class ManagerController {
      */
     @RequestMapping(value = "save_order")
     public String saveOrder(HttpServletRequest request,
-                            Model model) {
+                            Model model) throws CustomLogiwebException {
         //Changes request status to FINISHED
         requestService.changeRequestsStatuses((String) request.getSession().getAttribute("currentRoutLabel"));
 
@@ -267,7 +269,7 @@ public class ManagerController {
      * @return orders_list.jsp
      */
     @RequestMapping(value = "orders_list")
-    public String showOrdersList(HttpServletRequest request) {
+    public String showOrdersList(HttpServletRequest request) throws Exception {
 
         ArrayList<Order> ordersPROCESS = (ArrayList<Order>) orderService.getOrdersProcess();
         ArrayList<Order> ordersDONE = (ArrayList<Order>) orderService.getOrdersDone();
@@ -285,6 +287,7 @@ public class ManagerController {
     /**
      * Changes orderStatus to DONE.
      * Breaks links with drivers, van, requests and goods.
+     *
      * @param orderIDStr
      * @param model
      * @return main_manager.jsp
@@ -324,7 +327,7 @@ public class ManagerController {
      * @return vans.jsp
      */
     @RequestMapping(value = "vans")
-    public String showVansList(HttpServletRequest request) {
+    public String showVansList(HttpServletRequest request) throws Exception {
 
         ArrayList<Van> vansList = (ArrayList<Van>) vanService.getAll();
 
@@ -341,7 +344,7 @@ public class ManagerController {
      */
     @RequestMapping(value = "getVanForEdit")
     public String getVanForEdit(@RequestParam(value = "selectedVan") String idVanStr,
-                                HttpServletRequest request) {
+                                HttpServletRequest request) throws Exception {
 
         Van van = vanService.read(Integer.valueOf(idVanStr));
         request.getSession().setAttribute("selectedVan", van);
@@ -362,7 +365,7 @@ public class ManagerController {
                           @RequestParam(value = "driversAmount") String driversAmount,
                           @RequestParam(value = "capacity") String capacity,
                           HttpServletRequest request,
-                          Model model) {
+                          Model model) throws Exception {
 
         Van van = (Van) request.getSession().getAttribute("selectedVan");
 
@@ -385,7 +388,7 @@ public class ManagerController {
      */
     @RequestMapping(value = "deleteVan")
     public String deleteVan(@RequestParam(value = "selectedVan") String idVanStr,
-                            Model model) {
+                            Model model) throws Exception {
 
         Van van = vanService.read(Integer.valueOf(idVanStr));
         vanService.delete(van);
@@ -419,7 +422,7 @@ public class ManagerController {
                          @RequestParam(value = "driversAmount") String driversAmountStr,
                          @RequestParam(value = "capacity") String capacityStr,
                          @RequestParam(value = "routLabel") String routLabel,
-                         Model model) {
+                         Model model) throws Exception {
 
         int driversAmount = Integer.parseInt(driversAmountStr);
         RouteLabel routeLabel = routLabelService.getByName(routLabel);
@@ -439,7 +442,7 @@ public class ManagerController {
      * @return drivers.jsp
      */
     @RequestMapping(value = "drivers")
-    public String showDriversList(Model model) {
+    public String showDriversList(Model model) throws Exception {
 
         ArrayList<Driver> drivers = (ArrayList<Driver>) driverService.getAll();
 
@@ -457,7 +460,7 @@ public class ManagerController {
      */
     @RequestMapping(value = "getDriverForEdit")
     public String getDriverForEdit(@RequestParam(value = "selectedDriver") String idDriverStr,
-                                   HttpServletRequest request) {
+                                   HttpServletRequest request) throws Exception {
 
         Driver driver = driverService.read(Integer.valueOf(idDriverStr));
         logger.info("selectedDriver: " + driver + ", ID=" + driver.getId());
@@ -477,7 +480,7 @@ public class ManagerController {
     public String editDriver(@RequestParam(value = "driverName") String driverName,
                              @RequestParam(value = "driverSurname") String driverSurname,
                              HttpServletRequest request,
-                             Model model) {
+                             Model model) throws Exception {
 
         Driver driver = (Driver) request.getSession().getAttribute("selectedDriver");
         driver.setName(driverName);
@@ -498,7 +501,7 @@ public class ManagerController {
      */
     @RequestMapping(value = "deleteDriver")
     public String deleteDriver(@RequestParam(value = "selectedDriver") String idDriverStr,
-                               Model model) {
+                               Model model) throws Exception {
 
 
         Driver driver = driverService.read(Integer.valueOf(idDriverStr));
@@ -545,7 +548,7 @@ public class ManagerController {
                             @RequestParam(value = "driverSurname") String driverSurname,
                             @RequestParam(value = "email") String email,
                             @RequestParam(value = "password") String password,
-                            Model model) {
+                            Model model) throws Exception {
 
         Employee employee = new Employee(email, password, POSITION.DRIVER);
         employeeService.create(employee);
