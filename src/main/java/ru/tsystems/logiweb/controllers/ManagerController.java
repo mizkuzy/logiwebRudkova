@@ -89,15 +89,13 @@ public class ManagerController {
         model.addAttribute("pskov", routService.getCitiesForPskov());
         model.addAttribute("petrozavodsk", routService.getCitiesForPetrozavodsk());
        /* model.addAttribute("arhangelsk", routService.getCitiesForArhangelsk());
-        //TODO фиг знает почему, но нижеследующие списки не отображаются/ возможно не хватает памяти
-        model.addAttribute("vologda",routService.getCitiesForVologda());
+                model.addAttribute("vologda",routService.getCitiesForVologda());
         model.addAttribute("siktivkar",routService.getCitiesForSiktivkar());
         model.addAttribute("naryan-Mar",routService.getCitiesForNaryanMar());
         model.addAttribute("murmansk",routService.getCitiesForMurmansk());
         model.addAttribute("kaliningrad",routService.getCitiesForKaliningrad());
         model.addAttribute("cherepovec",routService.getCitiesForCherepovec());*/
 
-        //todo если в названии товара пробел, то вылетит ошибка
         return "manager/new_request";
     }
 
