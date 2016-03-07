@@ -42,8 +42,6 @@
                     console.log("Empty list");
                 } else {
                     $.each(cities, function (i, value) {
-                        console.log("i: ", i);
-                        console.log("value: ", value);
                         select2.append($('<option>').text(value).attr('value', value));
                     });
                 }
