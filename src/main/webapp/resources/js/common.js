@@ -13,7 +13,7 @@
 
         setUpListeners: function () {
             $('form').on('submit', app.submitForm);
-            $('form').on('keydown','input', app.removeError);
+            $('form').on('keydown', 'input', app.removeError);
         },
 
         submitForm: function (e) {
@@ -48,10 +48,10 @@
             });
             return valid;
         },
-        removeError: function(){
-            $(this).tooltip.('destroy').parents('.form-group').removeClass('has-error')
+        removeError: function () {
+            $(this).tooltip('destroy').parents('.form-group').removeClass('has-error');
         }
-    }
+    };
 
     app.initialize();
 }());

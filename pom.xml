@@ -20,6 +20,7 @@
         <sonar.junit.reportsPath>target/surefire-reports</sonar.junit.reportsPath>
         <sonar.cobertura.reportPath>target/cobertura/cobertura.ser</sonar.cobertura.reportPath>
         <jacoco.version>0.7.5.201505241946</jacoco.version>
+        <gson.version>2.6.2</gson.version>
     </properties>
 
     <dependencies>
@@ -170,6 +171,11 @@
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-taglibs</artifactId>
             <version>${spring-security.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>${gson.version}</version>
         </dependency>
 
     </dependencies>

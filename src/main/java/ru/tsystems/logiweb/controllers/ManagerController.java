@@ -1,5 +1,6 @@
 package ru.tsystems.logiweb.controllers;
 
+import com.google.gson.Gson;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -7,6 +8,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import ru.tsystems.logiweb.entities.*;
 import ru.tsystems.logiweb.entities.statusesAndStates.*;
 import ru.tsystems.logiweb.exceptions.CustomLogiwebException;
@@ -99,14 +101,17 @@ public class ManagerController {
         return "manager/new_request";
     }
 
-    /*@RequestMapping(value = "get_corresponding_cities/{city1}")
+    @RequestMapping(value = "get_corresponding_cities/{city1}")
     @ResponseBody
-    public List<String> getCorrespondingCities(@PathVariable String city1) {
-        logger.info("Chosen city" + city1);
-        List<String> citiesTo = routService.getCitiesForSPb();
+    public String getCorrespondingCities(@PathVariable String city1){
+        logger.info("Chosen city " + city1);
+        List<String> citiesTo = new ArrayList<>();
+        if (city1.equals("Saint-Petersburg")){
+            citiesTo = routService.getCitiesForSPb();
+        } else citiesTo = routService.getCitiesForArhangelsk();
 
-        return citiesTo;
-    }*/
+        return new Gson().toJson(citiesTo);
+    }
 
     /**
      * Adds new request.
