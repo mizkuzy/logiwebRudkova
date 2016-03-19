@@ -93,7 +93,6 @@ public abstract class GenericDAOImpl<E, K> implements GenericDAO<E, K> {
         }
     }
 
-
     /**
      * Get list of required ru.tsystems.logiweb.entities.
      *
@@ -108,6 +107,5 @@ public abstract class GenericDAOImpl<E, K> implements GenericDAO<E, K> {
             logger.error("Getting all required ru.tsystems.logiweb.entities is failed! Exception in GenericDAOImpl, getAll().", e);
             throw new PersistenceException(e);
         }
-
     }
 }
