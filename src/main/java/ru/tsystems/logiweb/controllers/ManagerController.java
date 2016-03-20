@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.PathParam;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 @Controller
@@ -83,32 +84,25 @@ public class ManagerController {
      */
     @RequestMapping(value = "new_request")
     public String newRequest(Model model) throws Exception {
+
         List<String> cities = routService.getCities();
         model.addAttribute("cities", cities);
         logger.info("Got cities list and set in session");
-        model.addAttribute("spb", routService.getCitiesForSPb());
-        model.addAttribute("velikyNovgorod", routService.getCitiesForVelikyNovgorod());
-        model.addAttribute("pskov", routService.getCitiesForPskov());
-        model.addAttribute("petrozavodsk", routService.getCitiesForPetrozavodsk());
-       /* model.addAttribute("arhangelsk", routService.getCitiesForArhangelsk());
-                model.addAttribute("vologda",routService.getCitiesForVologda());
-        model.addAttribute("siktivkar",routService.getCitiesForSiktivkar());
-        model.addAttribute("naryan-Mar",routService.getCitiesForNaryanMar());
-        model.addAttribute("murmansk",routService.getCitiesForMurmansk());
-        model.addAttribute("kaliningrad",routService.getCitiesForKaliningrad());
-        model.addAttribute("cherepovec",routService.getCitiesForCherepovec());*/
 
         return "manager/new_request";
     }
 
+    /**
+     * Gets corresponding cities to city1 and wrap it to JSON.
+     *
+     * @param city1
+     * @return list of cities
+     */
     @RequestMapping(value = "get_corresponding_cities/{city1}")
     @ResponseBody
     public String getCorrespondingCities(@PathVariable String city1){
         logger.info("Chosen city " + city1);
-        List<String> citiesTo = new ArrayList<>();
-        if (city1.equals("Saint-Petersburg")){
-            citiesTo = routService.getCitiesForSPb();
-        } else citiesTo = routService.getCitiesForArhangelsk();
+        List<String> citiesTo = routService.getCorrespondingCitiesForCity1(city1);
 
         return new Gson().toJson(citiesTo);
     }
