@@ -10,6 +10,7 @@ import ru.tsystems.logiweb.service.API.RoutService;
 
 import javax.persistence.PersistenceException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -89,7 +90,7 @@ public class RoutServiceImpl implements RoutService {
      */
     @Override
     public Rout getByCities(String city1, String city2) throws PersistenceException {
-        logger.info("Rout " + city1 + " - " + city2);
+        logger.debug("Rout " + city1 + " - " + city2);
         return routDAO.getByCities(city1, city2);
     }
 
@@ -100,132 +101,25 @@ public class RoutServiceImpl implements RoutService {
      */
     @Override
     public List<String> getCities() {
-        final int CITIES_AMOUNT = 11;
-        List<String> cities = new ArrayList<>(CITIES_AMOUNT);
-        cities.add("Saint-Petersburg");
-        cities.add("Veliky_Novgorod");
-        cities.add("Pskov");
-        cities.add("Petrozavodsk");
-        cities.add("Arhangelsk");
-        cities.add("Vologda");
-        cities.add("Siktivkar");
-        cities.add("Naryan-Mar");
-        cities.add("Murmansk");
-        cities.add("Kaliningrad");
-        cities.add("Cherepovec");
+
+        List<Rout> routs = routDAO.getAll();
+        HashSet<String> citiesSet = new HashSet<>();
+        for (Rout r : routs) {
+            citiesSet.add(r.getCity1());
+        }
+        List<String> cities = new ArrayList<>(citiesSet);
+
         return cities;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public List<String> getCitiesForSPb() {
-        final int CITIES_AMOUNT = 10;
-        List<String> cities = new ArrayList<>(CITIES_AMOUNT);
-        cities.add("Veliky_Novgorod");
-        cities.add("Pskov");
-        cities.add("Petrozavodsk");
-        cities.add("Arhangelsk");
-        cities.add("Vologda");
-        cities.add("Siktivkar");
-        cities.add("Naryan-Mar");
-        cities.add("Murmansk");
-        cities.add("Kaliningrad");
-        cities.add("Cherepovec");
-        return cities;
+    public List<String> getCorrespondingCitiesForCity1(String cityFrom) {
+        logger.info("cityFrom" + cityFrom);
+        List<String> citiesTo = routDAO.getCorrespondingCitiesForCityFrom(cityFrom);
+        return citiesTo;
     }
 
-    @Override
-    public List<String> getCitiesForVelikyNovgorod() {
-        final int CITIES_AMOUNT = 3;
-        List<String> cities = new ArrayList<>(CITIES_AMOUNT);
-        cities.add("Saint-Petersburg");
-        cities.add("Pskov");
-        cities.add("Kaliningrad");
-        return cities;
-    }
-
-    @Override
-    public List<String> getCitiesForPskov() {
-        final int CITIES_AMOUNT = 3;
-        List<String> cities = new ArrayList<>(CITIES_AMOUNT);
-        cities.add("Saint-Petersburg");
-        cities.add("Veliky_Novgorod");
-        cities.add("Kaliningrad");
-        return cities;
-    }
-
-    @Override
-    public List<String> getCitiesForPetrozavodsk() {
-        final int CITIES_AMOUNT = 2;
-        List<String> cities = new ArrayList<>(CITIES_AMOUNT);
-        cities.add("Saint-Petersburg");
-        cities.add("Murmansk");
-        return cities;
-    }
-
-    @Override
-    public List<String> getCitiesForArhangelsk() {
-        final int CITIES_AMOUNT = 3;
-        List<String> cities = new ArrayList<>(CITIES_AMOUNT);
-        cities.add("Saint-Petersburg");
-        cities.add("Naryan-Mar");
-        cities.add("Cherepovec");
-        return cities;
-    }
-
-    @Override
-    public List<String> getCitiesForVologda() {
-        final int CITIES_AMOUNT = 2;
-        List<String> cities = new ArrayList<>(CITIES_AMOUNT);
-        cities.add("Saint-Petersburg");
-        cities.add("Siktivkar");
-        return cities;
-    }
-
-    @Override
-    public List<String> getCitiesForSiktivkar() {
-        final int CITIES_AMOUNT = 2;
-        List<String> cities = new ArrayList<>(CITIES_AMOUNT);
-        cities.add("Saint-Petersburg");
-        cities.add("Vologda");
-        return cities;
-    }
-
-    @Override
-    public List<String> getCitiesForNaryanMar() {
-        final int CITIES_AMOUNT = 3;
-        List<String> cities = new ArrayList<>(CITIES_AMOUNT);
-        cities.add("Saint-Petersburg");
-        cities.add("Arhangelsk");
-        cities.add("Cherepovec");
-        return cities;
-    }
-
-    @Override
-    public List<String> getCitiesForMurmansk() {
-        final int CITIES_AMOUNT = 2;
-        List<String> cities = new ArrayList<>(CITIES_AMOUNT);
-        cities.add("Saint-Petersburg");
-        cities.add("Petrozavodsk");
-        return cities;
-    }
-
-    @Override
-    public List<String> getCitiesForKaliningrad() {
-        final int CITIES_AMOUNT = 3;
-        List<String> cities = new ArrayList<>(CITIES_AMOUNT);
-        cities.add("Saint-Petersburg");
-        cities.add("Veliky_Novgorod");
-        cities.add("Pskov");
-        return cities;
-    }
-
-    @Override
-    public List<String> getCitiesForCherepovec() {
-        final int CITIES_AMOUNT = 3;
-        List<String> cities = new ArrayList<>(CITIES_AMOUNT);
-        cities.add("Saint-Petersburg");
-        cities.add("Arhangelsk");
-        cities.add("Naryan-Mar");
-        return cities;
-    }
 }
