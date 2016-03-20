@@ -41,6 +41,7 @@
                 if (data == "") {
                     console.log("Empty list");
                 } else {
+                    select2.append($('<option selected disabled>Choose</option>'));
                     $.each(cities, function (i, value) {
                         select2.append($('<option>').text(value).attr('value', value));
                     });
@@ -65,7 +66,7 @@
                 <div id="step2">
                     <b>City to:</b><br>
                     <select class="form-control" id="select2" name="city2" required>
-
+                        <option selected disabled>Choose</option>
                     </select>
                 </div>
             </div>
