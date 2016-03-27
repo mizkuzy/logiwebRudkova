@@ -208,7 +208,7 @@ public class ManagerController {
         ArrayList<Driver> appropriateDrivers = (ArrayList<Driver>) driverService.getAppropriateDrivers(totalHoursAmount);
         httpRequest.getSession().setAttribute("appropriateDrivers", appropriateDrivers);
 
-        int maxCheckboxSelections = vanService.getDriversCapacity(currentRoutLabel) + 1;//+1 means 1 van
+        int maxCheckboxSelections = vanService.getDriversCapacity(currentRoutLabel)+ 1;//+1 means 1 van
         httpRequest.getSession().setAttribute("maxCheckboxSelections", maxCheckboxSelections);
         return "manager/create_order";
     }
